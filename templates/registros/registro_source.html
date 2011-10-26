@@ -1,0 +1,128 @@
+
+
+
+<h3>Registro</h3>
+<!-- Formulario -->
+<form action="#" method="post" class="form"><div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='06ee6b2090216562641bef85da01cf29' /></div>
+  
+
+
+
+
+
+<fieldset class="fieldset_Registro first">
+
+<legend>Registro</legend>
+
+<ul>
+
+
+
+<li class="required">
+  
+  <label for="id_twitter">
+  Twitter
+  
+  </label>
+  <input id="id_twitter" type="text" name="twitter" value="@morenocunha" maxlength="15" />
+</li>
+
+
+
+<li class="required">
+  
+  <label for="id_ponto">
+  Ponto número
+  
+  </label>
+  <input type="text" name="ponto" value="5024" id="id_ponto" />
+</li>
+
+
+
+<li class="required">
+  
+  <label for="id_linha">
+  Linha
+  
+  </label>
+  <input type="text" name="linha" value="202" id="id_linha" />
+</li>
+
+
+
+<li class="required">
+  
+  <label for="id_horas">
+  Estou no ponto às
+  
+  </label>
+  <select name="horas" id="id_horas">
+<option value="0">00</option>
+<option value="1">01</option>
+<option value="2">02</option>
+<option value="3">03</option>
+<option value="4">04</option>
+<option value="5">05</option>
+<option value="6">06</option>
+<option value="7" selected="selected">07</option>
+<option value="8">08</option>
+<option value="9">09</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+</select>
+</li>
+
+
+
+<li class="required">
+  
+  <label for="id_minutos">
+  :
+  
+  </label>
+  <select name="minutos" id="id_minutos">
+<option value="0" selected="selected">00</option>
+<option value="15">15</option>
+<option value="30">30</option>
+<option value="45">45</option>
+</select>
+</li>
+
+
+
+
+</ul>
+</fieldset>
+
+
+
+  <div class="buttons">
+    <input class="button" src="button" type="submit" value="Salvar">     
+    <a class="button" src="button" href="#">Voltar</a>
+  </div>  
+</form>
+<div id='content'></div>
+<script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
+<script>
+$(function(){
+                $.getJSON('http://rast.vitoria.es.gov.br/pontovitoria/utilidades/listaPontos', 
+                function(data){
+                    var markup = data;
+                    $("#content").html(data);
+                });
+    });
+</<script>
+

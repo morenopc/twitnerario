@@ -6,11 +6,7 @@ from twitterauth.views import twitter_signin, twitter_return
 admin.autodiscover()
 
 urlpatterns=patterns('',
-    # Examples:
-    # url(r'^$', 'meu_onibus.views.home', name='home'),
-    # url(r'^meu_onibus/', include('meu_onibus.foo.urls')),
-
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^$',include('registros.urls', namespace='registro')),
     url(r'^admin/', include(admin.site.urls)),
     
     url('^login/$', twitter_signin, name='login'),

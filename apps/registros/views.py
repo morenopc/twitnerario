@@ -9,7 +9,7 @@ from django.http import HttpResponse
 #
 # Registro
 #
-@login_required
+#@login_required
 def registro(request):
     
     form=RegistrosForm(request.POST or None)

@@ -1,0 +1,51 @@
+Traceback (most recent call last):
+  File "manage.py", line 14, in <module>
+    execute_manager(settings)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/__init__.py", line 438, in execute_manager
+    utility.execute()
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/__init__.py", line 379, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/base.py", line 191, in run_from_argv
+    self.execute(*args, **options.__dict__)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/base.py", line 220, in execute
+    output = self.handle(*args, **options)
+  File "/home/moreno/projects/django/twitnerario/../twitnerario/apps/cronjobs/management/commands/cron.py", line 64, in handle
+    registered[script](*args)
+  File "/home/moreno/projects/django/twitnerario/../twitnerario/apps/core/tweet.py", line 71, in send_tweets
+    api.PostUpdate(h+':'+m+tweet)
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+Fri Nov 11 21:45:02 BRST 2011
+Fri Nov 11 22:00:01 BRST 2011
+Fri Nov 11 22:15:01 BRST 2011
+[<Registros: @morenocunha>, <Registros: @morenocunha>]
+Traceback (most recent call last):
+  File "manage.py", line 14, in <module>
+    execute_manager(settings)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/__init__.py", line 438, in execute_manager
+    utility.execute()
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/__init__.py", line 379, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/base.py", line 191, in run_from_argv
+    self.execute(*args, **options.__dict__)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/base.py", line 220, in execute
+    output = self.handle(*args, **options)
+  File "/home/moreno/projects/django/twitnerario/../twitnerario/apps/cronjobs/management/commands/cron.py", line 64, in handle
+    registered[script](*args)
+  File "/home/moreno/projects/django/twitnerario/../twitnerario/apps/core/tweet.py", line 72, in send_tweets
+    api.PostUpdate(str(h)+':'+str(m)+tweet)
+  File "/usr/local/lib/python2.7/dist-packages/python_twitter-0.8.2-py2.7.egg/twitter.py", line 2766, in PostUpdate
+    data = self._ParseAndCheckTwitter(json)
+  File "/usr/local/lib/python2.7/dist-packages/python_twitter-0.8.2-py2.7.egg/twitter.py", line 3668, in _ParseAndCheckTwitter
+    self._CheckForTwitterError(data)
+  File "/usr/local/lib/python2.7/dist-packages/python_twitter-0.8.2-py2.7.egg/twitter.py", line 3691, in _CheckForTwitterError
+    raise TwitterError(data['error'])
+twitter.TwitterError: Status is a duplicate.
+Fri Nov 11 22:30:01 BRST 2011
+[<Registros: @morenocunha>]
+Fri Nov 11 22:45:01 BRST 2011
+Fri Nov 11 23:00:01 BRST 2011
+Fri Nov 11 23:15:01 BRST 2011
+Fri Nov 11 23:30:01 BRST 2011
+Fri Nov 11 23:45:01 BRST 2011
+Sat Nov 12 00:00:01 BRST 2011
+Sat Nov 12 00:15:01 BRST 2011

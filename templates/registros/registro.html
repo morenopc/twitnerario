@@ -1,17 +1,23 @@
 {% load form_utils_tags %}
-
-<img src="{{MEDIA_URL}}img/twitnerario_logo.png"><h3>Twitnerario</h3>
-<!-- Formulario -->
-<form action="#" method="post" class="form">{% csrf_token %}
-  {{ form|render }}
-  <div class="buttons">
-    <input class="button" src="button" type="submit" value="Salvar">     
-    <a class="button" src="button" href="#">Voltar</a>
-  </div>  
-</form>
-<div id='content'></div>
+<html>
+  <head>
+    <title>Twitnerario</title>
+  </head>
+  <body>
+    <img src="{{MEDIA_URL}}img/twitnerario_logo.png"><h3>Twitnerario</h3>
+    <!-- Formulario -->
+    <form action="#" method="post" class="form">{% csrf_token %}
+      {{ form|render }}
+      <div class="buttons">
+        <input class="button" src="button" type="submit" value="Salvar">     
+        <a class="button" src="button" href="#">Voltar</a>
+      </div>  
+    </form>
+    <div id='content'></div>
+  </body>
 <script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
 <script>
+/*
 $(function(){
                 $.getJSON('http://rast.vitoria.es.gov.br/pontovitoria/utilidades/listaPontos', 
                 function(data){
@@ -19,4 +25,6 @@ $(function(){
                     $("#content").html(data);
                 });
     });
+*/
 </<script>
+</html> 

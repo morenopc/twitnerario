@@ -73,6 +73,7 @@ def create_tweets(h,m):
 def tweets(twitter,horario):
     
     if len(horario)>1:
+        horario=sorted(horario)
         ultimo=horario.pop()
         penultimo=horario.pop()
         tms=''
@@ -122,13 +123,14 @@ def previsao(ponto,linha):
 def horarios(xml,linha):
     horarios=[]
     xml0=parseString(xml)
+    horarioAtual=xml0.childNodes[1].getElementsByTagName("horarioAtual")[0].firstChild.data
     for estimativa in xml0.childNodes[1].childNodes[1].getElementsByTagName("estimativa"):
         linha_id=estimativa.childNodes[3].childNodes[3].firstChild.data
         if linha_id == str(linha):
             linha_desc=estimativa.childNodes[3].childNodes[5].firstChild.data
             horarioEstimado=estimativa.childNodes[7].firstChild.data
-            horarioPacote=estimativa.childNodes[9].firstChild.data
-            horarios.append((int(horarioEstimado)-int(horarioPacote))/60000)
+            #horarioPacote=estimativa.childNodes[9].firstChild.data
+            horarios.append((int(horarioEstimado)-int(horarioAtual))/60000)
     
     return horarios
 

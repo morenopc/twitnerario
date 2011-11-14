@@ -1,0 +1,35 @@
+{% load form_utils_tags %}
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+	<meta charset="utf-8">
+	<title>{% block page_title %}{% endblock %}Twitnerário Alpha</title>
+	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+	{% block head_inc %}{% endblock %}
+</head>
+<body>
+
+	<header class="hero-unit">
+		<div class="container">
+			<h1>Twitnerário <sup><span class="label notice">Alpha</span></sup></h1>
+			<p>Receba lembretes de quando o seu ônibus irá passar.</p>
+		</div>
+	</header>
+
+	<div class="container">
+		<div class="content">
+
+			{% block content %}{% endblock %}
+
+		</div>
+	</div>
+
+	<footer class="footer">
+		<div class="container">
+			<p>Criado por <a href="http://twitter.com/morenocunha">@morenocunha</a> e <a href="http://twitter.com/blude">@blude</a>.</p>
+		</div>
+	</footer>
+
+{% block footer_inc %}{% endblock %}
+</body>
+</html>

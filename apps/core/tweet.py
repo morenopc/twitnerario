@@ -18,12 +18,12 @@ def uniq(alist):
 
 #
 # De Minutos para HH:MM
-def addminutes(minutes,plus):
+def addminutes(minutes):
     h=int(strftime("%H"))
     m=int(strftime("%M"))
     t=divmod(int(minutes)+m,60)
     h=h+t[0]
-    m=plus+t[1]
+    m=t[1]
     
     if h>=24:
         t=divmod(h,24)
@@ -77,12 +77,12 @@ def tweets(twitter,horario):
         penultimo=horario.pop()
         tms=''
         for h in horario:
-            tms+=addminutes(h,30)+', '
+            tms+=addminutes(h)+', '
         
-        return str(twitter)+' seus próximos ônibus irão passar às '+tms+addminutes(penultimo,30)+' e '+addminutes(ultimo,30)
+        return str(twitter)+' seus próximos ônibus irão passar às '+tms+addminutes(penultimo)+' e '+addminutes(ultimo)
             
     elif len(horario)==1:
-        return str(twitter)+' seu próximo ônibus irá passar às '+addminutes(horario[0],30)
+        return str(twitter)+' seu próximo ônibus irá passar às '+addminutes(horario[0])
     
     return str(twitter)+' seu ônibus está sem previsão de chegada'
 

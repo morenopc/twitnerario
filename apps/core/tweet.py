@@ -16,6 +16,28 @@ def uniq(alist):
     set = {}
     return [set.setdefault(e,e) for e in alist if e not in set]
 
+def add30minutes(h,m):
+    if m>=30:
+        m-=30
+        h+=1
+        if h>23:
+            h=0
+    else:
+        m+=30
+    
+    return([h,m])
+
+def less30minutes(h,m):
+    if m>=30:
+        m-=30
+    else:
+        m+=30
+        if h>0:
+            h-=1
+        else:
+            h=23
+    
+    return([h,m])
 #
 # De Minutos para HH:MM
 def addminutes(minutes):
@@ -39,13 +61,10 @@ def addminutes(minutes):
 #
 def create_tweets(h,m):
     """Recebe a hora atual (de 15 em 15 minutos) e retorna os tweets marcados para daqui a 30 minutos"""
-   
-    if m>=30:
-        m-=30
-        h+=1
-    else:
-        m+=30  
     
+    t=add30minutes(h,m)
+    h=t[0]
+    m=t[1]
     regs=Registros.objects.filter(horas=h, minutos=m).order_by('ponto')
     previsoes_xml={}
     pnt=''

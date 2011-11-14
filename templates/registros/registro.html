@@ -5,6 +5,11 @@
         select#id_horas, #id_minutos{
             width: 50px;
         }
+        div.hour label{
+            margin-left: -15px;
+            padding-right: 10px;
+            width: 150px;
+        }
     </style>
 	<div class="row">
 		<div class="span16">
@@ -37,7 +42,7 @@
 						</div>
 					</div>
 
-					<div class="clearfix">
+					<div class="hour clearfix">
 						{{ form.horas.label_tag }}
 						<div class="input">
 							{{ form.horas }} : {{ form.minutos }}

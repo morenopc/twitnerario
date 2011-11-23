@@ -17,15 +17,18 @@
 
 				<fieldset>
 					<legend>Registro</legend>
-
+                    
 					<div class="clearfix">
 						{{ form.twitter.label_tag }}
-						<div class="input">
+						<!-- FORM -->
+						<form action="http://api.infochimps.com/social/network/tw/search/people_search" method="get" class="">
+						  <div class="input">
 							<div class="input-prepend">
-								<span class="add-on">@</span>
-								{{ form.twitter }}
+                              <span class="add-on">@</span>
+                              {{ form.twitter }}
 							</div>
-						</div>
+						  </div>
+					  </form>
 					</div>
 
 					<div class="clearfix">

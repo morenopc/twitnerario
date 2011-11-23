@@ -13,23 +13,25 @@ $(function(){
         }    
     });
 });
+/*
 $(function() {
    $('input#id_twitter').marcoPolo({
      data: {
-       apikey: 'api_test-W1cipwpcdu9Cbd9pmm8D4Cjc469',
+       apikey:'api_test-W1cipwpcdu9Cbd9pmm8D4Cjc469',
      },
+     url: 'http://api.infochimps.com/social/network/tw/search/people_search',
      formatData: function (data) {
-       return data.results.slice(0, 20);
+       return data.results.slice(0, 1);
      },
      formatItem: function (data, $item) {
        return data.screen_name;
      },
      onSelect: function (data, $item) {
-     this.val(data.screen_name);
+        this.val(data.screen_name);
      }
    });
 });
-
+*/
 /*
     Check if twitter exists
 */
@@ -37,11 +39,14 @@ $(function(){
     var $id_twitter=$('input#id_twitter');
     $id_twitter.focusout(function() {
         $.ajax({
-            url:'http://twitter.com/'+$id_twitter.val()+'/',
-            type:'HEAD',
+            url:' http://api.twitter.com/1/users/show.xml?screen_name='+$id_twitter.val()+'/',
+            async:true,
             error: function(){
                 $id_twitter.css({'border-style':'solid','border-width':'1px','border-color':'#FF6666'});
             },
+            //success: function(data){
+            //    return data
+            //},
         });
     });
 });

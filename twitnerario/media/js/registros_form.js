@@ -35,12 +35,13 @@ $(function() {
 /*
     Check if twitter exists
 */
+/*
 $(function(){
     var $id_twitter=$('input#id_twitter');
     $id_twitter.focusout(function() {
         $.ajax({
-            url:' http://api.twitter.com/1/users/show.xml?screen_name='+$id_twitter.val()+'/',
-            async:true,
+            url:'http://api.twitter.com/1/users/show.xml?screen_name='+$id_twitter.val()+'/',
+            type:'GET',
             error: function(){
                 $id_twitter.css({'border-style':'solid','border-width':'1px','border-color':'#FF6666'});
             },
@@ -50,3 +51,4 @@ $(function(){
         });
     });
 });
+*/

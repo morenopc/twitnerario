@@ -1,0 +1,112 @@
+{% extends "registros/base.html" %}
+
+{% block content %}
+    <style type="text/css">
+        select#id_horas, #id_minutos{
+            width: 50px;
+        }
+        div.hour label{
+            margin-left: -15px;
+            padding-right: 10px;
+            width: 150px;
+        }
+    </style>
+	<div class="row">
+		<div class="span16">
+			<form action="" method="post">{% csrf_token %}
+
+				<fieldset>
+					<legend>Registro</legend>
+                    
+					<div class="clearfix">
+						{{ form.twitter.label_tag }}
+						  <div class="input">
+							<div class="input-prepend">
+                              <span class="add-on">@</span>
+                              {{ form.twitter }}
+							</div>
+						  </div>
+					</div>
+
+					<div class="clearfix">
+						{{ form.ponto.label_tag }}
+						<div class="input">
+							{{ form.ponto }}
+						</div>
+					</div>
+
+					<div class="clearfix">
+						{{ form.linha.label_tag }}
+						<div class="input">
+							{{ form.linha }}
+						</div>
+					</div>
+
+					<div class="hour clearfix">
+						{{ form.horas.label_tag }}
+						<div class="input">
+							{{ form.horas }} : {{ form.minutos }}
+						</div>
+					</div>
+
+					<div class="actions">
+						<input class="btn primary" type="submit" value="Salva Ponto">
+						<a class="btn" href="/twitnerario/">Cancelar</a>
+					</div>
+
+				</fieldset>
+
+			</form>
+			<p class="example">Demo: Using $.getJSON() to populate options in a drop down list.</p>
+            <p><a href="#" id="getjson-demobtn" class="demobtn btn actionr">Run Demo</a> <a href="#" id="getjson-codebtn" class="codebtn btn actionr">View Code</a> <a href="#" id="getjson-resetbtn" class="resetbtn btn actionr" style="display: none;">Reset</a></p>
+            <div class="demoarea" id="getjson"><form style="width:200px;"><select></select></form></div>
+		</div>
+	</div>
+	<div class="row">
+		<div id="content" class="span16"></div>
+	</div>
+{% endblock %}
+
+{% block footer_inc %}
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://www.jquery4u.com/scripts/function-demos-script.js"></script>
+<script type="text/javascript">
+    var pontos;
+    var JQFUNCS =
+    {
+        runFunc:
+        {
+            /* ------------------------------ getJSON Demo ------------------------------ */
+            "getjson":
+            {
+                run: function(id)
+                {
+                    $.getJSON('/pontos/', function(data)
+                    {
+                        console.log(data);
+                        var options = $('#'+id+' select');
+                        $('#'+id+' select').append('<option value="">Select Colour</select>');
+                        pontos=data;
+                        $.each(data.data, function(i,v) {
+                            options.append($("<option />").val(v.ponto).text(v.ponto+" "+v.logradouro));
+                        });
+                    });
+ 
+                    $('#'+id+' select').live('change', function(e)
+                    {
+                        $('#'+id).css({"background-color":$(this).val()});
+                    });
+                },
+ 
+                reset: function(id)
+                {
+                    $('#'+id+' select').html('');
+                    $('#'+id).css({"background-color":""});
+                }
+            }
+        }
+    }
+ 
+    </script>
+</script>
+{% endblock %}

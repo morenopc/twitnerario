@@ -102,7 +102,8 @@ INSTALLED_APPS = (
     'simplejson',
     'twitterauth',
     'form_utils',
-    #'core',
+    'core',
+    'cronjobs',
 )
 # https://dev.twitter.com/apps/1331327/show
 

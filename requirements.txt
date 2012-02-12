@@ -1,8 +1,5 @@
 Django==1.3.1
 PIL==1.1.7
-Twisted-Core==11.0.0
-Twisted-Names==11.0.0
-Twisted-Web==11.0.0
 oauth==1.0.1
 oauth2==1.5.170
 python-twitter==0.8.2

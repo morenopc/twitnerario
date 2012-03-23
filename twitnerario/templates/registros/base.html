@@ -5,7 +5,8 @@
 	<meta charset="utf-8">
 	<title>{% block page_title %}{% endblock %}Twitnerário Alpha</title>
 	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/jquery-ui-1.8.18.custom.min.js"></script>
 	<script type="text/javascript" src="{{MEDIA_URL}}js/jquery.marcopolo.min.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/registros_form.js"></script>
 	{% block head_inc %}{% endblock %}
@@ -14,7 +15,9 @@
 
 	<header class="hero-unit">
 		<div class="container">
-			<h1>Twitnerário <sup><span class="label notice">Alpha</span></sup></h1>
+		    <a style="text-decoration:none;" href="/">
+			    <h1>Twitnerário <sup><span class="label notice">Alpha</span></sup></h1>
+			</a>
 			<p>Receba lembretes de quando o seu ônibus irá passar.</p>
 		</div>
 	</header>

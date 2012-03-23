@@ -11,6 +11,7 @@
             width: 150px;
         }
     </style>
+    <link rel="stylesheet" href="{{ MEDIA_URL }}css/overcast/jquery-ui-1.8.18.custom.css" type="text/css" charset="utf-8">
 	<div class="row">
 		<div class="span16">
 			<form action="" method="post">{% csrf_token %}
@@ -38,7 +39,8 @@
 					<div class="clearfix">
 						{{ form.linha.label_tag }}
 						<div class="input">
-							{{ form.linha }}
+							{#{ form.linha }#}
+							<select id="select_linhas"></select>
 						</div>
 					</div>
 
@@ -57,11 +59,6 @@
 				</fieldset>
 
 			</form>
-			<!--
-			<p class="example">Demo: Using $.getJSON() to populate options in a drop down list.</p>
-            <p><a href="#" id="getjson-demobtn" class="demobtn btn actionr">Run Demo</a> <a href="#" id="getjson-codebtn" class="codebtn btn actionr">View Code</a> <a href="#" id="getjson-resetbtn" class="resetbtn btn actionr" style="display: none;">Reset</a></p>
-            <div class="demoarea" id="getjson"><form style="width:200px;"><select></select></form></div>
-         -->
 		</div>
 	</div>
 	<div class="row">
@@ -70,45 +67,60 @@
 {% endblock %}
 
 {% block footer_inc %}
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="http://www.jquery4u.com/scripts/function-demos-script.js"></script>
 <script type="text/javascript">
-/*    
-    var pontos;
-    var JQFUNCS =
-    {
-        runFunc:
-        {
-            // ------------------------------ getJSON Demo ------------------------------
-            "getjson":
-            {
-                run: function(id)
-                {
-                    $.getJSON('/pontos/', function(data)
-                    {
-                        console.log(data);
-                        var options = $('#'+id+' select');
-                        $('#'+id+' select').append('<option value="">Select Colour</select>');
-                        pontos=data;
-                        $.each(data.data, function(i,v) {
-                            options.append($("<option />").val(v.ponto).text(v.ponto+" "+v.logradouro));
-                        });
-                    });
- 
-                    $('#'+id+' select').live('change', function(e)
-                    {
-                        $('#'+id).css({"background-color":$(this).val()});
-                    });
-                },
- 
-                reset: function(id)
-                {
-                    $('#'+id+' select').html('');
-                    $('#'+id).css({"background-color":""});
+// TitleCase
+String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+var uiSelected=null;
+var pts=[];
+var pontosJSON;
+$(function() {
+    var $id_ponto=$("#id_ponto");
+    // Get JSON
+    $.getJSON('/pontos/', function(data){
+        pontosJSON=data;
+        // Criar lista de pontos
+        $.each(data.data, function(i,v) {
+            pts.push(v.ponto);
+        });
+        $id_ponto.autocomplete({
+		    source: pts,
+		    minLength: 0,
+	    });
+    });
+    $id_ponto.autocomplete({
+        select: function(event, ui) {
+            uiSelected=ui;
+            //alert(uiSelected.item.value);
+            $.each(pontosJSON.data, function(i,v) {
+                //alert(ui.value);
+                //uuii=ui;
+                if(v.ponto==uiSelected.item.value){
+                    $('#info').remove();
+                    plocal=v.logradouro+', '+v.bairro+', '+v.referencia
+                    $id_ponto.after('<p id="info" style="display:none;color:#404040;font-size: 13px;padding-top: 4px;margin-bottom: 0px;">'+plocal.toProperCase()+'</p>');
+                    $('#info').show('slow');
+                    setSelectLinhas(uiSelected.item.value);
+                    uiSelected=null;
+                    return false;    
                 }
-            }
+            });
         }
+    });
+    function setSelectLinhas(ponto){
+        // Get JSON
+        $("#select_linhas option").remove();
+        $.getJSON('/'+ponto+'/linhas/', function(data)
+        {
+            var options=$('#select_linhas');
+            //$('#select_linhas').append('<option value="">Selecione a linha</select>');
+            linhas=data;
+            $.each(data.data, function(i,v) {
+                options.append($("<option />").val(v.oid).text(v.linha));
+            });
+         });
     }
-*/ 
+});
 </script>
 {% endblock %}

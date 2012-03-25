@@ -3,7 +3,7 @@ from django.contrib import admin
 from registros.models import Registros
 
 class RegistrosAdmin(admin.ModelAdmin):
-    list_display=('twitter','ponto','linha','horas','minutos','criado_em')
+    list_display=('twitter','ponto','linha','horas','minutos','lembrar','criado_em')
     #list_display_links = ('id', 'nome')
     search_fields=['twitter','ponto','linha']
     list_filter=('criado_em',)

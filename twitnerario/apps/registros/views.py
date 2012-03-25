@@ -19,9 +19,9 @@ def registro(request):
         h=int(request.POST['horas'] or None)
         m=int(request.POST['minutos'] or None)
         
-        t=less30minutes(h,m)
-        h=t[0]
-        m=t[1]
+        #t=less30minutes(h,m)
+        #h=t[0]
+        #m=t[1]
         
         #info=horarios(str(request.POST['ponto']),str(request.POST['linha']))
         form.save()

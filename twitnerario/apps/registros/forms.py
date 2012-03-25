@@ -11,7 +11,7 @@ class RegistrosForm(BetterModelForm):
         #exclude=['benef']
         widgets = {
             #'nome_pesq':forms.TextInput(attrs={'readonly': 'readonly'}),
-            #'possui_perfil':forms.Select(attrs={'readonly': 'readonly'}),
+            'linha':forms.Select(),
             #'baixa_renda':forms.CheckboxInput(attrs={'style': 'display:none'}),
             #'benef': forms.HiddenInput(),
         }
@@ -23,6 +23,7 @@ class RegistrosForm(BetterModelForm):
                               'linha',
                               'horas',
                               'minutos',
+                              'lembrar',
                               ],
                    'classes': ['registro']
                    })

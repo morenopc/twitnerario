@@ -39,7 +39,8 @@ def less30minutes(h,m):
     
     return([h,m])
 #
-# De Minutos para HH:MM
+# De Minutos para HH:MM + hora atual
+#
 def addminutes(minutes):
     h=int(strftime("%H"))
     m=int(strftime("%M"))
@@ -49,22 +50,24 @@ def addminutes(minutes):
     
     if h>=24:
         t=divmod(h,24)
-        h=t[0]
+        h=t[1]
     
-    if m<=10:
+    if m<10:
         return str(h)+':0'+str(m)
+    elif h<10:
+        return '0'+str(h)+':'+str(m)
     else:
         return str(h)+':'+str(m)
-    
+
 #
 # Cria Tweets
 #
 def create_tweets(h,m):
     """Recebe a hora atual (de 15 em 15 minutos) e retorna os tweets marcados para daqui a 30 minutos"""
     
-    t=add30minutes(h,m)
-    h=t[0]
-    m=t[1]
+    #t=add30minutes(h,m)
+    #h=t[0]
+    #m=t[1]
     regs=Registros.objects.filter(horas=h, minutos=m).order_by('ponto')
     previsoes_xml={}
     pnt=''
@@ -84,27 +87,35 @@ def create_tweets(h,m):
             for tw in tws:
                 tweet.append(tweets(tw.twitter,hs))
     
+    regs.filter(lembrar=0).delete()
+    
     return tweet
 
 #
 # Constroi Tweets
 #
 def tweets(twitter,horario):
+    primeiro=''
+    # ordena os horarios
+    horario=sorted(horario)
+    try:
+        if horario[0]==0:
+            primeiro="agora, vai pro ponto garotinho!"
+        else:
+            primeiro='daqui a '+str(horario[0])+' minutos às '+addminutes(horario[0])
+    except:
+        return '@'+str(twitter)+' seu ônibus está sem previsão de chegada'
     
     if len(horario)>1:
-        horario=sorted(horario)
-        ultimo=horario.pop()
-        penultimo=horario.pop()
-        tms=''
-        for h in horario:
-            tms+=addminutes(h)+', '
-        
-        return str(twitter)+' seus próximos ônibus irão passar às '+tms+addminutes(penultimo)+' e '+addminutes(ultimo)
+        #ultimo=horario.pop()
+        #penultimo=horario.pop()
+        #tms=''
+        #for h in horario:
+        #    tms+=addminutes(h)+', '
+        return '@'+str(twitter)+' seu ônibus vai passar '+primeiro+' e daqui a '+str(horario[1])+' minutos às '+addminutes(horario[1])
             
-    elif len(horario)==1:
-        return str(twitter)+' seu próximo ônibus irá passar às '+addminutes(horario[0])
-    
-    return str(twitter)+' seu ônibus está sem previsão de chegada'
+    else:
+        return '@'+str(twitter)+' seu ônibus vai passar daqui a '+primeiro
 
 #
 # Envia Tweets
@@ -114,9 +125,11 @@ def send_tweets():
     h=int(strftime("%H"))
     m=int(strftime("%M"))
     tweets=create_tweets(h,m)
+    #tweets=create_tweets(23,00)
     api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
     for tweet in tweets:
-        api.PostUpdate(str(h)+':'+str(m)+' '+tweet)
+        #api.PostUpdate(str(h)+':'+str(m)+' '+tweet)
+        api.PostUpdate(tweet)
 
 #
 # Previsao

@@ -71,13 +71,16 @@ def create_tweets(h,m):
     regs=Registros.objects.filter(horas=h, minutos=m).order_by('ponto')
     previsoes_xml={}
     pnt=''
+    tweet=[]
+    if regs:
+        return tweet
+    
     for reg in regs:
         if pnt != reg.ponto:
             prev=previsao(reg.ponto,reg.linha)
             previsoes_xml.update({reg.ponto:prev})
         pnt=reg.ponto
     
-    tweet=[]
     pontos=uniq(regs.values_list('ponto'))
     for ponto in pontos:
         linhas=uniq(regs.filter(ponto=ponto[0]).values_list('linha'))
@@ -115,7 +118,7 @@ def tweets(twitter,horario):
         return '@'+str(twitter)+' seu ônibus vai passar '+primeiro+' e daqui a '+str(horario[1])+' minutos às '+addminutes(horario[1])
             
     else:
-        return '@'+str(twitter)+' seu ônibus vai passar daqui a '+primeiro
+        return '@'+str(twitter)+' seu ônibus vai passar '+primeiro
 
 #
 # Envia Tweets
@@ -125,12 +128,21 @@ def send_tweets():
     h=int(strftime("%H"))
     m=int(strftime("%M"))
     tweets=create_tweets(h,m)
+    if tweets:
+        return False
     #tweets=create_tweets(23,00)
     api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
     for tweet in tweets:
         #api.PostUpdate(str(h)+':'+str(m)+' '+tweet)
         api.PostUpdate(tweet)
 
+#
+# Envia Tweets Thread
+#
+@cronjobs.register
+def send_tweets_thread():
+    r=RepeatTimer(900.0,send_tweets)
+    r.start()
 #
 # Previsao
 #

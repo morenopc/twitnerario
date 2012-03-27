@@ -1,4 +1,4 @@
-# Django settings for meu_onibus project.
+import djcelery
 import os, sys
 PROJECT_DIR = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_DIR, 'apps'))
@@ -104,9 +104,17 @@ INSTALLED_APPS = (
     'form_utils',
     'core',
     'cronjobs',
+    # worker
+    'djcelery',
+    'djkombu',
 )
-# https://dev.twitter.com/apps/1331327/show
+# celery
+djcelery.setup_loader()
+BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
+CELERY_RESULT_DBURI = DATABASES['default']
 
+
+# https://dev.twitter.com/apps/1331327/show
 CONSUMER_KEY = "W5m2O849FEI9TwyuZki1xQ"
 CONSUMER_SECRET = "OEXx19GpTSccZy375iUhI7zjOkH8vLhdXNIjQh4zSSk"
 AUTHENTICATION_BACKENDS = (

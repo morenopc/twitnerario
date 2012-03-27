@@ -147,8 +147,8 @@ def send_tweets_thread():
     reg.twitter='tweets_thread'
     reg.ponto=0
     reg.linha=0
-    reg.horas=0
-    reg.minutos=0
+    reg.horas=int(strftime("%H"))
+    reg.minutos=int(strftime("%M"))
     reg.lembrar=0
     r.start()
     reg.save()

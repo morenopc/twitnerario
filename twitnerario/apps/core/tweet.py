@@ -144,7 +144,7 @@ def send_tweets():
 def send_tweets_thread():
     r=RepeatTimer(900.0,send_tweets)
     reg=Registros()
-    reg.twitter='send_tweets_thread'
+    reg.twitter='tweets_thread'
     reg.ponto=0
     reg.linha=0
     reg.horas=0

@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from registros.models import Registros
 from time import strftime
 import cronjobs
+from core.RepeatTimer import RepeatTimer
 
 #
 # Unico

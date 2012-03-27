@@ -143,7 +143,15 @@ def send_tweets():
 @cronjobs.register
 def send_tweets_thread():
     r=RepeatTimer(900.0,send_tweets)
+    reg=Registros()
+    reg.twitter='send_tweets_thread'
+    reg.ponto=0
+    reg.linha=0
+    reg.horas=0
+    reg.minutos=0
+    reg.lembrar=0
     r.start()
+    reg.save()
 #
 # Previsao
 #

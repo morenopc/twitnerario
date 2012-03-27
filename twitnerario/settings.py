@@ -3,7 +3,7 @@ import os, sys
 PROJECT_DIR = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_DIR, 'apps'))
 
-DEBUG=False
+DEBUG=True
 TEMPLATE_DEBUG=DEBUG
 ADMINS=(('Moreno', 'moreno.pinheiro@gmail.com'),)
 MANAGERS=ADMINS

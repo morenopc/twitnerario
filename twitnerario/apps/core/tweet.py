@@ -10,6 +10,7 @@ from time import strftime
 import cronjobs
 from core.RepeatTimer import RepeatTimer
 from celery.task import task
+from django.http import Http404
 
 #
 # Unico
@@ -74,7 +75,7 @@ def create_tweets(h,m):
     previsoes_xml={}
     pnt=''
     tweet=[]
-    if regs:
+    if not regs:
         return tweet
     
     for reg in regs:
@@ -136,19 +137,22 @@ def send_tweets(request):
     reg.twitter='tweets_thread'
     reg.ponto=0
     reg.linha=0
-    reg.horas=int(strftime("%H"))
-    reg.minutos=int(strftime("%M"))
+    reg.horas=h
+    reg.minutos=m
     reg.lembrar=0
     reg.save()
     
     tweets=create_tweets(h,m)
-    if tweets:
-        return False
+    if not tweets:
+        raise Http404
+    
     #tweets=create_tweets(23,00)
     api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
     for tweet in tweets:
         #api.PostUpdate(str(h)+':'+str(m)+' '+tweet)
         api.PostUpdate(tweet)
+    
+    raise Http404
 
 #
 # Envia Tweets Thread

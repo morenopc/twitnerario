@@ -1,0 +1,1 @@
+worker: python hellodjango/manage.py celeryd -E -B --loglevel=DEBUG

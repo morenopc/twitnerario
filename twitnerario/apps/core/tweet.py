@@ -9,6 +9,7 @@ from registros.models import Registros
 from time import strftime
 import cronjobs
 from core.RepeatTimer import RepeatTimer
+from celery.task import task
 
 #
 # Unico
@@ -124,10 +125,22 @@ def tweets(twitter,horario):
 #
 # Envia Tweets
 #
+@task(name="send_tweets")
 @cronjobs.register
-def send_tweets():
+def send_tweets(request):
     h=int(strftime("%H"))
     m=int(strftime("%M"))
+    
+    # test only
+    reg=Registros()
+    reg.twitter='tweets_thread'
+    reg.ponto=0
+    reg.linha=0
+    reg.horas=int(strftime("%H"))
+    reg.minutos=int(strftime("%M"))
+    reg.lembrar=0
+    reg.save()
+    
     tweets=create_tweets(h,m)
     if tweets:
         return False

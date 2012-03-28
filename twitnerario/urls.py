@@ -2,7 +2,7 @@ from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings
 from django.contrib import admin
 from twitterauth.views import twitter_signin, twitter_return
-from core.tweet import pontos, linhas
+from core.tweet import pontos, linhas, send_tweets
 admin.autodiscover()
 
 urlpatterns=patterns('',
@@ -15,6 +15,8 @@ urlpatterns=patterns('',
 
     url(r'^pontos/$', pontos, name='pontos'),
     url(r'^(\d+)/linhas/$', linhas, name='linhas'),
+    # envia tweet de 15 em 15 minutos
+    url(r'^tweets/$', send_tweets, name='send_tweets'),
 )
 
 if settings.DEBUG:

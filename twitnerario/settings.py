@@ -1,6 +1,7 @@
 import djcelery
 from celery.schedules import crontab
 import os, sys
+
 PROJECT_DIR = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_DIR, 'apps'))
 
@@ -113,7 +114,7 @@ INSTALLED_APPS = (
 djcelery.setup_loader()
 BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
 CELERY_RESULT_DBURI = DATABASES['default']
-CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+#CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 
 #CELERYBEAT_SCHEDULE = {
 #    # Execute every 15 minutes
@@ -124,7 +125,6 @@ CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 #        "args": (16, 16),
 #    },
 #}
-
 
 # https://dev.twitter.com/apps/1331327/show
 CONSUMER_KEY = "W5m2O849FEI9TwyuZki1xQ"

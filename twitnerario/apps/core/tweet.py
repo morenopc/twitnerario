@@ -135,17 +135,43 @@ def tweets(twitter,horario):
 #
 # Envia Tweets
 #
-@task(name="sendtweets")
-#@periodic_task(run_every=crontab(hour="*", minute="*/1", day_of_week="*"))
 @cronjobs.register
-def send_tweets(request):
+def send_tweets():
     h=int(strftime("%H"))
     m=int(strftime("%M"))
     
-    if m%15:
-        raise Http404
+    tweets=create_tweets(h,m)
+    if not tweets:
+        return False
     
-    # test only
+    api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
+    
+    if not m%15:
+        pass
+    elif m==10 or m==40:
+        time.sleep(300) # delays for 5 minutes
+    else:
+        return False
+    
+    for tweet in tweets:
+        api.PostUpdate(tweet)
+    
+    return True
+
+#
+# Envia Tweets HTML
+#
+#@task(name="sendtweets")
+#@periodic_task(run_every=crontab(hour="*", minute="*/1", day_of_week="*"))
+#@cronjobs.register
+#def send_tweets(request):
+#    h=int(strftime("%H"))
+#    m=int(strftime("%M"))#
+#    
+#    #if m%15:
+#    #    raise Http404
+#    
+#    # test only
 #    reg=Registros()
 #    reg.twitter='tweets_thread'
 #    reg.ponto=0
@@ -154,33 +180,34 @@ def send_tweets(request):
 #    reg.minutos=m
 #    reg.lembrar=0
 #    reg.save()
-    
-    tweets=create_tweets(h,m)
-    if not tweets:
-        return HttpResponse(strftime("%H:%M:%S")+' :/')
-    
-    api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
-    #tweets=create_tweets(23,00)
-    for tweet in tweets:
-        api.PostUpdate(tweet)
-    
-    return HttpResponse(strftime("%H:%M:%S")+' ^-^')
+#    
+#    tweets=create_tweets(h,m)
+#    if not tweets:
+#        return HttpResponse(strftime("%H:%M:%S")+' :/')
+#    
+#    api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
+
+#    for tweet in tweets:
+#        api.PostUpdate(tweet)
+#    
+#    return HttpResponse(strftime("%H:%M:%S")+' ^-^')
 
 #
 # Envia Tweets Thread
 #
-@cronjobs.register
-def send_tweets_thread():
-    r=RepeatTimer(900.0,send_tweets)
-    reg=Registros()
-    reg.twitter='tweets_thread'
-    reg.ponto=0
-    reg.linha=0
-    reg.horas=int(strftime("%H"))
-    reg.minutos=int(strftime("%M"))
-    reg.lembrar=0
-    r.start()
-    reg.save()
+#@cronjobs.register
+#def send_tweets_thread():
+#    r=RepeatTimer(900.0,send_tweets)
+#    reg=Registros()
+#    reg.twitter='tweets_thread'
+#    reg.ponto=0
+#    reg.linha=0
+#    reg.horas=int(strftime("%H"))
+#    reg.minutos=int(strftime("%M"))
+#    reg.lembrar=0
+#    r.start()
+#    reg.save()
+
 #
 # Previsao
 #

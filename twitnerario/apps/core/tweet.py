@@ -4,15 +4,16 @@ import twitter
 import urllib2
 import cronjobs
 import time
+from time import strftime
 from xml.dom.minidom import parse, parseString
 from django.utils.encoding import smart_str, smart_unicode
 from django.http import HttpResponse
 from registros.models import Registros
-from time import strftime
 from core.RepeatTimer import RepeatTimer
 from celery.task.schedules import crontab
 from celery.decorators import periodic_task
 from celery.task import task
+from django.http import Http404
 
 #
 # Unico
@@ -77,7 +78,7 @@ def create_tweets(h,m):
     previsoes_xml={}
     pnt=''
     tweet=[]
-    if regs:
+    if not regs:
         return tweet
     
     for reg in regs:
@@ -104,15 +105,21 @@ def create_tweets(h,m):
 #
 def tweets(twitter,horario):
     primeiro=''
+    smile=''
+    toobad=''
     # ordena os horarios
     horario=sorted(horario)
+    if int(strftime("%S"))%2:
+        toobad=' :/'
+        smile=' ^-^'
+        
     try:
         if horario[0]==0:
-            primeiro="agora, vai pro ponto garotinho!"
+            primeiro='agora, vai pro ponto garotinho! '+strftime("%H:%M:%S")+smile
         else:
             primeiro='daqui a '+str(horario[0])+' minutos às '+addminutes(horario[0])
     except:
-        return '@'+str(twitter)+' seu ônibus está sem previsão de chegada'
+        return '@'+str(twitter)+' seu ônibus está sem previsão de chegada '+strftime("%H:%M:%S")+toobad
     
     if len(horario)>1:
         #ultimo=horario.pop()
@@ -131,29 +138,33 @@ def tweets(twitter,horario):
 @task(name="sendtweets")
 #@periodic_task(run_every=crontab(hour="*", minute="*/1", day_of_week="*"))
 @cronjobs.register
-def send_tweets():
+def send_tweets(request):
     h=int(strftime("%H"))
     m=int(strftime("%M"))
     
-    # test
-    r=RepeatTimer(900.0,send_tweets)
-    reg=Registros()
-    reg.twitter='tweets_thread'
-    reg.ponto=0
-    reg.linha=0
-    reg.horas=int(strftime("%H"))
-    reg.minutos=int(strftime("%M"))
-    reg.lembrar=0
-    reg.save()
+    if m%15:
+        raise Http404
+    
+    # test only
+#    reg=Registros()
+#    reg.twitter='tweets_thread'
+#    reg.ponto=0
+#    reg.linha=0
+#    reg.horas=h
+#    reg.minutos=m
+#    reg.lembrar=0
+#    reg.save()
     
     tweets=create_tweets(h,m)
-    if tweets:
-        return False
-    #tweets=create_tweets(23,00)
+    if not tweets:
+        return HttpResponse(strftime("%H:%M:%S")+' :/')
+    
     api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
+    #tweets=create_tweets(23,00)
     for tweet in tweets:
-        #api.PostUpdate(str(h)+':'+str(m)+' '+tweet)
         api.PostUpdate(tweet)
+    
+    return HttpResponse(strftime("%H:%M:%S")+' ^-^')
 
 #
 # Envia Tweets Thread

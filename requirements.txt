@@ -5,11 +5,12 @@ oauth==1.0.1
 oauth2==1.5.170
 python-twitter==0.8.2
 simplejson==2.1.6
+amqplib==1.0.2
+anyjson==0.3.1
 celery==2.5.1
 django-celery==2.5.1
-django-kombu==0.9.4
 kombu==2.1.2
+django-kombu==0.9.4
 django-picklefield==0.2.0
-anyjson==0.3.1
+ordereddict==1.1
 python-dateutil==1.5
-amqplib==1.0.2

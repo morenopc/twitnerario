@@ -1,4 +1,5 @@
 import djcelery
+from celery.schedules import crontab
 import os, sys
 from datetime import timedelta
 
@@ -49,7 +50,7 @@ STATIC_ROOT = ''
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
-
+from celery.schedules import crontab
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -106,22 +107,25 @@ INSTALLED_APPS = (
     'form_utils',
     'core',
     'cronjobs',
-    # worker
+    # heroku
     'djcelery',
     'djkombu',
 )
-# celery
+# CELERY
 djcelery.setup_loader()
 BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
 CELERY_RESULT_DBURI = DATABASES['default']
+#CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 
-#CELERY_IMPORTS = ('core', )
-CELERYBEAT_SCHEDULE = {
-    "runs-every-30-seconds": {
-        "task": "sendtweets",
-        "schedule": timedelta(seconds=30)
-    },
-}
+#CELERYBEAT_SCHEDULE = {
+#    # Execute every 15 minutes
+#    "every-15-minutes": {
+#        "task": "send_tweets",
+#        #"schedule": crontab(minute="*/15"),
+#        "schedule": crontab(minute="*/1"),
+#        "args": (16, 16),
+#    },
+#}
 
 # https://dev.twitter.com/apps/1331327/show
 CONSUMER_KEY = "W5m2O849FEI9TwyuZki1xQ"

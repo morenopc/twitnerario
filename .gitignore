@@ -1,5 +1,6 @@
 venv
 *.pyc
 *.*~
+meuonibus.db
 celerybeat-schedule.db
 celerybeat-schedule

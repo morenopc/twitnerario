@@ -1,5 +1,7 @@
 import djcelery
 import os, sys
+from datetime import timedelta
+
 PROJECT_DIR = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_DIR, 'apps'))
 
@@ -113,6 +115,13 @@ djcelery.setup_loader()
 BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
 CELERY_RESULT_DBURI = DATABASES['default']
 
+#CELERY_IMPORTS = ('core', )
+CELERYBEAT_SCHEDULE = {
+    "runs-every-30-seconds": {
+        "task": "sendtweets",
+        "schedule": timedelta(seconds=30)
+    },
+}
 
 # https://dev.twitter.com/apps/1331327/show
 CONSUMER_KEY = "W5m2O849FEI9TwyuZki1xQ"

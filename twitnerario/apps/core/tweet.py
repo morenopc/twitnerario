@@ -140,18 +140,19 @@ def send_tweets():
     h=int(strftime("%H"))
     m=int(strftime("%M"))
     
-    tweets=create_tweets(h,m)
-    if not tweets:
-        return False
-    
-    api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
-    
+    # fix heroku every 10 minutes cronjob
     if not m%15:
         pass
     elif m==10 or m==40:
         time.sleep(300) # delays for 5 minutes
     else:
+        return False    
+        
+    tweets=create_tweets(h,m)
+    if not tweets:
         return False
+    
+    api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
     
     for tweet in tweets:
         api.PostUpdate(tweet)

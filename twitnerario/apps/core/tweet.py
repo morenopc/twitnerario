@@ -102,15 +102,21 @@ def create_tweets(h,m):
 #
 def tweets(twitter,horario):
     primeiro=''
+    smile=''
+    toobad=''
     # ordena os horarios
     horario=sorted(horario)
+    if int(strftime("%S"))%2:
+        toobad=' :/'
+        smile=' ^-^'
+        
     try:
         if horario[0]==0:
-            primeiro="agora, vai pro ponto garotinho!"
+            primeiro='agora, vai pro ponto garotinho! '+strftime("%H:%M:%S")+smile
         else:
             primeiro='daqui a '+str(horario[0])+' minutos às '+addminutes(horario[0])
     except:
-        return '@'+str(twitter)+' seu ônibus está sem previsão de chegada'
+        return '@'+str(twitter)+' seu ônibus está sem previsão de chegada '+strftime("%H:%M:%S")+toobad
     
     if len(horario)>1:
         #ultimo=horario.pop()
@@ -136,22 +142,22 @@ def send_tweets(request):
         raise Http404
     
     # test only
-    reg=Registros()
-    reg.twitter='tweets_thread'
-    reg.ponto=0
-    reg.linha=0
-    reg.horas=h
-    reg.minutos=m
-    reg.lembrar=0
-    reg.save()
+#    reg=Registros()
+#    reg.twitter='tweets_thread'
+#    reg.ponto=0
+#    reg.linha=0
+#    reg.horas=h
+#    reg.minutos=m
+#    reg.lembrar=0
+#    reg.save()
     
     tweets=create_tweets(h,m)
     if not tweets:
         raise Http404
     
+    api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
     #tweets=create_tweets(23,00)
     for tweet in tweets:
-        api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
         api.PostUpdate(tweet)
     
     raise Http404

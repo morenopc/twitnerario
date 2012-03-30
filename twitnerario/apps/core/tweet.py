@@ -144,7 +144,7 @@ def send_tweets():
     if not m%15:
         pass
     elif m==10 or m==40:
-        time.sleep(300) # delays for 5 minutes
+        time.sleep(270) # delays for 5 minutes
     else:
         return False    
         

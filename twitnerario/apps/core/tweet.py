@@ -147,7 +147,9 @@ def send_tweets():
         time.sleep(270) # delays for 5 minutes
     else:
         return False    
-        
+    
+    h=int(strftime("%H"))
+    m=int(strftime("%M"))   
     tweets=create_tweets(h,m)
     if not tweets:
         return False

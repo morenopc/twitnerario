@@ -150,6 +150,7 @@ def tweet(twitter_id,horarios,linha):
     # Um ou mais
     else:
         if horarios[1] > 59:
+            prev=toHourMin(horarios[0])
             return '@'+str(twitter_id)+' seu ônibus ('+str(linha)+') vai passar '+mais_de_um+' é daqui a '+prev[0]+'h e '+prev[1]+'min às '+addminutes(horarios[1])
         else:
             return '@'+str(twitter_id)+' seu ônibus ('+str(linha)+') vai passar '+mais_de_um+' é daqui a '+str(horarios[1])+' minutos às '+addminutes(horarios[1])

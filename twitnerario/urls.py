@@ -6,17 +6,14 @@ from core.tweet import pontos, linhas, send_tweets
 admin.autodiscover()
 
 urlpatterns=patterns('',
-    url(r'^$',include('registros.urls', namespace='registro')),
     url(r'^admin/', include(admin.site.urls)),
     
+    url(r'^$',include('registros.urls', namespace='registro')),
+    url(r'^registro/', include('registros.urls', namespace='registro')),
     url('^login/$', twitter_signin, name='login'),
     url('^return/$', twitter_return, name='return'),
-    (r'^registro/', include('registros.urls', namespace='registro')),
-
     url(r'^pontos/$', pontos, name='pontos'),
     url(r'^(\d+)/linhas/$', linhas, name='linhas'),
-    # envia tweet de 15 em 15 minutos
-    url(r'^tweets/$', send_tweets, name='send_tweets'),
 )
 
 if settings.DEBUG:

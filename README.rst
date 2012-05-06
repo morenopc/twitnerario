@@ -6,6 +6,7 @@
 *Open source project - November 2011*
 
 - `http://twitnerario.herokuapp.com/ <http://twitnerario.herokuapp.com/>`_
+- `Sequence Diagram <https://docs.google.com/drawings/d/18vYGw2lVbu3fHChqzUnWq6aKX376Mju7tAPwHr1-vKg/edit>`_
 - Python - Django Web application
 - Twitter API
 - Integrated with Vitória (Brazil) GPS bus system

@@ -8,12 +8,9 @@ from registros.models import Registros
 class RegistrosForm(BetterModelForm):
     class Meta:
         model=Registros
-        #exclude=['benef']
         widgets = {
-            #'nome_pesq':forms.TextInput(attrs={'readonly': 'readonly'}),
             'linha':forms.Select(),
-            #'baixa_renda':forms.CheckboxInput(attrs={'style': 'display:none'}),
-            #'benef': forms.HiddenInput(),
+            'fim_de_semana':forms.TextInput(attrs={'style': 'display:none'}),
         }
         fieldsets=[
                    ('Registro', {
@@ -24,11 +21,11 @@ class RegistrosForm(BetterModelForm):
                               'horas',
                               'minutos',
                               'lembrar',
+                              'fim_de_semana',
                               ],
                    'classes': ['registro']
                    })
                  ]
         row_attrs = {
-        #'data': {'class':'data'},
         }
         

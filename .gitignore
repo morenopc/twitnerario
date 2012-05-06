@@ -1,6 +1,7 @@
 venv
 *.pyc
 *.*~
+*.bkup.py
 meuonibus.db
 celerybeat-schedule.db
 celerybeat-schedule

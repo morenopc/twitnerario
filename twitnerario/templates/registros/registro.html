@@ -29,6 +29,7 @@
 	}
 	</style>
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/overcast/jquery-ui-1.8.18.custom.css" type="text/css" charset="utf-8">
+    <script type="text/javascript" src="{{MEDIA_URL}}js/pontos-array.js"></script>
 	<div class="row">
 		<div class="span16">
 			<form action="" method="post">{% csrf_token %}
@@ -67,10 +68,17 @@
 						</div>
 					</div>
                     
-                    <div class="clearfix">
+                    <div class="hour clearfix">
 						{{ form.lembrar.label_tag }}
 						<div class="input">
 							{{ form.lembrar }}
+						</div>
+					</div>
+					
+					<div class="hour clearfix">
+						{#{ form.fim_de_semana.label_tag }#}
+						<div class="input">
+							{{ form.fim_de_semana }}
 						</div>
 					</div>
                     
@@ -88,7 +96,6 @@
 		<div id="content" class="span16"></div>
 	</div>
 {% endblock %}
-
 {% block footer_inc %}
 <script type="text/javascript">
 // TitleCase
@@ -120,46 +127,70 @@ String.prototype.toTitleCase = function() {
 
     return str;
 }
-var num_regex=/([0-9]+)/g;
-var uiSelected=false;
-var pts=[];
 var pontosJSON;
+var uiSelected=false;
+var num_regex=/([0-9]+)/g;
 var linha;
+var $id_ponto=$("#id_ponto");
+
+/*
+    Encontra Linhas
+*/
+function setSelectLinhas(ponto){
+    $("#id_linha option").remove();
+    $.getJSON('/'+ponto+'/linhas/', function(data){
+        var options=$('#id_linha');
+        linhas=data;
+        $.each(data.data, function(i,v) {
+            linha=v.linha;
+            options.append($("<option />").val(linha.match(num_regex)).text(linha));
+        });
+     });
+}
+
+function get_linhas(){
+    var linha_value;
+    try{
+        linha_value=uiSelected.item.value;
+    }
+    catch(err){
+        linha_value=$('#id_ponto').val();
+    }
+    $.each(pontosJSON.data, function(i,v) {
+        if(v.ponto==linha_value){
+            $('#info').remove();
+            plocal=v.logradouro+', '+v.bairro+', '+v.referencia
+            $id_ponto.after('<p id="info" style="display:none;color:#404040;font-size: 13px;padding-top: 4px;margin-bottom: 0px;">'+plocal.toTitleCase()+'</p>');
+            $('#info').show('slow');
+            setSelectLinhas(linha_value);
+            //uiSelected=null;
+            return false;    
+        }
+    });
+}
+
 $(function() {
     /*
-        Encontra Pontos
-    */
-    var $id_ponto=$("#id_ponto");
-    // Get JSON
-    $.getJSON('/pontos/', function(data){
+        Obtem lista completa de pontos
+    */ 
+    $.getJSON('/media/json/listaPontos.json', function(data){
         pontosJSON=data;
-        // Criar lista de pontos
-        $.each(data.data, function(i,v) {
-            //pts.push(v.ponto);
-            pts[pts.length]=v.ponto;
-        });
-        $id_ponto.autocomplete({
-		    source: pts,
-		    minLength: 0,
-	    });
+        //$.each(data.data, function(i,v) {
+        //    pts[pts.length]=v.ponto;
+        //});
     });
+    /*
+        Pontos auto completar
+    */    
+    $id_ponto.autocomplete({
+	    source: pts,// from /js/pontos-array.js
+	    minLength: 1,
+    });
+    // Select Event
     $id_ponto.autocomplete({
         select: function(event, ui) {
             uiSelected=ui;
-            //alert(uiSelected.item.value);
-            $.each(pontosJSON.data, function(i,v) {
-                //alert(ui.value);
-                //uuii=ui;
-                if(v.ponto==uiSelected.item.value){
-                    $('#info').remove();
-                    plocal=v.logradouro+', '+v.bairro+', '+v.referencia
-                    $id_ponto.after('<p id="info" style="display:none;color:#404040;font-size: 13px;padding-top: 4px;margin-bottom: 0px;">'+plocal.toTitleCase()+'</p>');
-                    $('#info').show('slow');
-                    setSelectLinhas(uiSelected.item.value);
-                    uiSelected=null;
-                    return false;    
-                }
-            });
+            get_linhas();
         }
     });
     /* Tentativa de tratar excecao - pensar melhor
@@ -167,22 +198,12 @@ $(function() {
         alert('focus out');
     });
     */
-     /*
-        Encontra Linhas
+    /*
+        Events
     */
-    function setSelectLinhas(ponto){
-        // Get JSON
-        $("#id_linha option").remove();
-        $.getJSON('/'+ponto+'/linhas/', function(data)
-        {
-            var options=$('#id_linha');
-            linhas=data;
-            $.each(data.data, function(i,v) {
-                linha=v.linha;
-                options.append($("<option />").val(linha.match(num_regex)).text(linha));
-            });
-         });
-    }
+    $('#id_ponto').focusout(function(){
+        get_linhas();
+    });
     /*
         Excecoes
     */

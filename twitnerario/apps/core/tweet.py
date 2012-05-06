@@ -19,35 +19,15 @@ from django.http import Http404
 # Unico
 #
 def uniq(alist):
-    set = {}
+    """Remove repeated records"""
+    set={}
     return [set.setdefault(e,e) for e in alist if e not in set]
 
-def add30minutes(h,m):
-    if m>=30:
-        m-=30
-        h+=1
-        if h>23:
-            h=0
-    else:
-        m+=30
-    
-    return([h,m])
-
-def less30minutes(h,m):
-    if m>=30:
-        m-=30
-    else:
-        m+=30
-        if h>0:
-            h-=1
-        else:
-            h=23
-    
-    return([h,m])
 #
 # De Minutos para HH:MM + hora atual
 #
 def addminutes(minutes):
+    """Recebe tempo em minutos, adiciona hora atual, transforma para o formato de hora e retorna"""
     h=int(strftime("%H"))
     m=int(strftime("%M"))
     t=divmod(int(minutes)+m,60)
@@ -69,23 +49,21 @@ def addminutes(minutes):
 # Cria Tweets
 #
 def create_tweets(h,m):
-    """Recebe a hora atual (de 15 em 15 minutos) e retorna os tweets marcados para daqui a 30 minutos"""
+    """Recebe a hora atual (de 15 em 15 minutos) e retorna os tweets gerados"""
     
-    #t=add30minutes(h,m)
-    #h=t[0]
-    #m=t[1]
-    regs=Registros.objects.filter(horas=h, minutos=m).order_by('ponto')
+    regs=[]
     previsoes_xml={}
-    pnt=''
-    tweet=[]
-    if not regs:
-        return tweet
+    tweets=[]
     
+    # nao aceita registros repetidos
+    regs=Registros.objects.filter(horas=h, minutos=m).order_by('ponto')
+    if not regs:
+        return tweets
+    
+    # obtem previsoes
     for reg in regs:
-        if pnt != reg.ponto:
-            prev=previsao(reg.ponto,reg.linha)
-            previsoes_xml.update({reg.ponto:prev})
-        pnt=reg.ponto
+        prev=previsao(reg.ponto,reg.linha)
+        previsoes_xml.update({reg.ponto:prev})
     
     pontos=uniq(regs.values_list('ponto'))
     for ponto in pontos:
@@ -94,59 +72,59 @@ def create_tweets(h,m):
             hs=horarios(previsoes_xml[ponto[0]],linha[0])
             tws=regs.filter(ponto=ponto[0],linha=linha[0])
             for tw in tws:
-                tweet.append(tweets(tw.twitter,hs))
+                tweets.append(tweet(tw.twitter,hs))
     
+    # remove registros - somente esta vez
     regs.filter(lembrar=0).delete()
     
-    return tweet
+    return tweets
 
 #
-# Constroi Tweets
+# Constroi Tweet
 #
-def tweets(twitter,horario):
+def tweet(twitter_id,horarios):
+    """Recebe o usuário e os horários estimados de chegada, monta e retorna o tweet"""
     primeiro=''
     smile=''
     toobad=''
     # ordena os horarios
-    horario=sorted(horario)
+    horarios=sorted(horarios)
     if int(strftime("%S"))%2:
         toobad=' :/'
         smile=' ^-^'
         
     try:
-        if horario[0]==0:
+        if horarios[0]==0:
             primeiro='agora, vai pro ponto garotinho! '+strftime("%H:%M:%S")+smile
         else:
-            primeiro='daqui a '+str(horario[0])+' minutos às '+addminutes(horario[0])
+            primeiro='daqui a '+str(horarios[0])+' minutos às '+addminutes(horarios[0])
     except:
-        return '@'+str(twitter)+' seu ônibus está sem previsão de chegada '+strftime("%H:%M:%S")+toobad
+        return '@'+str(twitter_id)+' seu ônibus está sem previsão de chegada '+strftime("%H:%M:%S")+toobad
     
-    if len(horario)>1:
-        #ultimo=horario.pop()
-        #penultimo=horario.pop()
-        #tms=''
-        #for h in horario:
-        #    tms+=addminutes(h)+', '
-        return '@'+str(twitter)+' seu ônibus vai passar '+primeiro+' e daqui a '+str(horario[1])+' minutos às '+addminutes(horario[1])
+    if len(horarios)>1:
+        return '@'+str(twitter_id)+' seu ônibus vai passar '+primeiro+' e daqui a '+str(horarios[1])+' minutos às '+addminutes(horarios[1])
             
     else:
-        return '@'+str(twitter)+' seu ônibus vai passar '+primeiro
+        return '@'+str(twitter_id)+' seu ônibus vai passar '+primeiro
 
 #
 # Envia Tweets
 #
 @cronjobs.register
 def send_tweets():
+    # (heroku) server time
     h=int(strftime("%H"))
     m=int(strftime("%M"))
     
-    # fix heroku every 10 minutes cronjob
-    if not m%15:
-        pass
-    elif m==10 or m==40:
-        time.sleep(270) # delays for 5 minutes
+    # minute :20 and :50 - end
+    if m==20 or minute==50:
+        return False
+    # minute :10 and :40 - add 5 minutes delay
+    elif minute==10 or minute==40:
+        time.sleep(290)
+    # minute :00 and :30 - ok
     else:
-        return False    
+        pass
     
     h=int(strftime("%H"))
     m=int(strftime("%M"))   
@@ -154,7 +132,10 @@ def send_tweets():
     if not tweets:
         return False
     
-    api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
+    api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',
+                    consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8',
+                    access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',
+                    access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
     
     for tweet in tweets:
         api.PostUpdate(tweet)
@@ -162,59 +143,10 @@ def send_tweets():
     return True
 
 #
-# Envia Tweets HTML
-#
-#@task(name="sendtweets")
-#@periodic_task(run_every=crontab(hour="*", minute="*/1", day_of_week="*"))
-#@cronjobs.register
-#def send_tweets(request):
-#    h=int(strftime("%H"))
-#    m=int(strftime("%M"))#
-#    
-#    #if m%15:
-#    #    raise Http404
-#    
-#    # test only
-#    reg=Registros()
-#    reg.twitter='tweets_thread'
-#    reg.ponto=0
-#    reg.linha=0
-#    reg.horas=h
-#    reg.minutos=m
-#    reg.lembrar=0
-#    reg.save()
-#    
-#    tweets=create_tweets(h,m)
-#    if not tweets:
-#        return HttpResponse(strftime("%H:%M:%S")+' :/')
-#    
-#    api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8', access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
-
-#    for tweet in tweets:
-#        api.PostUpdate(tweet)
-#    
-#    return HttpResponse(strftime("%H:%M:%S")+' ^-^')
-
-#
-# Envia Tweets Thread
-#
-#@cronjobs.register
-#def send_tweets_thread():
-#    r=RepeatTimer(900.0,send_tweets)
-#    reg=Registros()
-#    reg.twitter='tweets_thread'
-#    reg.ponto=0
-#    reg.linha=0
-#    reg.horas=int(strftime("%H"))
-#    reg.minutos=int(strftime("%M"))
-#    reg.lembrar=0
-#    r.start()
-#    reg.save()
-
-#
 # Previsao
 #
 def previsao(ponto,linha):
+    """Envia ponto e linha para o servidor ponto-vitoria e retorna XML com previsão (a previsão contém todas linhas)"""
     previsao=''
     opener = urllib2.build_opener()
     opener.addheaders = [
@@ -232,19 +164,20 @@ def previsao(ponto,linha):
 #
 # Horarios
 #
-def horarios(xml,linha):
+def horarios(ponto_xml,linha):
+    """Recebe XML do ponto e linha a ser consultada retorna previsões em minutos"""
     horarios=[]
-    xml0=parseString(xml)
+    xml0=parseString(ponto_xml)
     horarioAtual=xml0.childNodes[1].getElementsByTagName("horarioAtual")[0].firstChild.data
     for estimativa in xml0.childNodes[1].childNodes[1].getElementsByTagName("estimativa"):
         linha_id=estimativa.childNodes[3].childNodes[3].firstChild.data
         if linha_id == str(linha):
             linha_desc=estimativa.childNodes[3].childNodes[5].firstChild.data
             horarioEstimado=estimativa.childNodes[7].firstChild.data
-            #horarioPacote=estimativa.childNodes[9].firstChild.data
+            # extrai tempo de chegada e transforma para minutos
             horarios.append((int(horarioEstimado)-int(horarioAtual))/60000)
     
-    return horarios
+    return horarios # de chegada em minutos
 
 #
 # Pontos

@@ -175,7 +175,6 @@ def send_tweets():
     
     h=int(strftime("%H"))
     m=int(strftime("%M"))
-    m=30
     tweets=create_tweets(h,m)
     if not tweets:
         return False

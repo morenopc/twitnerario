@@ -35,6 +35,7 @@ def uniq(alist):
 #
 def addminutes(minutes):
     """Recebe tempo em minutos, adiciona hora atual, transforma para o formato de hora e retorna"""
+   
     h=int(strftime("%H"))
     m=int(strftime("%M"))
     t=divmod(int(minutes)+m,60)
@@ -51,6 +52,32 @@ def addminutes(minutes):
         return '0'+str(h)+':'+str(m)
     else:
         return str(h)+':'+str(m)
+
+#
+# De Minutos para HH:MM
+#
+def toHourMin(minutes):
+    """Recebe tempo em minutos transforma para o formato de hora e retorna"""
+    t=divmod(int(minutes),60)
+    h=t[0]
+    m=t[1]
+    
+    if h>=24:
+        t=divmod(h,24)
+        h=t[1]
+    
+    if h==0:
+        if m<10:
+            return ['','0'+str(m)]
+        else:
+            return ['',str(m)]
+    else:
+        if m<10:
+            return [str(h),'0'+str(m)]
+        elif h<10:
+            return ['0'+str(h),str(m)]
+        else:
+            return [str(h),str(m)]
 
 #
 # Cria Tweets
@@ -95,6 +122,7 @@ def tweet(twitter_id,horarios,linha):
     mais_de_um=''
     smile=''
     toobad=''
+    prev=[]
     # ordena os horarios
     horarios=sorted(horarios)
     if int(strftime("%S"))%2:
@@ -109,14 +137,22 @@ def tweet(twitter_id,horarios,linha):
         primeiro='são '+strftime("%H:%M")+'seu ônibus ('+str(linha)+') vai passar AGORA, vai pro ponto garotinho! '+smile
         mais_de_um='AGORA, vai pro ponto garotinho! '+smile+' o próximo'
     else:
-        primeiro='seu ônibus ('+str(linha)+') vai passar daqui a '+str(horarios[0])+' minutos às '+addminutes(horarios[0])
-        mais_de_um='daqui a '+str(horarios[0])+' minutos às '+addminutes(horarios[0])
+        if horarios[0] > 59:
+            prev=toHourMin(horarios[0])
+            primeiro='seu ônibus ('+str(linha)+') vai passar daqui a '+prev[0]+'h e '+prev[1]+'min às '+addminutes(horarios[0])
+            mais_de_um='daqui a '+prev[0]+'h e '+prev[1]+'min às '+addminutes(horarios[0])
+        else:
+            primeiro='seu ônibus ('+str(linha)+') vai passar daqui a '+str(horarios[0])+' minutos às '+addminutes(horarios[0])
+            mais_de_um='daqui a '+str(horarios[0])+' minutos às '+addminutes(horarios[0])
     # Um
     if len(horarios)==1:
         return '@'+str(twitter_id)+' '+primeiro
     # Um ou mais
     else:
-        return '@'+str(twitter_id)+' seu ônibus ('+str(linha)+') vai passar '+mais_de_um+' é daqui a '+str(horarios[1])+' minutos às '+addminutes(horarios[1])
+        if horarios[1] > 59:
+            return '@'+str(twitter_id)+' seu ônibus ('+str(linha)+') vai passar '+mais_de_um+' é daqui a '+prev[0]+'h e '+prev[1]+'min às '+addminutes(horarios[1])
+        else:
+            return '@'+str(twitter_id)+' seu ônibus ('+str(linha)+') vai passar '+mais_de_um+' é daqui a '+str(horarios[1])+' minutos às '+addminutes(horarios[1])
     
 #
 # Envia Tweets
@@ -138,7 +174,8 @@ def send_tweets():
         pass
     
     h=int(strftime("%H"))
-    m=int(strftime("%M"))   
+    m=int(strftime("%M"))
+    m=30
     tweets=create_tweets(h,m)
     if not tweets:
         return False

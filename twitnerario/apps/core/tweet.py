@@ -118,10 +118,10 @@ def send_tweets():
     m=int(strftime("%M"))
     
     # minute :20 and :50 - end
-    if m==20 or minute==50:
+    if m==20 or m==50:
         return False
     # minute :10 and :40 - add 5 minutes delay
-    elif minute==10 or minute==40:
+    elif m==10 or m==40:
         time.sleep(290)
     # minute :00 and :30 - ok
     else:

@@ -16,6 +16,12 @@ from celery.decorators import periodic_task
 from celery.task import task
 from django.http import Http404
 
+SADFACES=[u'☹',u'๏̯͡๏',u'».«',u'(͡๏̯͡๏)',u'(×̯×)',u'ಥ_ಥ',u'v_v',u'►_◄',
+           u'►.◄',u'>.<',u'ಠ_ರೃ',u'טּ_טּ',u'ಠ╭╮ಠ',u'מּ_מּ',u'לּ_לּ',u'טּ_טּ',
+           'ಸ_ಸ',u'ಠ,ಥ',u'໖_໖',u'Ծ_Ծ',u'ಠ_ಠ',u'⇎_⇎',u'●_●',u'~̯~',
+           '◔̯◔',u'ᇂ_ᇂ',u'أ ̯ أ',u'(╥﹏╥)',u'(►.◄)',u'(ு८ு)',
+           'v(ಥ ̯ ಥ)v',u'ب_ب']
+
 #
 # Unico
 #
@@ -73,7 +79,7 @@ def create_tweets(h,m):
             hs=horarios(previsoes_xml[ponto[0]],linha[0])
             tws=regs.filter(ponto=ponto[0],linha=linha[0])
             for tw in tws:
-                tweets.append(tweet(tw.twitter,hs))
+                tweets.append(tweet(tw.twitter,hs,linha[0]))
     
     # remove registros - somente esta vez
     regs.filter(lembrar=0).delete()
@@ -83,31 +89,35 @@ def create_tweets(h,m):
 #
 # Constroi Tweet
 #
-def tweet(twitter_id,horarios):
+def tweet(twitter_id,horarios,linha):
     """Recebe o usuário e os horários estimados de chegada, monta e retorna o tweet"""
     primeiro=''
+    mais_de_um=''
     smile=''
     toobad=''
     # ordena os horarios
     horarios=sorted(horarios)
     if int(strftime("%S"))%2:
-        toobad=' v( ‘.’ )v'
-        smile=' ^-^'
-        
-    try:
-        if horarios[0]==0:
-            primeiro='agora, vai pro ponto garotinho! '+strftime("%H:%M")+smile
-        else:
-            primeiro='daqui a '+str(horarios[0])+' minutos às '+addminutes(horarios[0])
-    except:
-        return '@'+str(twitter_id)+' são '+strftime("%H:%M")+' e seu ônibus está sem previsão de chegada'+toobad
+        toobad=smart_str(random.choice(SADFACES))
+        smile='^-^'
     
-    if len(horarios)>1:
-        return '@'+str(twitter_id)+' seu ônibus vai passar '+primeiro+' e daqui a '+str(horarios[1])+' minutos às '+addminutes(horarios[1])
-            
+    # Zero   
+    if not horarios:
+        return '@'+str(twitter_id)+' são '+strftime("%H:%M")+' e seu ônibus ('+str(linha)+') está sem previsão de chegada '+toobad
+    # previsao zero 
+    if horarios[0]==0:
+        primeiro='são '+strftime("%H:%M")+'seu ônibus ('+str(linha)+') vai passar AGORA, vai pro ponto garotinho! '+smile
+        mais_de_um='AGORA, vai pro ponto garotinho! '+smile+' o próximo'
     else:
-        return '@'+str(twitter_id)+' seu ônibus vai passar '+primeiro
-
+        primeiro='seu ônibus ('+str(linha)+') vai passar daqui a '+str(horarios[0])+' minutos às '+addminutes(horarios[0])
+        mais_de_um='daqui a '+str(horarios[0])+' minutos às '+addminutes(horarios[0])
+    # Um
+    if len(horarios)==1:
+        return '@'+str(twitter_id)+' '+primeiro
+    # Um ou mais
+    else:
+        return '@'+str(twitter_id)+' seu ônibus ('+str(linha)+') vai passar '+mais_de_um+' é daqui a '+str(horarios[1])+' minutos às '+addminutes(horarios[1])
+    
 #
 # Envia Tweets
 #

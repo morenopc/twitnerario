@@ -14,9 +14,9 @@ def registro(request):
     rs=Registros.objects.none()
     form=RegistrosForm(request.POST or None)
     if form.is_valid():
-        t=str(request.POST['twitter'] or None)
-        l=int(request.POST['linha'] or None)
-        p=int(request.POST['ponto'] or None)
+        t=request.POST['twitter'] or None
+        l=request.POST['linha'] or None
+        p=request.POST['ponto'] or None
         h=int(request.POST['horas'] or None)
         m=int(request.POST['minutos'] or None)
         

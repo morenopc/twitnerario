@@ -1,0 +1,24 @@
+/* Ajustes no design */
+select#id_horas, #id_minutos{
+    width: 50px;
+}
+div.hour label{
+    margin-left: -15px;
+    padding-right: 10px;
+    width: 150px;
+}
+/* AutoComple jQuery UI */
+    .ui-autocomplete {
+	max-height: 100px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+	/* add padding to account for vertical scrollbar */
+	padding-right: 20px;
+}
+/* IE 6 doesn't support max-height
+ * we use height instead, but this forces the menu to always be this tall
+ */
+* html .ui-autocomplete {
+	height: 100px;
+}

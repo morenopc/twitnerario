@@ -4,6 +4,7 @@ import twitter
 import urllib2
 import cronjobs
 import time
+import random
 from time import strftime
 from xml.dom.minidom import parse, parseString
 from django.utils.encoding import smart_str, smart_unicode
@@ -90,16 +91,16 @@ def tweet(twitter_id,horarios):
     # ordena os horarios
     horarios=sorted(horarios)
     if int(strftime("%S"))%2:
-        toobad=' :/'
+        toobad=' v( ‘.’ )v'
         smile=' ^-^'
         
     try:
         if horarios[0]==0:
-            primeiro='agora, vai pro ponto garotinho! '+strftime("%H:%M:%S")+smile
+            primeiro='agora, vai pro ponto garotinho! '+strftime("%H:%M")+smile
         else:
             primeiro='daqui a '+str(horarios[0])+' minutos às '+addminutes(horarios[0])
     except:
-        return '@'+str(twitter_id)+' seu ônibus está sem previsão de chegada '+strftime("%H:%M:%S")+toobad
+        return '@'+str(twitter_id)+' são '+strftime("%H:%M")+' e seu ônibus está sem previsão de chegada'+toobad
     
     if len(horarios)>1:
         return '@'+str(twitter_id)+' seu ônibus vai passar '+primeiro+' e daqui a '+str(horarios[1])+' minutos às '+addminutes(horarios[1])
@@ -192,3 +193,23 @@ def pontos(request):
 def linhas(request, ponto):
     info=urllib2.urlopen('http://rast.vitoria.es.gov.br/pontovitoria/utilidades/listaLinhaPassamNoPonto/?ponto_oid='+str(ponto))
     return HttpResponse(info.read())
+    
+#
+# Cria registros teste
+#
+@cronjobs.register
+def cria_registros():
+    horas=range(6,24)
+    minutos=[0,15,30,45]
+    linhas=['071','074','1302','1331','1331PC','171','175','302','303','310','331','332','333']
+    for h in horas:
+        for m in minutos:
+            r=Registros()
+            r.twitter='morenocunha'
+            r.ponto=4045
+            r.linha=random.choice(linhas)
+            r.horas=h
+            r.minutos=m
+            r.lembrar=1
+            r.save()
+            

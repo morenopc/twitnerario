@@ -1,12 +1,23 @@
 /* Ajustes no design */
+.hero-unit{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
 select#id_horas, #id_minutos{
     width: 50px;
 }
+
 div.hour label{
     margin-left: -15px;
     padding-right: 10px;
     width: 150px;
 }
+
+select#id_linha, #id_lembrar{
+    width: 246px;
+}
+
 /* AutoComple jQuery UI */
     .ui-autocomplete {
 	max-height: 100px;

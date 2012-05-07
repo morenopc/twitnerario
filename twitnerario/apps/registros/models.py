@@ -6,7 +6,7 @@ class Registros(models.Model):
     """você será mencionado em um tweet (@twitnerario) com o horário aproximado do seu ônibus."""
     criado_em=models.DateTimeField('criado em',auto_now_add=True)
     twitter=models.CharField('twitter', max_length=15)
-    ponto=models.CharField(u'ponto número',max_length=4)
+    ponto=models.CharField(u'ponto',max_length=4)
     linha=models.CharField(u'linha',max_length=6)
     horas=models.PositiveSmallIntegerField(u'quero ser lembrado às',choices=HORAS,default=7)
     minutos=models.PositiveSmallIntegerField(u':',choices=MINUTOS,default=0)

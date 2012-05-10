@@ -1,14 +1,13 @@
 {% extends "registros/base.html" %}
 {% block content %}
-    <link rel="stylesheet" href="{{ MEDIA_URL }}css/ajustes.css" type="text/css" charset="utf-8">
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/overcast/jquery-ui-1.8.18.custom.css" type="text/css" charset="utf-8">
     <script type="text/javascript" src="{{MEDIA_URL}}js/prototype.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/pontos-array.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/titlecase.js"></script>
   <div class="row">
 	  <div class="span16">
-		  <form action="" method="post">{% csrf_token %}
-			  <fieldset>
+		  <form action="" method="post" style="margin-bottom: 10px;">{% csrf_token %}
+			  <fieldset style="margin-bottom: 10px;">
 				  <legend>Registro</legend>
 				  <div class="clearfix">
 					  {{ form.twitter.label_tag }}

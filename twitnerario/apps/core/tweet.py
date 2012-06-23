@@ -130,7 +130,7 @@ def tweet(twitter_id,horarios,linha):
         return '@'+str(twitter_id)+' são '+strftime("%H:%M")+' e seu ônibus ('+str(linha)+') está sem previsão de chegada '+toobad+' #previsão'
     # negative one
     if horarios[0]==-1:
-        return '@'+str(twitter_id)+' ocorreu um problema e não encontramos a previsão do seu ônibus ('+str(linha)+') '+toobad+'. Tentaremos novamente em breve. '+smile+' #previsão #falhou'
+        return '@'+str(twitter_id)+' ocorreu um problema e não encontramos a #previsão do seu ônibus ('+str(linha)+') '+toobad+'. Tentaremos novamente em breve. '+smile+' #falhou'
     # previsao zero 
     if horarios[0]==0:
         primeiro='são '+strftime("%H:%M")+'seu ônibus ('+str(linha)+') vai passar AGORA, vai pro ponto garotinho! '+smile+' #previsão'

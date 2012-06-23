@@ -166,7 +166,7 @@ def resend_tweets():
     if not regs:
         return False
     # set all regs to success
-    regs.objects.all().update(falhou=False)
+    regs.all().update(falhou=False)
     
     tweets=create_tweets(regs)
     api=twitter.Api(consumer_key=CONSUMER_KEY,

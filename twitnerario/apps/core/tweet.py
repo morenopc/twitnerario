@@ -1,10 +1,12 @@
 # -*- coding: UTF8 -*-
 
 import twitter
+import urllib
 import urllib2
 import cronjobs
 import time
 import random
+from settings import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET
 from time import strftime
 from xml.dom.minidom import parse, parseString
 from django.utils.encoding import smart_str, smart_unicode
@@ -82,34 +84,28 @@ def toHourMin(minutes):
 #
 # Cria Tweets
 #
-def create_tweets(h,m):
+def create_tweets(registros):
     """Recebe a hora atual (de 15 em 15 minutos) e retorna os tweets gerados"""
     
-    regs=[]
     previsoes_xml={}
     tweets=[]
     
-    # nao aceita registros repetidos
-    regs=Registros.objects.filter(horas=h, minutos=m).order_by('ponto')
-    if not regs:
-        return tweets
-    
     # obtem previsoes
-    for reg in regs:
-        prev=previsao(reg.ponto,reg.linha)
+    for reg in registros:
+        prev=previsao(reg)
         previsoes_xml.update({reg.ponto:prev})
     
-    pontos=uniq(regs.values_list('ponto'))
+    pontos=uniq(registros.values_list('ponto'))
     for ponto in pontos:
-        linhas=uniq(regs.filter(ponto=ponto[0]).values_list('linha'))
+        linhas=uniq(registros.filter(ponto=ponto[0]).values_list('linha'))
         for linha in linhas:
             hs=horarios(previsoes_xml[ponto[0]],linha[0])
-            tws=regs.filter(ponto=ponto[0],linha=linha[0])
+            tws=registros.filter(ponto=ponto[0],linha=linha[0])
             for tw in tws:
                 tweets.append(tweet(tw.twitter,hs,linha[0]))
     
     # remove registros - somente esta vez
-    regs.filter(lembrar=0).delete()
+    #registros.filter(lembrar=0,falhou=False).delete()
     
     return tweets
 
@@ -131,18 +127,21 @@ def tweet(twitter_id,horarios,linha):
     
     # Zero   
     if not horarios:
-        return '@'+str(twitter_id)+' são '+strftime("%H:%M")+' e seu ônibus ('+str(linha)+') está sem previsão de chegada '+toobad
+        return '@'+str(twitter_id)+' são '+strftime("%H:%M")+' e seu ônibus ('+str(linha)+') está sem previsão de chegada '+toobad+' #previsão'
+    # negative one
+    if horarios[0]==-1:
+        return '@'+str(twitter_id)+' ocorreu um problema e não encontramos a previsão do seu ônibus ('+str(linha)+') '+toobad+'. Tentaremos novamente em breve. '+smile+' #previsão #falhou'
     # previsao zero 
     if horarios[0]==0:
-        primeiro='são '+strftime("%H:%M")+'seu ônibus ('+str(linha)+') vai passar AGORA, vai pro ponto garotinho! '+smile
+        primeiro='são '+strftime("%H:%M")+'seu ônibus ('+str(linha)+') vai passar AGORA, vai pro ponto garotinho! '+smile+' #previsão'
         mais_de_um='AGORA, vai pro ponto garotinho! '+smile+' o próximo'
     else:
         if horarios[0] > 59:
             prev=toHourMin(horarios[0])
-            primeiro='seu ônibus ('+str(linha)+') vai passar daqui a '+prev[0]+'h e '+prev[1]+'min às '+addminutes(horarios[0])
+            primeiro='seu ônibus ('+str(linha)+') vai passar daqui a '+prev[0]+'h e '+prev[1]+'min às '+addminutes(horarios[0])+' #previsão'
             mais_de_um='daqui a '+prev[0]+'h e '+prev[1]+'min às '+addminutes(horarios[0])
         else:
-            primeiro='seu ônibus ('+str(linha)+') vai passar daqui a '+str(horarios[0])+' minutos às '+addminutes(horarios[0])
+            primeiro='seu ônibus ('+str(linha)+') vai passar daqui a '+str(horarios[0])+' minutos às '+addminutes(horarios[0])+' #previsão'
             mais_de_um='daqui a '+str(horarios[0])+' minutos às '+addminutes(horarios[0])
     # Um
     if len(horarios)==1:
@@ -151,15 +150,41 @@ def tweet(twitter_id,horarios,linha):
     else:
         if horarios[1] > 59:
             prev=toHourMin(horarios[1])
-            return '@'+str(twitter_id)+' seu ônibus ('+str(linha)+') vai passar '+mais_de_um+' e daqui a '+prev[0]+'h e '+prev[1]+'min às '+addminutes(horarios[1])
+            return '@'+str(twitter_id)+' seu ônibus ('+str(linha)+') vai passar '+mais_de_um+' e daqui a '+prev[0]+'h e '+prev[1]+'min às '+addminutes(horarios[1])+' #previsão'
         else:
-            return '@'+str(twitter_id)+' seu ônibus ('+str(linha)+') vai passar '+mais_de_um+' e daqui a '+str(horarios[1])+' minutos às '+addminutes(horarios[1])
+            return '@'+str(twitter_id)+' seu ônibus ('+str(linha)+') vai passar '+mais_de_um+' e daqui a '+str(horarios[1])+' minutos às '+addminutes(horarios[1])+' #previsão'
+    
+#
+# Renvia Tweets
+#
+@cronjobs.register
+def resend_tweets():
+    regs=[]
+    
+    # get all regs failed
+    regs=Registros.objects.filter(falhou=True).order_by('ponto')
+    if not regs:
+        return False
+    # set all regs to success
+    regs.objects.all().update(falhou=False)
+    
+    tweets=create_tweets(regs)
+    api=twitter.Api(consumer_key=CONSUMER_KEY,
+                    consumer_secret=CONSUMER_SECRET,
+                    access_token_key=ACCESS_TOKEN_KEY,
+                    access_token_secret=ACCESS_TOKEN_SECRET)
+    
+    for tweet in tweets:
+        api.PostUpdate(tweet)
+    return True 
     
 #
 # Envia Tweets
 #
 @cronjobs.register
 def send_tweets():
+    regs=[]
+    
     # (heroku) server time
     h=int(strftime("%H"))
     m=int(strftime("%M"))
@@ -176,14 +201,18 @@ def send_tweets():
     
     h=int(strftime("%H"))
     m=int(strftime("%M"))
-    tweets=create_tweets(h,m)
-    if not tweets:
+    
+    # nao aceita registros repetidos
+    regs=Registros.objects.filter(horas=h, minutos=m).order_by('ponto')
+    if not regs:
         return False
     
-    api=twitter.Api(consumer_key='GjDAsmaMQdZdli8pDXA',
-                    consumer_secret='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8',
-                    access_token_key='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV',
-                    access_token_secret='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM')
+    tweets=create_tweets(regs)
+    
+    api=twitter.Api(consumer_key=CONSUMER_KEY,
+                    consumer_secret=CONSUMER_SECRET,
+                    access_token_key=ACCESS_TOKEN_KEY,
+                    access_token_secret=ACCESS_TOKEN_SECRET)
     
     for tweet in tweets:
         api.PostUpdate(tweet)
@@ -193,11 +222,13 @@ def send_tweets():
 #
 # Previsao
 #
-def previsao(ponto,linha):
-    """Envia ponto e linha para o servidor ponto-vitoria e retorna XML com previsão (a previsão contém todas linhas)"""
+def previsao(registro):
+    """
+        Envia ponto e linha para o servidor ponto-vitoria e retorna XML com previsão (a previsão contém todas linhas)
+    """
     previsao=''
-    opener = urllib2.build_opener()
-    opener.addheaders = [
+    opener=urllib2.build_opener()
+    opener.addheaders=[
     ('Referer','http://rast.vitoria.es.gov.br/pontovitoria/'),
     ('User-agent', 'Mozilla/5.0 (X11; U; Linux x86_64; en-US) AppleWebKit/534.13 (KHTML, like Gecko) Chrome/9.0.597.98 Safari/534.13'),
     ('Accept','application/xml, text/xml, */*;q=0.5'),
@@ -205,15 +236,27 @@ def previsao(ponto,linha):
     ('Accept-Encoding','gzip,deflate,sdch'),
     ('Accept-Charset','ISO-8859-1,utf-8;q=0.7,*;q=0.3'),
     ('Keep-Alive','timeout=15, max=94')]
-    previsao=opener.open('http://rast.vitoria.es.gov.br/previsao-web-service/previsao.jsp?ponto='+str(ponto)+'&linha='+str(linha)+'')
     
-    return previsao.read()
+    try:
+        urlopened=opener.open('http://rast.vitoria.es.gov.br/previsao-web-service/previsao.jsp?ponto='+str(registro.ponto)+'&linha='+str(registro.linha))
+    except:
+        registro.falhou=True
+        registro.save()
+        return None
+    
+    read=urlopened.read()
+    urlopened.close()    
+    return read
     
 #
 # Horarios
 #
 def horarios(ponto_xml,linha):
     """Recebe XML do ponto e linha a ser consultada retorna previsões em minutos"""
+    
+    if not ponto_xml:
+        return [-1] # Erro ao obter o XML da previsao
+    
     horarios=[]
     xml0=parseString(ponto_xml)
     horarioAtual=xml0.childNodes[1].getElementsByTagName("horarioAtual")[0].firstChild.data
@@ -228,18 +271,32 @@ def horarios(ponto_xml,linha):
     return horarios # de chegada em minutos
 
 #
+# Localizar
+#
+def localizar(request, ref):
+    data=urllib.urlencode({'referencia':smart_str(ref)})
+    urlopen=urllib2.urlopen('http://rast.vitoria.es.gov.br/pontovitoria/utilidades/listaPontos?'+data)
+    read=urlopen.read()
+    urlopen.close()
+    return HttpResponse(read)
+
+#
 # Pontos
 #
 def pontos(request):
-    info=urllib2.urlopen('http://rast.vitoria.es.gov.br/pontovitoria/utilidades/listaPontos/')
-    return HttpResponse(info.read())
+    urlopen=urllib2.urlopen('http://rast.vitoria.es.gov.br/pontovitoria/utilidades/listaPontos/')
+    read=urlopen.read()
+    urlopen.close()
+    return HttpResponse(read)
 
 #
 # Linhas
 #
 def linhas(request, ponto):
-    info=urllib2.urlopen('http://rast.vitoria.es.gov.br/pontovitoria/utilidades/listaLinhaPassamNoPonto/?ponto_oid='+str(ponto))
-    return HttpResponse(info.read())
+    urlopen=urllib2.urlopen('http://rast.vitoria.es.gov.br/pontovitoria/utilidades/listaLinhaPassamNoPonto/?ponto_oid='+str(ponto))
+    read=urlopen.read()
+    urlopen.close()
+    return HttpResponse(read)
     
 #
 # Cria registros teste

@@ -1,5 +1,5 @@
 import djcelery
-from celery.schedules import crontab
+#from celery.schedules import crontab
 import os, sys
 from datetime import timedelta
 
@@ -27,13 +27,7 @@ TIME_ZONE = 'America/Sao_Paulo'
 LANGUAGE_CODE = 'pt-br'
 
 SITE_ID = 1
-
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_I18N = True
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale
 USE_L10N = True
 
 # MEDIAS
@@ -41,25 +35,14 @@ MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
 MEDIA_URL = '/media/'
 ADMIN_MEDIA_PREFIX = MEDIA_URL + 'admin/'
 
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
+# STATIC
 STATIC_ROOT = ''
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
-from celery.schedules import crontab
-# Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
-
-# List of finder classes that know how to find static files in
-# various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -128,13 +111,15 @@ CELERY_RESULT_DBURI = DATABASES['default']
 #}
 
 # https://dev.twitter.com/apps/1331327/show
-CONSUMER_KEY = "W5m2O849FEI9TwyuZki1xQ"
-CONSUMER_SECRET = "OEXx19GpTSccZy375iUhI7zjOkH8vLhdXNIjQh4zSSk"
+CONSUMER_KEY='GjDAsmaMQdZdli8pDXA'
+CONSUMER_SECRET='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8'
+ACCESS_TOKEN_KEY='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV'
+ACCESS_TOKEN_SECRET='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM'
+
 AUTHENTICATION_BACKENDS = (
     #'backends.twitteroauth.TwitterBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
- 
 AUTH_PROFILE_MODULE = "twitterauth.UserProfile"
 
 # A sample logging configuration. The only tangible logging

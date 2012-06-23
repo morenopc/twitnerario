@@ -3,7 +3,9 @@ from django.db import models
 from registros.model_choices import HORAS, MINUTOS, LEMBRAR
 
 class Registros(models.Model):
-    """você será mencionado em um tweet (@twitnerario) com o horário aproximado do seu ônibus."""
+    """
+        você será mencionado em um tweet (@twitnerario) com o horário aproximado do seu ônibus.
+    """
     criado_em=models.DateTimeField('criado em',auto_now_add=True)
     twitter=models.CharField('twitter', max_length=15)
     ponto=models.CharField(u'ponto',max_length=4)
@@ -12,6 +14,7 @@ class Registros(models.Model):
     minutos=models.PositiveSmallIntegerField(u':',choices=MINUTOS,default=0)
     lembrar=models.PositiveSmallIntegerField(u'me lembre',choices=LEMBRAR,default=0)
     fim_de_semana=models.BooleanField(u'incluir fim de semana?',default=False)
+    falhou=models.BooleanField(u'falhou?',default=False)
     
     class Meta:
         verbose_name = u"Registro"

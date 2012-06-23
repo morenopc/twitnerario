@@ -165,8 +165,6 @@ def resend_tweets():
     regs=Registros.objects.filter(falhou=True).order_by('ponto')
     if not regs:
         return False
-    # set all regs to success
-    regs.all().update(falhou=False)
     
     tweets=create_tweets(regs)
     api=twitter.Api(consumer_key=CONSUMER_KEY,
@@ -176,6 +174,9 @@ def resend_tweets():
     
     for tweet in tweets:
         api.PostUpdate(tweet)
+    
+    # set all regs to success
+    regs.all().update(falhou=False)
     return True 
     
 #
@@ -201,7 +202,6 @@ def send_tweets():
     
     h=int(strftime("%H"))
     m=int(strftime("%M"))
-    
     # nao aceita registros repetidos
     regs=Registros.objects.filter(horas=h, minutos=m).order_by('ponto')
     if not regs:

@@ -19,10 +19,9 @@ from celery.task import task
 from django.http import Http404
 
 SADFACES=[u'☹',u'๏̯͡๏',u'».«',u'(͡๏̯͡๏)',u'(×̯×)',u'ಥ_ಥ',u'v_v',u'►_◄',
-           u'►.◄',u'>.<',u'ಠ_ರೃ',u'טּ_טּ',u'ಠ╭╮ಠ',u'מּ_מּ',u'לּ_לּ',u'טּ_טּ',
-           'ಸ_ಸ',u'ಠ,ಥ',u'໖_໖',u'Ծ_Ծ',u'ಠ_ಠ',u'⇎_⇎',u'●_●',u'~̯~',
-           '◔̯◔',u'ᇂ_ᇂ',u'أ ̯ أ',u'(╥﹏╥)',u'(►.◄)',u'(ு८ு)',
-           'v(ಥ ̯ ಥ)v',u'ب_ب']
+          u'►.◄',u'>.<',u'ಠ_ರೃ',u'ಠ╭╮ಠ',u'מּ_מּ',u'לּ_לּ',u'טּ_טּ',u'ಸ_ಸ',
+          u'ಠ,ಥ',u'໖_໖',u'Ծ_Ծ',u'ಠ_ಠ',u'⇎_⇎',u'●_●',u'~̯~',u'◔̯◔',
+          u'أ ̯ أ',u'(╥﹏╥)',u'(►.◄)',u'(ு८ு)',u'v(ಥ ̯ ಥ)v',u'ب_ب']
 
 #
 # Unico
@@ -314,6 +313,6 @@ def cria_registros():
             r.linha=random.choice(linhas)
             r.horas=h
             r.minutos=m
-            r.lembrar=1
+            r.lembrar=0
             r.save()
             

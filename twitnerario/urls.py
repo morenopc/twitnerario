@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.views.generic.simple import direct_to_template
 from django.conf import settings
 from django.contrib import admin
 from twitterauth.views import twitter_signin, twitter_return
@@ -15,6 +16,9 @@ urlpatterns=patterns('',
     url(r'^localizar/(.+)/$', localizar, name='localizar'),
     url(r'^pontos/$', pontos, name='pontos'),
     url(r'^(\d+)/linhas/$', linhas, name='linhas'),
+    url(r'^facebookauth/$', direct_to_template,
+        {'template': 'facebook_auth/facebook_auth.html'},
+        name='facebook_auth'),
 )
 
 if settings.DEBUG:

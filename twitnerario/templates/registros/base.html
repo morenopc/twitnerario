@@ -1,6 +1,6 @@
 {% load form_utils_tags %}
 <!DOCTYPE html>
-<html lang="pt_BR">
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="pt_BR">
 <head>
 	<meta charset="utf-8">
 	<title>{% block page_title %}{% endblock %}Twitnerário Beta</title>
@@ -27,6 +27,18 @@
 
 </script>
 <body>
+  <!-- <div id="fb-root"></div>
+  <script>
+  /*
+  (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=256009494514517";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+	*/
+  </script>-->
   <header class="hero-unit">
     <div class="container">
       <a style="text-decoration:none;" href="/">
@@ -34,6 +46,8 @@
 			</a>
 			<p>Agende e receba lembretes (tweets) com o horário que seu ônibus irá passar.</p>
 	    <div class="bs-links">
+	    <!-- <div class="fb-like" data-href="http://twitnerario.herokuapp.com/" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+	    <div class="fb-login-button">Login with Facebook</div> -->
 	      <ul class="quick-links">
           <li class="follow-btn">
 		        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Agende e receba lembretes (tweets) com os horários previstos para seu ônibus passar." data-via="twitnerario" data-lang="pt" data-hashtags="Vitória-ES">Tweetar</a>
@@ -44,12 +58,12 @@
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
           </li>
 	        <li>
-            <iframe class="github-btn" src="http://markdotto.github.com/github-buttons/github-btn.html?user=morenopc&repo=twitnerario&type=watch&count=true"
+            <!-- <iframe class="github-btn" src="http://markdotto.github.com/github-buttons/github-btn.html?user=morenopc&repo=twitnerario&type=watch&count=true"
       allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
           </li>
 		      <li>
             <iframe class="github-btn" src="http://markdotto.github.com/github-buttons/github-btn.html?user=morenopc&repo=twitnerario&type=fork&count=true"
-      allowtransparency="true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe>
+      allowtransparency="true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe> -->
           </li>
           <li>
 	          <a class="btn" target="_blank" href="https://github.com/morenopc/twitnerario/issues?state=open" style="padding-top: 1px; padding-bottom: 2px;">Sugestões</a>
@@ -68,7 +82,7 @@
 		  <div class="bs-links">
 	      <ul class="quick-links-footer">
 	        <li>
-			      <a href="http://www.djangoproject.com/"><img src="http://media.djangoproject.com/img/badges/djangosite80x15_grey.gif" border="0" alt="A Django site." title="A Django site." /></a>
+			      <a href="http://www.djangoproject.com/"><img src="https://dl.dropbox.com/u/2865713/twitnerario/img/djangosite80x15_grey.gif" border="0" alt="A Django site." title="A Django site." /></a>
 			    </li>
 			    <li>
 			      <a href="http://twitter.com/morenocunha">@morenocunha</a> (Code)

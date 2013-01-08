@@ -1,196 +1,87 @@
-{% extends "registros/base.html" %}
+{% extends "base.html" %}
 {% block content %}
   <style>
-	.ui-combobox {
-		position: relative;
-		display: inline-block;
-	}
-	.ui-combobox-toggle {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		margin-left: -1px;
-		padding: 0;
-		/* adjust styles for IE 6/7 */
-		*height: 1.7em;
-		*top: 0.1em;
-	}
-	.ui-combobox-input {
-		margin: 0;
-		padding: 0.3em;
-	}
-	</style>
+    .ui-combobox {
+        position: relative;
+        display: inline-block;
+    }
+    .ui-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+        /* adjust styles for IE 6/7 */
+        *height: 1.7em;
+        *top: 0.1em;
+    }
+    .ui-combobox-input {
+        margin: 0;
+        padding: 0.3em;
+    }
+  </style>
   <link rel="stylesheet" href="{{ MEDIA_URL }}css/overcast/jquery-ui-1.8.18.custom.css" type="text/css" charset="utf-8">
   <script type="text/javascript" src="{{MEDIA_URL}}js/prototype.js"></script>
   <script type="text/javascript" src="{{MEDIA_URL}}js/pontos-array.js"></script>
   <script type="text/javascript" src="{{MEDIA_URL}}js/titlecase.js"></script>
+  <script type="text/javascript" src="{{MEDIA_URL}}js/twitnerario.registro.js"></script>
   <script type="text/javascript">
-  (function( jQuery ) {
-		jQuery.widget( "ui.combobox", {
-			_create: function() {
-				var input,
-					self = this,
-					select = this.element.hide(),
-					selected = select.children( ":selected" ),
-					value = selected.val() ? selected.text() : "",
-					wrapper = this.wrapper = jQuery( "<span>" )
-						.addClass( "ui-combobox" )
-						.insertAfter( select );
-
-				input = jQuery( "<input>" )
-					.appendTo( wrapper )
-					.val( value )
-					.addClass( "ui-state-default ui-combobox-input" )
-					.autocomplete({
-						delay: 0,
-						minLength: 0,
-						source: function( request, response ) {
-							var matcher = new RegExp( jQuery.ui.autocomplete.escapeRegex(request.term), "i" );
-							response( select.children( "option" ).map(function() {
-								var text = jQuery( this ).text();
-								if ( this.value && ( !request.term || matcher.test(text) ) )
-									return {
-										label: text.replace(
-											new RegExp(
-												"(?![^&;]+;)(?!<[^<>]*)(" +
-												jQuery.ui.autocomplete.escapeRegex(request.term) +
-												")(?![^<>]*>)(?![^&;]+;)", "gi"
-											), "<strong>$1</strong>" ),
-										value: text,
-										option: this
-									};
-							}) );
-						},
-						select: function( event, ui ) {
-							ui.item.option.selected = true;
-							self._trigger( "selected", event, {
-								item: ui.item.option
-							});
-						},
-						change: function( event, ui ) {
-							if ( !ui.item ) {
-								var matcher = new RegExp( "^" + jQuery.ui.autocomplete.escapeRegex( jQuery(this).val() ) + "$", "i" ),
-									valid = false;
-								select.children( "option" ).each(function() {
-									if ( jQuery( this ).text().match( matcher ) ) {
-										this.selected = valid = true;
-										return false;
-									}
-								});
-								if ( !valid ) {
-									// remove invalid value, as it didn't match anything
-									jQuery( this ).val( "" );
-									select.val( "" );
-									input.data( "autocomplete" ).term = "";
-									return false;
-								}
-							}
-						}
-					})
-					.addClass( "ui-widget ui-widget-content ui-corner-left" );
-
-				input.data( "autocomplete" )._renderItem = function( ul, item ) {
-					return jQuery( "<li></li>" )
-						.data( "item.autocomplete", item )
-						.append( "<a>" + item.label + "</a>" )
-						.appendTo( ul );
-				};
-
-				jQuery( "<a>" )
-					.attr( "tabIndex", -1 )
-					.attr( "title", "Show All Items" )
-					.appendTo( wrapper )
-					.button({
-						icons: {
-							primary: "ui-icon-triangle-1-s"
-						},
-						text: false
-					})
-					.removeClass( "ui-corner-all" )
-					.addClass( "ui-corner-right ui-combobox-toggle" )
-					.click(function() {
-						// close if already visible
-						if ( input.autocomplete( "widget" ).is( ":visible" ) ) {
-							input.autocomplete( "close" );
-							return;
-						}
-
-						// work around a bug (likely same cause as #5265)
-						jQuery( this ).blur();
-
-						// pass empty string as value to search for, displaying all results
-						input.autocomplete( "search", "" );
-						input.focus();
-					});
-			},
-
-			destroy: function() {
-				this.wrapper.remove();
-				this.element.show();
-				jQuery.Widget.prototype.destroy.call( this );
-			}
-		});
-	})( jQuery );
-
-	jQuery(function() {
-		jQuery("select#combobox_localizar").combobox();
-		
-		jQuery("select#combobox_localizar").bind( "autocompleteopen", function(event, ui) {
+  jQuery(function() {
+    jQuery("select#combobox_localizar").combobox();
+    jQuery("select#combobox_localizar").bind( "autocompleteopen", function(event, ui) {
       alert('click');
     });
-		
-	});
-	</script>
+  });
+  </script>
   <div class="row">
-	  <div class="span16">
+      <div class="span16">
       <form action="" method="post" style="margin-bottom: 10px;">{% csrf_token %}
         <fieldset style="margin-bottom: 10px;">
-          <legend>Registro</legend>
+          <legend>Agendar tweet</legend>
           <div class="clearfix">
             {{ form.twitter.label_tag }}
             <div class="input">
-	            <div class="input-prepend">
-	              <span class="add-on">@</span>
+                <div class="input-prepend">
+                  <span class="add-on">@</span>
                 {{ form.twitter }}
-	            </div>
+                </div>
             </div>
           </div>
-          <!-- Localizar 
-          <div class="clearfix">
+          <!-- Localizar -->
+          <!-- <div class="clearfix">
             <label for="id_localizar">Localizar</label>
             <div class="input">
               <div class="ui-widget">
                 <select id="combobox_localizar">
                   <option value="">Select one...</option>
-		<option value="momo">ActionScript</option>
-		<option value="AppleScript">AppleScript</option>
-		<option value="Asp">Asp</option>
-		<option value="BASIC">BASIC</option>
-		<option value="C">C</option>
+                  <option value="momo">ActionScript</option>
+                  <option value="AppleScript">AppleScript</option>
+                  <option value="Asp">Asp</option>
+                  <option value="BASIC">BASIC</option>
+                  <option value="C">C</option>
                 </select>
-	            </div>
+                </div>
             </div>
-          </div>
-          -->
+          </div> -->
           <div class="clearfix">
             {{ form.ponto.label_tag }}
             <div class="input">
               <div class="input-prepend">
                 <span class="add-on">Nº</span>
-	              {{ form.ponto }}
-	            </div>
+                  {{ form.ponto }}
+                </div>
             </div>
           </div>
           <div class="clearfix">
             {{ form.linha.label_tag }}
             <div class="input">
-	            {{ form.linha }}
+                {{ form.linha }}
             </div>
           </div>
           <div class="hour clearfix">
             {{ form.horas.label_tag }}
             <div class="input">
-	            {{ form.horas }} : {{ form.minutos }}
+                {{ form.horas }} : {{ form.minutos }}
             </div>
           </div>
           <div class="hour clearfix">
@@ -202,19 +93,19 @@
           <div class="hour clearfix">
             {#{ form.fim_de_semana.label_tag }#}
             <div class="input">
-	            {{ form.fim_de_semana }}
+                {{ form.fim_de_semana }}
             </div>
           </div>
           <div class="actions">
             <input class="btn primary" type="submit" value="Salvar Ponto">
             <a class="btn" href="/twitnerario/">Cancelar</a>
           </div>
-			  </fieldset>
-		  </form>
-	  </div>
+              </fieldset>
+          </form>
+      </div>
   </div>
   <div class="row">
-	  <div id="content" class="span16"></div>
+      <div id="content" class="span16"></div>
   </div>
 {% endblock %}
 {% block footer_inc %}

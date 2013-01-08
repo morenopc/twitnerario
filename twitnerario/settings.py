@@ -93,6 +93,8 @@ INSTALLED_APPS = (
     # heroku
     'djcelery',
     'djkombu',
+    # apps
+    'templatetag_handlebars',
 )
 # CELERY
 djcelery.setup_loader()

@@ -8,21 +8,26 @@ var $id_ponto=jQuery('#id_ponto');
 var $id_info=jQuery('#info');
 var $id_linha=jQuery('#id_linha');
 var $id_linha_opt=jQuery("#id_linha option");
-var ponto_info_tyle='<p class="ponto_erro_info" id="info"style="display:none;color:#404040;font-size: 13px;padding-top: 4px;margin-bottom: 0px;">';
+var ponto_info_style='<p class="ponto_erro_info" id="info"style="display:none;color:#404040;font-size: 13px;padding-top: 4px;margin-bottom: 0px;">';
 var ponto_n_encontrado='&ensp;&uarr; Ponto vazio ou não encontrado. Tente novamente (^-^\')';
 /*
     Obtem lista JSON de pontos - pontosJSON
 */
 jQuery.getJSON('/media/json/listaPontos.json', function(data){
-    pontosJSON=data;
+    pontosJSON = data;
     //jQuery.each(data.data, function(i,v) { pts[pts.length]=v.ponto; }); lista de pontos disponiveis
+}).complete(function() {
+    if (jQuery('#id_ponto').val()){
+        get_linhas();
+    }
 });
+
 /*
     Ponto erro informacao
 */
 function ponto_erro_info(erro_texto) {
     jQuery('.ponto_erro_info').remove();
-    $id_ponto.after(ponto_info_tyle+erro_texto+'</p>');
+    $id_ponto.after(ponto_info_style+erro_texto+'</p>');
     jQuery('#info').show('fast');
 }
 /*

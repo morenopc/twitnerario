@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import admin
 from twitterauth.views import twitter_signin, twitter_return
 from core.tweet import localizar, pontos, linhas, send_tweets
+from registros.views import pesquisar
 admin.autodiscover()
 
 urlpatterns=patterns('',
@@ -19,9 +20,11 @@ urlpatterns=patterns('',
     url(r'^facebookauth/$', direct_to_template,
         {'template': 'facebook_auth/facebook_auth.html'},
         name='facebook_auth'),
+    url(r'^pesquisar/', pesquisar, name='pesquisar'),
 )
 
 if settings.DEBUG:
     urlpatterns += patterns('',
-        (r'^media/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': settings.MEDIA_ROOT }),
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve',
+            { 'document_root': settings.MEDIA_ROOT }),
     )

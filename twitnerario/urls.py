@@ -10,7 +10,8 @@ admin.autodiscover()
 urlpatterns=patterns('',
     url(r'^admin/', include(admin.site.urls)),
     
-    url(r'^$',include('registros.urls', namespace='registro')),
+    #url(r'^pesquisar/', pesquisar, name='pesquisar'),
+    url(r'^$', pesquisar, name='pesquisar'),
     url(r'^registro/', include('registros.urls', namespace='registro')),
     url('^login/$', twitter_signin, name='login'),
     url('^return/$', twitter_return, name='return'),
@@ -20,7 +21,6 @@ urlpatterns=patterns('',
     url(r'^facebookauth/$', direct_to_template,
         {'template': 'facebook_auth/facebook_auth.html'},
         name='facebook_auth'),
-    url(r'^pesquisar/', pesquisar, name='pesquisar'),
 )
 
 if settings.DEBUG:

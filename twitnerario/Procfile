@@ -1,1 +1,1 @@
-worker: python hellodjango/manage.py celeryd -E -B --loglevel=DEBUG
+worker: python twitnerario/manage.py celeryd -E -B --loglevel=DEBUG

@@ -1,24 +1,45 @@
-import djcelery
+#import djcelery
 #from celery.schedules import crontab
 import os, sys
 from datetime import timedelta
 
+# CELERY
+BROKER_BACKEND = 'django'
+
+import djcelery
+djcelery.setup_loader()
+
+# djcelery.setup_loader()
+# BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
+# CELERY_RESULT_DBURI = DATABASES['default']
+#CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+
+#CELERYBEAT_SCHEDULE = {
+#    # Execute every 15 minutes
+#    "every-15-minutes": {
+#        "task": "send_tweets",
+#        #"schedule": crontab(minute="*/15"),
+#        "schedule": crontab(minute="*/1"),
+#        "args": (16, 16),
+#    },
+#}
+
 PROJECT_DIR = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_DIR, 'apps'))
 
-DEBUG=True
-TEMPLATE_DEBUG=DEBUG
-ADMINS=(('Moreno', 'moreno.pinheiro@gmail.com'),)
-MANAGERS=ADMINS
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+ADMINS = [('Moreno', 'moreno.pinheiro@gmail.com')]
+MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(PROJECT_DIR, 'meuonibus.db'),                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(PROJECT_DIR, 'meuonibus.db'),
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -84,34 +105,20 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     # me
     'registros',
+    'core',
+    # apps
     'oauth',
     'simplejson',
     'twitterauth',
     'form_utils',
-    'core',
-    'cronjobs',
-    # heroku
-    'djcelery',
-    'djkombu',
-    # apps
     'templatetag_handlebars',
+    'cronjobs',
+    # Celery
+    'kombu.transport.django',
+    'djcelery',
 )
-# CELERY
-djcelery.setup_loader()
-BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
-CELERY_RESULT_DBURI = DATABASES['default']
-#CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 
-#CELERYBEAT_SCHEDULE = {
-#    # Execute every 15 minutes
-#    "every-15-minutes": {
-#        "task": "send_tweets",
-#        #"schedule": crontab(minute="*/15"),
-#        "schedule": crontab(minute="*/1"),
-#        "args": (16, 16),
-#    },
-#}
-
+# Twitter
 # https://dev.twitter.com/apps/1331327/show
 CONSUMER_KEY='GjDAsmaMQdZdli8pDXA'
 CONSUMER_SECRET='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8'

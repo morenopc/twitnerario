@@ -1,0 +1,11 @@
+{% load templatetag_handlebars %}
+{% tplhandlebars "pesq_resultado" %}
+  <hr class="separador">
+  <div class="resultado" id="{{ponto}}">
+    <span id="n_ponto_id" class="ponto">{{ponto}}</span>
+    <span class="endereco">
+      <div class="lograd">{{lograd}} - {{bairro}}</div>
+      <div class="p_refer">{{p_refer}}</div>
+    </span>
+  </div>
+{% endtplhandlebars %}

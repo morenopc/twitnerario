@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% include "pesquisar/resultado.ponto.html" %}
+  <style>
+    #pesq_ponto {
+      width: 386px;
+      height: 19px;
+    }
+  </style>
+  <link rel="stylesheet" href="{{ MEDIA_URL }}css/resultados_lista.css" type="text/css" charset="utf-8">
+  <div class="row">
+    <div class="span16">
+      <fieldset style="margin-bottom: 10px;">
+        <legend>Encontre o número do ponto</legend>
+          <form action="" method="post" style="margin-bottom: 10px;">{% csrf_token %}
+            <div class="clearfix" style="margin-bottom: 36px;">
+              <div class="input">
+                <input id="pesq_ponto" type="text" name="pesq_ponto" label="Encontre o número do ponto" title="Encontre o número do ponto" placeholder="Rua, bairro ou ponto de referência" maxlength="25">
+                <input id="pesq_button" class="btn primary" type="button" value="Pesquisar">
+              </div>
+            </div>
+          </form>
+          <div class="lista_resultados">
+           <!-- resultados-->
+          </div>
+          <div class="actions" style="position: relative; height: 29px;">
+            <a class="btn" href="/registro/" style="position: absolute; right: 300px;">Pular, já sei o número do ponto >>></a>
+          </div>
+        </fieldset>
+    </div>
+  </div>
+  <div class="row">
+      <div id="content" class="span16"></div>
+  </div>
+{% endblock %}
+{% block footer_inc %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/twitnerario.encontrar.ponto.js"></script>
+{% endblock %}

@@ -1,0 +1,44 @@
+/* Encontrar ponto - Lista de resultados */
+div.lista_resultados {
+    /*border-top: 1px solid lightgray;*/
+	min-width: 485px;
+	margin-left: 150px;
+	/*padding-top: 4px;
+	padding-bottom: 2px;
+	padding-left: 5px;*/
+}
+
+hr.separador {
+	max-width: 488px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+
+div.resultado {
+	/*border-top: 1px solid #CCC;*/
+	padding: 5px;
+	cursor: pointer;
+}
+
+div.resultado:hover{
+	color: #0064CD;
+}
+
+.ponto {
+	float: left;
+	font-size: 18px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 6px;
+}
+
+.endereco {
+	display: inline-table;
+	padding-left: 6px;
+}
+
+.lograd {
+	padding-bottom: 3px;
+	padding-top: 2px;
+	font-size: 14px;
+}

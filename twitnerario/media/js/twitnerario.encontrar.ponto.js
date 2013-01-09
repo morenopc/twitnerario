@@ -1,0 +1,1 @@
+/home/moreno/projects/heroku/twitnerario/coffeescript/twitnerario.encontrar.ponto.js

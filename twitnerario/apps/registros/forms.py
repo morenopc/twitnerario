@@ -5,14 +5,15 @@ from django.forms import ModelForm
 from form_utils.forms import BetterModelForm
 from registros.models import Registros
 
+
 class RegistrosForm(BetterModelForm):
     class Meta:
-        model=Registros
+        model = Registros
         widgets = {
-            'linha':forms.Select(),
-            'fim_de_semana':forms.TextInput(attrs={'style': 'display:none'}),
+            'linha': forms.Select(),
+            'fim_de_semana': forms.TextInput(attrs={'style': 'display:none'}),
         }
-        fieldsets=[
+        fieldsets = [
                    ('Registro', {
                    'fields': [
                               'twitter',
@@ -28,4 +29,3 @@ class RegistrosForm(BetterModelForm):
                  ]
         row_attrs = {
         }
-        

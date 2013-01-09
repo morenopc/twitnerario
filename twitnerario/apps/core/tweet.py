@@ -137,34 +137,59 @@ def tweet(twitter_id, horarios, linha):
 
     # Zero   
     if not horarios:
-        return '@' + str(twitter_id) + ' são ' + strftime("%H:%M") +
-        ' e seu ônibus (' + str(linha) + ') está sem previsão de chegada ' +
-        toobad + ' #previsão'
+        # return '@' + str(twitter_id) + ' são ' + strftime("%H:%M") +
+        # ' e seu ônibus (' + str(linha) + ') está sem previsão de chegada ' +
+        # toobad + ' #previsão'
+        return (
+            '@{0} são {1} e seu ônibus ({2}) está sem previsão de chegada {3} '
+            '#previsão').format(witter_id, strftime("%H:%M"), linha, toobad)
     # negative one
     if horarios[0] == -1:
-        return '@' + str(twitter_id) +
-        ' ocorreu um problema e não encontramos a #previsão do seu ônibus (' +
-        str(linha) + ') ' + toobad + '. Tentaremos novamente em breve. ' +
-        smile + ' #falhou'
+        # return '@' + str(twitter_id) +
+        # ' ocorreu um problema e não encontramos a #previsão do seu ônibus (' +
+        # str(linha) + ') ' + toobad + '. Tentaremos novamente em breve. ' +
+        # smile + ' #falhou'
+        return (
+            '@{0} ocorreu um problema e não encontramos a #previsão do seu'
+            ' ônibus ({1}) {2}. Tentaremos novamente em breve. {3}'
+            ' #falhou').format(twitter_id, linha, toobad, smile)
     # previsao zero 
     if horarios[0] == 0:
-        primeiro = 'são ' + strftime("%H:%M") + 'seu ônibus (' + str(linha) +
-        ') vai passar AGORA, vai pro ponto garotinho! ' + smile + ' #previsão'
-        mais_de_um = 'AGORA, vai pro ponto garotinho! ' + smile + ' o próximo'
+        # primeiro = 'são ' + strftime("%H:%M") + 'seu ônibus (' + str(linha) +
+        # ') vai passar AGORA, vai pro ponto garotinho! ' + smile + ' #previsão'
+        primeiro = (
+            'são {0} seu ônibus ({1}) vai passar AGORA, vai pro ponto '
+            'garotinho! {2} #previsão').format(strftime("%H:%M"), linha, smile)
+        mais_de_um = (
+            'AGORA, vai pro ponto garotinho! {0} o próximo').format(smile)
     else:
         if horarios[0] > 59:
+            # prev = toHourMin(horarios[0])
+            # primeiro = 'seu ônibus (' + str(linha) + ') vai passar daqui a ' +
+            # prev[0] + 'h e ' + prev[1] + 'min às ' + addminutes(horarios[0]) +
+            # ' #previsão'
+            # mais_de_um = 'daqui a ' + prev[0] + 'h e ' + prev[1] +
+            #     'min às ' + addminutes(horarios[0])
             prev = toHourMin(horarios[0])
-            primeiro = 'seu ônibus (' + str(linha) + ') vai passar daqui a ' +
-            prev[0] + 'h e ' + prev[1] + 'min às ' + addminutes(horarios[0]) +
-            ' #previsão'
-            mais_de_um = 'daqui a ' + prev[0] + 'h e ' + prev[1] +
-                'min às ' + addminutes(horarios[0])
+            primeiro = (
+                'seu ônibus ({0}) vai passar daqui a {1}h e {2}min às {3} '
+                '#previsão').format(
+                    linha, prev[0], prev[1], addminutes(horarios[0]))
+            mais_de_um = (
+                'daqui a {0}h e {1}min às {2}').format(
+                    prev[0], prev[1], addminutes(horarios[0]))
         else:
-            primeiro = 'seu ônibus (' + str(linha) + ') vai passar daqui a ' +
-                str(horarios[0]) + ' minutos às ' + addminutes(horarios[0]) +
-                ' #previsão'
-            mais_de_um = 'daqui a ' + str(horarios[0]) + ' minutos às ' +
-                        addminutes(horarios[0])
+            # primeiro = 'seu ônibus (' + str(linha) + ') vai passar daqui a ' +
+            #     str(horarios[0]) + ' minutos às ' + addminutes(horarios[0]) +
+            #     ' #previsão'
+            # mais_de_um = 'daqui a ' + str(horarios[0]) + ' minutos às ' +
+            #             addminutes(horarios[0])
+            primeiro = (
+                'seu ônibus ({0}) vai passar daqui a {1} minutos às {2} '
+                '#previsão').format(linha, horarios[0], addminutes(horarios[0]))
+            mais_de_um = (
+                'daqui a {0} minutos às {1}').format(
+                    horarios[0], addminutes(horarios[0]))
     # Um
     if len(horarios) == 1:
         return '@' + str(twitter_id) + ' ' + primeiro
@@ -172,15 +197,23 @@ def tweet(twitter_id, horarios, linha):
     else:
         if horarios[1] > 59:
             prev = toHourMin(horarios[1])
-            return '@' + str(twitter_id) + ' seu ônibus (' + str(linha) +
-                ') vai passar ' + mais_de_um + ' e daqui a ' + prev[0] +
-                'h e ' + prev[1] + 'min às ' + addminutes(horarios[1]) +
-                ' #previsão'
+            # return '@' + str(twitter_id) + ' seu ônibus (' + str(linha) +
+            #     ') vai passar ' + mais_de_um + ' e daqui a ' + prev[0] +
+            #     'h e ' + prev[1] + 'min às ' + addminutes(horarios[1]) +
+            #     ' #previsão'
+            return (
+                '@{0} seu ônibus ({1}) vai passar {2} e daqui a {3}h e {4}min '
+                'às {5} #previsão').format(twitter_id, linha, mais_de_um,
+                                    prev[0], prev[1],addminutes(horarios[1]))
         else:
-            return '@' + str(twitter_id) + ' seu ônibus (' + str(linha) +
-                ') vai passar ' + mais_de_um + ' e daqui a ' +
-                str(horarios[1]) + ' minutos às ' +
-                addminutes(horarios[1]) + ' #previsão'
+            # return '@' + str(twitter_id) + ' seu ônibus (' + str(linha) +
+            #     ') vai passar ' + mais_de_um + ' e daqui a ' +
+            #     str(horarios[1]) + ' minutos às ' +
+            #     addminutes(horarios[1]) + ' #previsão'
+            return (
+                '@{0} seu ônibus ({1}) vai passar {2} e daqui a {3} minutos às'
+                ' {4} #previsão').format(twitter_id, linha, mais_de_um,
+                                        horarios[1], addminutes(horarios[1]))
 
 
 @cronjobs.register

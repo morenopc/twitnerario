@@ -7,6 +7,7 @@ from registros.models import Registros
 from registros.forms import RegistrosForm
 from django.http import HttpResponse, HttpResponseRedirect
 
+
 def salvar_registro(request, form):
     t = request.POST['twitter'] or None
     l = request.POST['linha'] or None
@@ -21,10 +22,11 @@ def salvar_registro(request, form):
         rs.delete()
 
     form.save()
-    
+
     return render_to_response('registros/sucesso.html',
         context_instance=RequestContext(request,
-            {'twitter':t, 'm':m, 'h':h}))
+            {'twitter': t, 'm': m, 'h': h}))
+
 
 def registro(request):
     """
@@ -37,22 +39,24 @@ def registro(request):
         return salvar_registro(request, form)
 
     return render_to_response('registros/registro.html',
-        context_instance=RequestContext(request,{'form':form}))
+        context_instance=RequestContext(request, {'form': form}))
+
 
 def registro_ponto(request, ponto):
     """
     Recebe numero do ponto e preenche o formulario
     """
     form = RegistrosForm(initial={'ponto': ponto})
-    
+
     if request.method == 'POST':
         form = RegistrosForm(request.POST)
-    
+
     if form.is_valid():
         return salvar_registro(request, form)
 
     return render_to_response('registros/registro.html',
-        context_instance=RequestContext(request,{'form':form}))
+        context_instance=RequestContext(request, {'form': form}))
+
 
 def pesquisar(request):
     """

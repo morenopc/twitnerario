@@ -16,3 +16,6 @@ python-dateutil == 1.5
 
 # Easily embed Handlebars.js templates in your django templates
 django-templatetag-handlebars == 1.2.0
+
+# Use Database URLs in your Django Application.
+dj-database-url

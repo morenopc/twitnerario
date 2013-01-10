@@ -27,8 +27,9 @@ djcelery.setup_loader()
 PROJECT_DIR = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_DIR, 'apps'))
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+
 ADMINS = [('Moreno', 'moreno.pinheiro@gmail.com')]
 MANAGERS = ADMINS
 
@@ -153,3 +154,15 @@ LOGGING = {
         },
     }
 }
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+###############################################################################
+# Import local settings (override)
+###############################################################################
+try:
+    from local_settings import *
+except ImportError:
+    pass

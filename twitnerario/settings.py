@@ -1,28 +1,5 @@
-#import djcelery
-#from celery.schedules import crontab
 import os, sys
 from datetime import timedelta
-
-# CELERY
-BROKER_BACKEND = 'django'
-
-import djcelery
-djcelery.setup_loader()
-
-# djcelery.setup_loader()
-# BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
-# CELERY_RESULT_DBURI = DATABASES['default']
-#CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
-
-#CELERYBEAT_SCHEDULE = {
-#    # Execute every 15 minutes
-#    "every-15-minutes": {
-#        "task": "send_tweets",
-#        #"schedule": crontab(minute="*/15"),
-#        "schedule": crontab(minute="*/1"),
-#        "args": (16, 16),
-#    },
-#}
 
 PROJECT_DIR = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_DIR, 'apps'))
@@ -89,7 +66,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'twitnerario.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),

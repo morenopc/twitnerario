@@ -5,3 +5,4 @@ venv
 meuonibus.db
 celerybeat-schedule.db
 celerybeat-schedule
+local_settings.py

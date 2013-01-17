@@ -4,4 +4,4 @@ set -x
 
 cd ${HOME}
 python current/manage.py syncdb --noinput
-python mkadmin.py
+python /home/dotcloud/current/mkadmin.py

@@ -142,7 +142,7 @@ def tweet(twitter_id, horarios, linha):
         # toobad + ' #previsão'
         return (
             '@{0} são {1} e seu ônibus ({2}) está sem previsão de chegada {3} '
-            '#previsão').format(witter_id, strftime("%H:%M"), linha, toobad)
+            '#previsão').format(twitter_id, strftime("%H:%M"), linha, toobad)
     # negative one
     if horarios[0] == -1:
         # return '@' + str(twitter_id) +

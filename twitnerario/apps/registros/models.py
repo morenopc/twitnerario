@@ -27,4 +27,5 @@ class Registros(models.Model):
         verbose_name = u"Registro"
 
     def __unicode__(self):
-        return self.twitter
+        return '@{0} {1} {2}:{3}'.format(self.twitter, self.linha,
+            self.horas, self.minutos)

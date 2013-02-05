@@ -81,26 +81,22 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     # me
-    'registros',
     'core',
+    'registros',
     # apps
-    'oauth',
-    'simplejson',
-    'twitterauth',
-    'form_utils',
-    'templatetag_handlebars',
     'cronjobs',
-    # Celery
-    'kombu.transport.django',
-    'djcelery',
+    'form_utils',
+    'twitterauth',
+    'django_extensions',
+    'templatetag_handlebars',
 )
 
 # Twitter
 # https://dev.twitter.com/apps/1331327/show
-CONSUMER_KEY='GjDAsmaMQdZdli8pDXA'
-CONSUMER_SECRET='lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8'
-ACCESS_TOKEN_KEY='397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV'
-ACCESS_TOKEN_SECRET='5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM'
+CONSUMER_KEY = 'GjDAsmaMQdZdli8pDXA'
+CONSUMER_SECRET = 'lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8'
+ACCESS_TOKEN_KEY = '397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV'
+ACCESS_TOKEN_SECRET = '5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM'
 
 AUTHENTICATION_BACKENDS = (
     #'backends.twitteroauth.TwitterBackend',

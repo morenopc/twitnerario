@@ -1,23 +1,17 @@
 # -*- coding: UTF8 -*-
-
-import twitter
-import urllib
-import urllib2
-import cronjobs
 import time
+import urllib
 import random
-from settings import CONSUMER_KEY, CONSUMER_SECRET
-from settings import ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET
+import urllib2
+import twitter
+import cronjobs
+from django.conf import settings
+from django.http import HttpResponse, Http404
+from django.utils.encoding import smart_str, smart_unicode
 from time import strftime
 from xml.dom.minidom import parse, parseString
-from django.utils.encoding import smart_str, smart_unicode
-from django.http import HttpResponse
 from registros.models import Registros
 from core.RepeatTimer import RepeatTimer
-from celery.task.schedules import crontab
-from celery.decorators import periodic_task
-from celery.task import task
-from django.http import Http404
 
 RAST_URL = 'http://rast.vitoria.es.gov.br/'
 
@@ -137,26 +131,17 @@ def tweet(twitter_id, horarios, linha):
 
     # Zero   
     if not horarios:
-        # return '@' + str(twitter_id) + ' são ' + strftime("%H:%M") +
-        # ' e seu ônibus (' + str(linha) + ') está sem previsão de chegada ' +
-        # toobad + ' #previsão'
         return (
             '@{0} são {1} e seu ônibus ({2}) está sem previsão de chegada {3} '
             '#previsão').format(twitter_id, strftime("%H:%M"), linha, toobad)
     # negative one
     if horarios[0] == -1:
-        # return '@' + str(twitter_id) +
-        # ' ocorreu um problema e não encontramos a #previsão do seu ônibus (' +
-        # str(linha) + ') ' + toobad + '. Tentaremos novamente em breve. ' +
-        # smile + ' #falhou'
         return (
             '@{0} ocorreu um problema e não encontramos a #previsão do seu'
             ' ônibus ({1}) {2}. Tentaremos novamente em breve. {3}'
             ' #falhou').format(twitter_id, linha, toobad, smile)
     # previsao zero 
     if horarios[0] == 0:
-        # primeiro = 'são ' + strftime("%H:%M") + 'seu ônibus (' + str(linha) +
-        # ') vai passar AGORA, vai pro ponto garotinho! ' + smile + ' #previsão'
         primeiro = (
             'são {0} seu ônibus ({1}) vai passar AGORA, vai pro ponto '
             'garotinho! {2} #previsão').format(strftime("%H:%M"), linha, smile)
@@ -164,12 +149,6 @@ def tweet(twitter_id, horarios, linha):
             'AGORA, vai pro ponto garotinho! {0} o próximo').format(smile)
     else:
         if horarios[0] > 59:
-            # prev = toHourMin(horarios[0])
-            # primeiro = 'seu ônibus (' + str(linha) + ') vai passar daqui a ' +
-            # prev[0] + 'h e ' + prev[1] + 'min às ' + addminutes(horarios[0]) +
-            # ' #previsão'
-            # mais_de_um = 'daqui a ' + prev[0] + 'h e ' + prev[1] +
-            #     'min às ' + addminutes(horarios[0])
             prev = toHourMin(horarios[0])
             primeiro = (
                 'seu ônibus ({0}) vai passar daqui a {1}h e {2}min às {3} '
@@ -179,11 +158,6 @@ def tweet(twitter_id, horarios, linha):
                 'daqui a {0}h e {1}min às {2}').format(
                     prev[0], prev[1], addminutes(horarios[0]))
         else:
-            # primeiro = 'seu ônibus (' + str(linha) + ') vai passar daqui a ' +
-            #     str(horarios[0]) + ' minutos às ' + addminutes(horarios[0]) +
-            #     ' #previsão'
-            # mais_de_um = 'daqui a ' + str(horarios[0]) + ' minutos às ' +
-            #             addminutes(horarios[0])
             primeiro = (
                 'seu ônibus ({0}) vai passar daqui a {1} minutos às {2} '
                 '#previsão').format(linha, horarios[0], addminutes(horarios[0]))
@@ -197,19 +171,11 @@ def tweet(twitter_id, horarios, linha):
     else:
         if horarios[1] > 59:
             prev = toHourMin(horarios[1])
-            # return '@' + str(twitter_id) + ' seu ônibus (' + str(linha) +
-            #     ') vai passar ' + mais_de_um + ' e daqui a ' + prev[0] +
-            #     'h e ' + prev[1] + 'min às ' + addminutes(horarios[1]) +
-            #     ' #previsão'
             return (
                 '@{0} seu ônibus ({1}) vai passar {2} e daqui a {3}h e {4}min '
                 'às {5} #previsão').format(twitter_id, linha, mais_de_um,
                                     prev[0], prev[1],addminutes(horarios[1]))
         else:
-            # return '@' + str(twitter_id) + ' seu ônibus (' + str(linha) +
-            #     ') vai passar ' + mais_de_um + ' e daqui a ' +
-            #     str(horarios[1]) + ' minutos às ' +
-            #     addminutes(horarios[1]) + ' #previsão'
             return (
                 '@{0} seu ônibus ({1}) vai passar {2} e daqui a {3} minutos às'
                 ' {4} #previsão').format(twitter_id, linha, mais_de_um,
@@ -229,10 +195,10 @@ def resend_tweets():
         return False
 
     tweets = create_tweets(regs)
-    api = twitter.Api(consumer_key=CONSUMER_KEY,
-                    consumer_secret=CONSUMER_SECRET,
-                    access_token_key=ACCESS_TOKEN_KEY,
-                    access_token_secret=ACCESS_TOKEN_SECRET)
+    api = twitter.Api(consumer_key=settings.CONSUMER_KEY,
+                    consumer_secret=settings.CONSUMER_SECRET,
+                    access_token_key=settings.ACCESS_TOKEN_KEY,
+                    access_token_secret=settings.ACCESS_TOKEN_SECRET)
 
     for tweet in tweets:
         api.PostUpdate(tweet)
@@ -247,21 +213,7 @@ def send_tweets():
     """
     Envia Tweets
     """
-    regs = []
-
-    # (heroku) server time
-    h = int(strftime("%H"))
-    m = int(strftime("%M"))
-
-    # minute :20 and :50 - end
-    if m == 20 or m == 50:
-        return False
-    # minute :10 and :40 - add 5 minutes delay
-    elif m == 10 or m == 40:
-        time.sleep(290)
-    # minute :00 and :30 - ok
-    else:
-        pass
+    regs = Registros.objects.none()
 
     h = int(strftime("%H"))
     m = int(strftime("%M"))

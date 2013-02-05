@@ -10,16 +10,30 @@ TEMPLATE_DEBUG = DEBUG
 ADMINS = [('Moreno', 'moreno.pinheiro@gmail.com')]
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PROJECT_DIR, 'twit.db'),
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+try:
+    f = open('/home/dotcloud/environment.json')
+    DOTCLOUD = json.load(f)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'twitnerario',
+            'USER': DOTCLOUD['DOTCLOUD_DATA_MYSQL_LOGIN'],
+            'PASSWORD': DOTCLOUD['DOTCLOUD_DATA_MYSQL_PASSWORD'],
+            'HOST': DOTCLOUD['DOTCLOUD_DATA_MYSQL_HOST'],
+            'PORT': DOTCLOUD['DOTCLOUD_DATA_MYSQL_PORT'],
+        }
     }
-}
+except IOError:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(PROJECT_DIR, 'twit.db'),
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '',
+            'PORT': '',
+        }
+    }
 
 # Brazil
 TIME_ZONE = 'America/Sao_Paulo'

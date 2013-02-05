@@ -3,3 +3,5 @@ www:
   approot: twitnerario
   config:
     python_version: v2.7
+data:
+  type: mysql

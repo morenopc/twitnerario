@@ -7,7 +7,15 @@ started at November 2011 - abaixo em Português
 The idea
 --------
 
+<<<<<<< HEAD
 The city of `Vitória-ES <https://maps.google.com/maps?q=vit%C3%B3ria+brazil&ie=UTF8&hnear=Vit%C3%B3ria+-+Esp%C3%ADrito+Santo,+Brasil&t=m&z=12>`_ implemented a GPS bus tracking system called `Ponto-Vitória <http://rast.vitoria.es.gov.br/pontovitoria/>`_ where it's possible, after locating the desired bus stop, search for the next times that a bus will pass. Based on this system idea came the idea of ​​integration with Twitter (Twitter + Horário = `Twitnerário <http://twitnerario-moreno.dotcloud.com/>`_) where you can schedule and receive tweets (reminders) in expected time that the bus will pass.
+=======
+- `http://twitnerario-moreno.dotcloud.com/ <http://twitnerario-moreno.dotcloud.com/>`_
+- `Sequence Diagram <https://docs.google.com/drawings/d/18vYGw2lVbu3fHChqzUnWq6aKX376Mju7tAPwHr1-vKg/edit>`_
+- Python - Django Web application
+- Twitter API
+- Integrated with Vitória (Brazil) GPS bus system
+>>>>>>> d69f474e26afd559541191947e14699065578254
 
 How to use
 ----------

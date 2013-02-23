@@ -2,14 +2,24 @@
 (function() {
 
   jQuery(function() {
-    var make_search,
+    var make_search, searchXHR,
       _this = this;
+    searchXHR = null;
     make_search = function() {
-      var key_search, source,
+      var $pesq_ponto, key_search, source,
         _this = this;
-      key_search = $('#pesq_ponto').val();
+      $pesq_ponto = $('#pesq_ponto');
+      $pesq_ponto.css('border-color', '#CCC');
+      key_search = $pesq_ponto.val();
+      if (!key_search) {
+        $pesq_ponto.css('border-color', '#FC4C4C');
+        return;
+      }
       source = $('#pesq_resultado').html();
-      return $.getJSON('/localizar/' + key_search + '/', function(pontos) {
+      if (searchXHR) {
+        searchXHR.abort();
+      }
+      return searchXHR = $.getJSON('/localizar/' + key_search + '/', function(pontos) {
         var context, i, obj, results, template, _i, _ref, _results;
         results = pontos.data.length;
         if (results > 50) {

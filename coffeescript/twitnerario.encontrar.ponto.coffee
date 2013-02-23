@@ -6,8 +6,11 @@
 jQuery ->
     searchXHR = null
     make_search = ->
-        key_search = $('#pesq_ponto').val()
+        $pesq_ponto = $('#pesq_ponto');
+        $pesq_ponto.css('border-color','#CCC')
+        key_search = $pesq_ponto.val()
         if ! key_search
+            $pesq_ponto.css('border-color','#FC4C4C')
             return
         source = $('#pesq_resultado').html()
         if searchXHR

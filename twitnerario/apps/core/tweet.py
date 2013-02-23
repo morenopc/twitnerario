@@ -4,6 +4,7 @@ import urllib
 import random
 import urllib2
 import twitter
+import logging
 import cronjobs
 from django.conf import settings
 from django.http import HttpResponse, Http404
@@ -12,8 +13,13 @@ from time import strftime
 from xml.dom.minidom import parse, parseString
 from registros.models import Registros
 from core.RepeatTimer import RepeatTimer
-
+# logger
+logger = logging.getLogger(__name__)
+# Ponto Vitoria URLs
 RAST_URL = 'http://rast.vitoria.es.gov.br/'
+PREVISAO_URL = RAST_URL + 'pontovitoria/previsao.jsp?'
+LISTA_PONTOS_URL = RAST_URL + 'pontovitoria/utilidades/listaPontos'
+LINHA_PASSA_URL = RAST_URL + 'pontovitoria/utilidades/listaLinhaPassamNoPonto/'
 
 SADFACES = [u'☹', u'๏̯͡๏', u'».«', u'(͡๏̯͡๏)', u'(×̯×)', u'ಥ_ಥ', u'v_v',
             u'►_◄', u'►.◄', u'>.<', u'ಠ_ರೃ', u'ಠ╭╮ಠ', u'מּ_מּ', u'לּ_לּ',
@@ -82,6 +88,12 @@ def toHourMin(minutes):
         else:
             return [str(h), str(m)]
 
+
+def connect_twitter_api():
+    return twitter.Api(consumer_key=settings.CONSUMER_KEY,
+                    consumer_secret=settings.CONSUMER_SECRET,
+                    access_token_key=settings.ACCESS_TOKEN_KEY,
+                    access_token_secret=settings.ACCESS_TOKEN_SECRET)
 
 def create_tweets(registros):
     """
@@ -195,10 +207,7 @@ def resend_tweets():
         return False
 
     tweets = create_tweets(regs)
-    api = twitter.Api(consumer_key=settings.CONSUMER_KEY,
-                    consumer_secret=settings.CONSUMER_SECRET,
-                    access_token_key=settings.ACCESS_TOKEN_KEY,
-                    access_token_secret=settings.ACCESS_TOKEN_SECRET)
+    api = connect_twitter_api()
 
     for tweet in tweets:
         api.PostUpdate(tweet)
@@ -223,11 +232,7 @@ def send_tweets():
         return False
 
     tweets = create_tweets(regs)
-
-    api = twitter.Api(consumer_key=CONSUMER_KEY,
-                    consumer_secret=CONSUMER_SECRET,
-                    access_token_key=ACCESS_TOKEN_KEY,
-                    access_token_secret=ACCESS_TOKEN_SECRET)
+    api = connect_twitter_api()
 
     for tweet in tweets:
         api.PostUpdate(tweet)
@@ -254,14 +259,14 @@ def previsao(registro):
         ('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'),
         ('Keep-Alive', 'timeout=15, max=94')
     ]
-
+    # Obter previsao
     try:
-        urlopened = opener.open(
-            RAST_URL + 'previsao-web-service/previsao.jsp?ponto=' +
-            str(registro.ponto) + '&linha=' + str(registro.linha))
-    except:
+        urlopened = opener.open('{0}ponto={1}&linha={2}'.format(
+                PREVISAO_URL, registro.ponto, registro.linha))
+    except Exception, e:
         registro.falhou = True
         registro.save()
+        logger.error(e)
         return None
 
     read = urlopened.read()
@@ -300,8 +305,7 @@ def localizar(request, ref):
     Localizar
     """
     data = urllib.urlencode({'referencia': smart_str(ref)})
-    urlopen = urllib2.urlopen(
-        RAST_URL + 'pontovitoria/utilidades/listaPontos?' + data)
+    urlopen = urllib2.urlopen('{0}?{1}'.format(LISTA_PONTOS_URL, data))
     read = urlopen.read()
     urlopen.close()
     return HttpResponse(read)
@@ -311,8 +315,7 @@ def pontos(request):
     """
     Pontos
     """
-    urlopen = urllib2.urlopen(
-        RAST_URL + 'pontovitoria/utilidades/listaPontos/')
+    urlopen = urllib2.urlopen('{0}/'.format(LISTA_PONTOS_URL))
     read = urlopen.read()
     urlopen.close()
     return HttpResponse(read)
@@ -323,8 +326,8 @@ def linhas(request, ponto):
     Linhas
     """
     urlopen = urllib2.urlopen(
-        RAST_URL + 'pontovitoria/utilidades/listaLinhaPassamNoPonto/' +
-                '?ponto_oid=' + str(ponto))
+        '{0}?ponto_oid={1}'.format(LINHA_PASSA_URL, ponto))
+
     read = urlopen.read()
     urlopen.close()
     return HttpResponse(read)

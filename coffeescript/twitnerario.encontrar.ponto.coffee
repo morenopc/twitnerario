@@ -4,17 +4,23 @@
 #  * 2012 Twitnerario
 #  *****************************************************************************/
 jQuery ->
+    searchXHR = null
     make_search = ->
         key_search = $('#pesq_ponto').val()
+        if ! key_search
+            return
         source = $('#pesq_resultado').html()
-        $.getJSON '/localizar/'+key_search+'/', (pontos) =>
+        if searchXHR
+            searchXHR.abort()
+        searchXHR = $.getJSON '/localizar/'+key_search+'/', (pontos) =>
             results = pontos.data.length
             if results > 50
                 results = 50
             for i in [0..results - 1] by 1
                 obj = pontos.data[i]
                 template = Handlebars.compile(source)
-                context = {ponto: obj.ponto, lograd: obj.logradouro, bairro: obj.bairro, p_refer: obj.referencia}
+                context = {ponto: obj.ponto, lograd: obj.logradouro,\
+                            bairro: obj.bairro, p_refer: obj.referencia}
                 $('.lista_resultados').append(template(context))
 
     $('#pesq_button').bind 'click', (e) =>

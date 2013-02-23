@@ -4,7 +4,8 @@ set -x
 
 cd ${HOME}
 python current/manage.py syncdb --noinput
-python /home/dotcloud/current/mkadmin.py
+# Only first time
+# python /home/dotcloud/current/mkadmin.py
 
 # Add send_tweet to crontab
-( crontab -l 2>/dev/null; printf -- "*/15 * * * * /home/dotcloud/current/send_tweet.sh" ) | crontab
+(crontab -l 2>/dev/null; printf -- "*/15 * * * * /home/dotcloud/current/send_tweet.sh") | crontab

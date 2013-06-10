@@ -85,7 +85,9 @@ ROOT_URLCONF = 'urls'
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),
 )
-
+ALLOWED_HOSTS = [
+    '*', # Allow domain and subdomains
+]
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',

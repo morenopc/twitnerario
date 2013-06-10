@@ -6,3 +6,5 @@ venv
 celerybeat-schedule.db
 celerybeat-schedule
 local_settings.py
+.commit
+.*.sw?

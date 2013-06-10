@@ -28,7 +28,7 @@ except IOError:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(PROJECT_DIR, 'twit.db'),
+            'NAME': os.path.join(PROJECT_DIR, 'dev.db'),
             'USER': '',
             'PASSWORD': '',
             'HOST': '',
@@ -99,6 +99,7 @@ INSTALLED_APPS = (
     'core',
     'registros',
     # apps
+    'south',
     'cronjobs',
     'form_utils',
     'twitterauth',

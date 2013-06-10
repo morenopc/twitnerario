@@ -22,8 +22,12 @@ jQuery ->
             for i in [0..results - 1] by 1
                 obj = pontos.data[i]
                 template = Handlebars.compile(source)
-                context = {ponto: obj.ponto, lograd: obj.logradouro,\
-                            bairro: obj.bairro, p_refer: obj.referencia}
+                context = {
+                    ponto: obj.ponto
+                    lograd: obj.logradouro
+                    bairro: obj.bairro
+                    p_refer: obj.referencia
+                }
                 $('.lista_resultados').append(template(context))
 
     $('#pesq_button').bind 'click', (e) =>

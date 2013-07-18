@@ -1,8 +1,10 @@
-venv
-*.pyc
-*.*~
+*.py[co]
+*.sw[po]
+*.bak
+*.orig
+*~
+.project
+.pydevproject
 *.bkup.py
 meuonibus.db
-celerybeat-schedule.db
-celerybeat-schedule
 local_settings.py

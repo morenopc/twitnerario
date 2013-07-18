@@ -1,38 +1,45 @@
-import json
-import os, sys
-from datetime import timedelta
+# -*- coding: utf-8 -*-
+# Django settings for openshift project.
+import imp, os
 
-PROJECT_DIR = os.path.dirname(__file__)
+# a setting to determine whether we are running on OpenShift
+ON_OPENSHIFT = False
+if os.environ.has_key('OPENSHIFT_REPO_DIR'):
+    ON_OPENSHIFT = True
+
+PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, os.path.join(PROJECT_DIR, 'apps'))
-
-DEBUG = False
+if ON_OPENSHIFT:
+    DEBUG = False
+else:
+    DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = [('Moreno', 'moreno.pinheiro@gmail.com')]
 MANAGERS = ADMINS
 
-try:
-    f = open('/home/dotcloud/environment.json')
-    DOTCLOUD = json.load(f)
+if ON_OPENSHIFT:
+    # os.environ['OPENSHIFT_MYSQL_DB_*'] variables can be used with databases created
+    # with rhc cartridge add (see /README in this git repo)
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'twitnerario',
-            'USER': DOTCLOUD['DOTCLOUD_DATA_MYSQL_LOGIN'],
-            'PASSWORD': DOTCLOUD['DOTCLOUD_DATA_MYSQL_PASSWORD'],
-            'HOST': DOTCLOUD['DOTCLOUD_DATA_MYSQL_HOST'],
-            'PORT': DOTCLOUD['DOTCLOUD_DATA_MYSQL_PORT'],
+            'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'sqlite3.db'),  # Or path to database file if using sqlite3.
+            'USER': '',                      # Not used with sqlite3.
+            'PASSWORD': '',                  # Not used with sqlite3.
+            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
         }
     }
-except IOError:
+else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(PROJECT_DIR, 'twit.db'),
-            'USER': '',
-            'PASSWORD': '',
-            'HOST': '',
-            'PORT': '',
+            'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': os.path.join(PROJECT_DIR, 'sqlite3.db'),  # Or path to database file if using sqlite3.
+            'USER': '',                      # Not used with sqlite3.
+            'PASSWORD': '',                  # Not used with sqlite3.
+            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
         }
     }
 
@@ -45,13 +52,13 @@ USE_I18N = True
 USE_L10N = True
 
 # MEDIAS
-MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
-MEDIA_URL = '/media/'
-ADMIN_MEDIA_PREFIX = MEDIA_URL + 'admin/'
+MEDIA_ROOT = os.environ.get('OPENSHIFT_DATA_DIR', '')
+MEDIA_URL = ''
 
 # STATIC
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATIC_ROOT = os.path.join(PROJECT_DIR, '..', 'static')
 STATIC_URL = '/static/'
+ADMIN_MEDIA_PREFIX = '/static/admin/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_DIR, 'static-files'),
 )
@@ -62,8 +69,18 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+# Make a dictionary of default keys
+default_keys = { 'SECRET_KEY': 'vm4rl5*ymb@2&d_(gc$gb-^twq9w(u69hi--%$5xrh!xk(t%hw' }
+
+# Replace default keys with dynamic values if we are in OpenShift
+use_keys = default_keys
+if ON_OPENSHIFT:
+    imp.find_module('openshiftlibs')
+    import openshiftlibs
+    use_keys = openshiftlibs.openshift_secure(default_keys)
+
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '&k44voktmp5eao+fjulm*lyo)udj9m(gjt^o8*!7conibus'
+SECRET_KEY = use_keys['SECRET_KEY']
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -80,7 +97,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'openshift.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),

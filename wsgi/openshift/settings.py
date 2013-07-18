@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Django settings for openshift project.
-import imp, os
+import imp, os, sys
 
 # a setting to determine whether we are running on OpenShift
 ON_OPENSHIFT = False

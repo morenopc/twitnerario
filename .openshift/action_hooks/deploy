@@ -4,7 +4,7 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
-PYTHON=$OPENSHIFT_HOMEDIRpython-2.6/virtenv/bin/python
+PYTHON="$OPENSHIFT_HOMEDIR"python-2.6/virtenv/bin/python
 
 if [ -d "$OPENSHIFT_HOMEDIR"python-2.6 ]; then
     source $OPENSHIFT_HOMEDIRpython-2.6/virtenv/bin/activate
@@ -25,5 +25,5 @@ fi
 echo "Executing 'python $OPENSHIFT_REPO_DIRwsgi/openshift/manage.py collectstatic --noinput'"
 $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py collectstatic --noinput
 
-cd $OPENSHIFT_HOMEDIRpython-2.6/repo/wsgi/static/
-ln -s $OPENSHIFT_HOMEDIRpython-2.6/repo/wsgi/openshift/media media
+cd "$OPENSHIFT_HOMEDIR"python-2.6/repo/wsgi/static/
+ln -s "$OPENSHIFT_HOMEDIR"python-2.6/repo/wsgi/openshift/media media

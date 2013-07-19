@@ -326,7 +326,6 @@ def pontos_json(request):
     """
     Lista de pontos em arquivo json 
     """
-    data = 
     return HttpResponse(
         open(settings.PROJECT_DIR + '/media/json/listaPontos.json').read(),
         mimetype='application/json')

@@ -6,6 +6,7 @@ import urllib2
 import twitter
 import logging
 import cronjobs
+from django.utils import simplejson
 from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.utils.encoding import smart_str, smart_unicode
@@ -319,6 +320,16 @@ def pontos(request):
     read = urlopen.read()
     urlopen.close()
     return HttpResponse(read)
+
+
+def pontos_json(request):
+    """
+    Lista de pontos em arquivo json 
+    """
+    data = 
+    return HttpResponse(
+        open(settings.PROJECT_DIR + '/media/json/listaPontos.json').read(),
+        mimetype='application/json')
 
 
 def linhas(request, ponto):

@@ -14,6 +14,7 @@ urlpatterns += patterns(
     'apps.core.tweet',
     url(r'^localizar/(?P<ref>.+)/$', 'localizar', name='localizar'),
     url(r'^pontos/$', 'pontos', name='pontos'),
+    url(r'^pontos/json$', 'pontos_json', name='pontos_json'),
     url(r'^(?P<ponto>\d+)/linhas/$', 'linhas', name='linhas'),
     # includes
     url(r'^admin/', include(admin.site.urls)),

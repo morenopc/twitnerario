@@ -17,7 +17,8 @@ var ponto_n_encontrado='&ensp;&uarr; Ponto vazio ou não encontrado. ' +
 /*
     Obtem lista JSON de pontos - pontosJSON
 */
-jQuery.getJSON('/media/json/listaPontos.json', function(data){
+
+jQuery.getJSON('/pontos/json', function(data){
     pontosJSON = data;
     //  jQuery.each(data.data, function(i,v) { pts[pts.length]=v.ponto; });
     //  lista de pontos disponiveis

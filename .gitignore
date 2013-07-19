@@ -6,5 +6,13 @@
 .project
 .pydevproject
 *.bkup.py
+<<<<<<< HEAD
 meuonibus.db
+=======
+*.db
+celerybeat-schedule.db
+celerybeat-schedule
+>>>>>>> 6739a495e47af221c6b5990713b9084676aea937
 local_settings.py
+.commit
+.*.sw?

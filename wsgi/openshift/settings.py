@@ -102,7 +102,9 @@ ROOT_URLCONF = 'openshift.urls'
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),
 )
-
+ALLOWED_HOSTS = [
+    '*', # Allow domain and subdomains
+]
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -116,6 +118,7 @@ INSTALLED_APPS = (
     'core',
     'registros',
     # apps
+    'south',
     'cronjobs',
     'form_utils',
     'twitterauth',

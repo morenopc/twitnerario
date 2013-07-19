@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Django settings for openshift project.
+# Twitnerario django settings for openshift project.
 import imp, os, sys
 
 # a setting to determine whether we are running on OpenShift
@@ -53,7 +53,7 @@ USE_L10N = True
 
 # MEDIAS
 MEDIA_ROOT = os.environ.get('OPENSHIFT_DATA_DIR', '')
-MEDIA_URL = ''
+MEDIA_URL = '/static/media/'
 
 # STATIC
 STATIC_ROOT = os.path.join(PROJECT_DIR, '..', 'static')

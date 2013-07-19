@@ -1,1 +1,1 @@
-venv/bin/python twitnerario/manage.py shell_plus
+venv/bin/python wsgi/openshift/manage.py shell_plus

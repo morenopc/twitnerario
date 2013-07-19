@@ -1,1 +1,1 @@
-venv/bin/python twitnerario/manage.py runserver
+venv/bin/python wsgi/openshift/manage.py runserver

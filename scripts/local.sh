@@ -6,19 +6,19 @@ ADMIN_PASSWORD='ad2&min3'
 ADMIN_EMAIL='moreno.pinheiro@gmail.com'
 SITENAME="localhost:8000"
 PYTHON="./venv/bin/python"
-PROJECT="twitnerario"
+PROJECT_PATH="wsgi/openshift"
 set -x
 # virtualenv
 if [ ! -d venv ]; then
     virtualenv --no-site-packages venv
 fi
 # requirements.txt
-./venv/bin/pip install -r $PROJECT/requirements.txt
+./venv/bin/pip install -r $PROJECT_PATH/requirements.txt
 # DB(sqlite)
-rm -f dev.db
+rm -f $PROJECT_PATH/dev.db
 # syncdb and South --migrate
-$PYTHON $PROJECT/manage.py syncdb --migrate --noinput
+$PYTHON $PROJECT_PATH/manage.py syncdb --migrate --noinput
 # admin account
-echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', '$ADMIN_EMAIL', '$ADMIN_PASSWORD')" | $PYTHON $PROJECT/manage.py shell
+echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', '$ADMIN_EMAIL', '$ADMIN_PASSWORD')" | $PYTHON $PROJECT_PATH/manage.py shell
 # runserver
-$PYTHON $PROJECT/manage.py runserver
+$PYTHON $PROJECT_PATH/manage.py runserver

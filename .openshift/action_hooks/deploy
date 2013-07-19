@@ -4,10 +4,12 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
-if [ -f $OPENSHIFT_HOMEDIR/python-2.6 ]; then
-    source $OPENSHIFT_HOMEDIR/python-2.6/virtenv/bin/activate
+# PYTHON=$OPENSHIFT_HOMEDIRpython-2.6/virtenv/bin/python
+
+if [ -f $OPENSHIFT_HOMEDIRpython-2.6 ]; then
+    source $OPENSHIFT_HOMEDIRpython-2.6/virtenv/bin/activate
 else
-    source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
+    source $OPENSHIFT_HOMEDIRpython/virtenv/bin/activate
 fi
 
 if [ ! -f $OPENSHIFT_DATA_DIR/sqlite3.db ]

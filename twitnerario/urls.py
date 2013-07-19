@@ -1,5 +1,5 @@
-from django.conf.urls.defaults import *
-from django.views.generic.simple import direct_to_template
+from django.conf.urls import url, include, patterns
+from django.views.generic import TemplateView
 from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
@@ -10,16 +10,15 @@ urlpatterns = patterns('apps.registros.views',
     url(r'^registro/', include('registros.urls', namespace='registro')),
 )
 # Core Tweet
-urlpatterns += patterns('apps.core.tweet',
+urlpatterns += patterns(
+    'apps.core.tweet',
     url(r'^localizar/(?P<ref>.+)/$', 'localizar', name='localizar'),
     url(r'^pontos/$', 'pontos', name='pontos'),
     url(r'^(?P<ponto>\d+)/linhas/$', 'linhas', name='linhas'),
     # includes
     url(r'^admin/', include(admin.site.urls)),
     # direct_to_template
-    url(r'^facebookauth/$', direct_to_template,
-        {'template': 'facebook_auth/facebook_auth.html'},
-        name='facebook_auth'),
+    url(r'^facebookauth/$', TemplateView.as_view(template_name='facebook_auth.html')),
 )
 # TwitterAuth
 urlpatterns += patterns('apps.twitterauth.views',

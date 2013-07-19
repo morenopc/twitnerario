@@ -6,13 +6,13 @@
 
 # PYTHON=$OPENSHIFT_HOMEDIRpython-2.6/virtenv/bin/python
 
-if [ -f $OPENSHIFT_HOMEDIRpython-2.6 ]; then
+if [ -d "$OPENSHIFT_HOMEDIR"python-2.6 ]; then
     source $OPENSHIFT_HOMEDIRpython-2.6/virtenv/bin/activate
 else
     source $OPENSHIFT_HOMEDIRpython/virtenv/bin/activate
 fi
 
-if [ ! -f $OPENSHIFT_DATA_DIR/sqlite3.db ]
+if [ ! -d "$OPENSHIFT_HOMEDIR"sqlite3.db ]
 then
     echo "Copying $OPENSHIFT_REPO_DIR/wsgi/openshift/sqlite3.db to $OPENSHIFT_DATA_DIR"
     cp "$OPENSHIFT_REPO_DIR"wsgi/openshift/sqlite3.db $OPENSHIFT_DATA_DIR

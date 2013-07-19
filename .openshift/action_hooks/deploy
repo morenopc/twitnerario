@@ -6,21 +6,8 @@
 
 PYTHON="$OPENSHIFT_HOMEDIR"python-2.6/virtenv/bin/python
 
-if [ -d "$OPENSHIFT_HOMEDIR"python-2.6 ]; then
-    source $OPENSHIFT_HOMEDIRpython-2.6/virtenv/bin/activate
-else
-    source $OPENSHIFT_HOMEDIRpython/virtenv/bin/activate
-fi
-
-if [ ! -d "$OPENSHIFT_HOMEDIR"sqlite3.db ]
-then
-    echo "Copying $OPENSHIFT_REPO_DIRwsgi/openshift/sqlite3.db to $OPENSHIFT_DATA_DIR"
-    cp "$OPENSHIFT_REPO_DIR"wsgi/openshift/sqlite3.db $OPENSHIFT_DATA_DIR
-    $PYTHON "$OPENSHIFT_REPO_DIR".openshift/action_hooks/secure_db.py | tee ${OPENSHIFT_DATA_DIR}/CREDENTIALS
-else
-    echo "Executing 'python $OPENSHIFT_REPO_DIRwsgi/openshift/manage.py syncdb --noinput'"
-    $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py syncdb --noinput
-fi
+echo "Executing 'python $OPENSHIFT_REPO_DIRwsgi/openshift/manage.py syncdb --noinput'"
+$PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py syncdb --migrate --noinput
 
 echo "Executing 'python $OPENSHIFT_REPO_DIRwsgi/openshift/manage.py collectstatic --noinput'"
 $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py collectstatic --noinput

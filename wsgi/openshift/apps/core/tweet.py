@@ -18,7 +18,8 @@ from core.RepeatTimer import RepeatTimer
 logger = logging.getLogger(__name__)
 # Ponto Vitoria URLs
 RAST_URL = 'http://rast.vitoria.es.gov.br/'
-PREVISAO_URL = RAST_URL + 'pontovitoria/previsao.jsp?'
+PREVISAO_URL = RAST_URL + 'pontovitoria/previsao?'
+PREVISAO_KEY = '057868'
 LISTA_PONTOS_URL = RAST_URL + 'pontovitoria/utilidades/listaPontos'
 LINHA_PASSA_URL = RAST_URL + 'pontovitoria/utilidades/listaLinhaPassamNoPonto/'
 
@@ -131,6 +132,7 @@ def tweet(twitter_id, horarios, linha):
     Recebe o usuário e os horários estimados de chegada,
     monta e retorna o tweet
     """
+    TWEET_MAX = 140
     primeiro = ''
     mais_de_um = ''
     smile = ''
@@ -144,12 +146,12 @@ def tweet(twitter_id, horarios, linha):
 
     # Zero   
     if not horarios:
-        return (
+        tweet = (
             '@{0} são {1} e seu ônibus ({2}) está sem previsão de chegada {3} '
             '#previsão').format(twitter_id, strftime("%H:%M"), linha, toobad)
     # negative one
     if horarios[0] == -1:
-        return (
+        tweet = (
             '@{0} ocorreu um problema e não encontramos a #previsão do seu'
             ' ônibus ({1}) {2}. Tentaremos novamente em breve. {3}'
             ' #falhou').format(twitter_id, linha, toobad, smile)
@@ -179,20 +181,23 @@ def tweet(twitter_id, horarios, linha):
                     horarios[0], addminutes(horarios[0]))
     # Um
     if len(horarios) == 1:
-        return '@' + str(twitter_id) + ' ' + primeiro
+        tweet =  '@' + str(twitter_id) + ' ' + primeiro
     # Um ou mais
     else:
         if horarios[1] > 59:
             prev = toHourMin(horarios[1])
-            return (
+            tweet =  (
                 '@{0} seu ônibus ({1}) vai passar {2} e daqui a {3}h e {4}min '
                 'às {5} #previsão').format(twitter_id, linha, mais_de_um,
                                     prev[0], prev[1],addminutes(horarios[1]))
         else:
-            return (
+            tweet =  (
                 '@{0} seu ônibus ({1}) vai passar {2} e daqui a {3} minutos às'
                 ' {4} #previsão').format(twitter_id, linha, mais_de_um,
                                         horarios[1], addminutes(horarios[1]))
+    if len(tweet) > TWEET_MAX:
+        return tweet[:TWEET_MAX]
+    return tweet
 
 
 @cronjobs.register
@@ -247,23 +252,19 @@ def previsao(registro):
     Envia ponto e linha para o servidor ponto-vitoria e retorna XML com
     previsão (a previsão contém todas linhas)
     """
-    previsao = ''
+    
     opener = urllib2.build_opener()
     opener.addheaders = [
-        ('Referer', RAST_URL + 'pontovitoria/'),
-        ('User-agent',
-            'Mozilla/5.0 (X11; U; Linux x86_64; en-US) AppleWebKit/534.13 ' +
-            '(KHTML, like Gecko) Chrome/9.0.597.98 Safari/534.13'),
-        ('Accept', 'application/xml, text/xml, */*;q=0.5'),
-        ('Accept-Language', 'pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4'),
-        ('Accept-Encoding', 'gzip,deflate,sdch'),
-        ('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'),
-        ('Keep-Alive', 'timeout=15, max=94')
+        ('Referer', 'http://rast.vitoria.es.gov.br/pontovitoria/'),
+        ('User-Agent', 
+            'Mozilla/5.0 (X11; Linux x86_64) '
+            'AppleWebKit/537.11 (KHTML, like Gecko) '
+            'Chrome/23.0.1271.95 Safari/537.11')
     ]
     # Obter previsao
     try:
-        urlopened = opener.open('{0}ponto={1}&linha={2}'.format(
-                PREVISAO_URL, registro.ponto, registro.linha))
+        urlopened = opener.open('{}ponto={}&linha={}&key={}'.format(
+                PREVISAO_URL, registro.ponto, registro.linha, PREVISAO_KEY))
     except Exception, e:
         registro.falhou = True
         registro.save()

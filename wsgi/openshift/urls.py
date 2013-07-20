@@ -10,8 +10,7 @@ urlpatterns = patterns('apps.registros.views',
     url(r'^registro/', include('registros.urls', namespace='registro')),
 )
 # Core Tweet
-urlpatterns += patterns(
-    'apps.core.tweet',
+urlpatterns += patterns('apps.core.tweet',
     url(r'^localizar/(?P<ref>.+)/$', 'localizar', name='localizar'),
     url(r'^pontos/$', 'pontos', name='pontos'),
     url(r'^pontos/json$', 'pontos_json', name='pontos_json'),

@@ -6,11 +6,12 @@
 
 PYTHON="$OPENSHIFT_HOMEDIR"python-2.7/virtenv/bin/python
 
-echo "Executing 'python $OPENSHIFT_REPO_DIRwsgi/openshift/manage.py syncdb --noinput'"
+echo "Executing '$PYTHON $OPENSHIFT_REPO_DIRwsgi/openshift/manage.py syncdb --migrate --noinput'"
 $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py syncdb --migrate --noinput
 
-echo "Executing 'python $OPENSHIFT_REPO_DIRwsgi/openshift/manage.py collectstatic --noinput'"
+echo "Executing '$PYTHON $OPENSHIFT_REPO_DIRwsgi/openshift/manage.py collectstatic --noinput'"
 $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py collectstatic --noinput
 
+echo "Executing 'ln -s $OPENSHIFT_HOMEDIRpython-2.7/repo/wsgi/openshift/media media'"
 cd "$OPENSHIFT_HOMEDIR"python-2.7/repo/wsgi/static/
 ln -s "$OPENSHIFT_HOMEDIR"python-2.7/repo/wsgi/openshift/media media

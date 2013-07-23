@@ -53,7 +53,7 @@ USE_L10N = True
 
 # MEDIAS
 MEDIA_ROOT = os.environ.get('OPENSHIFT_DATA_DIR', '')
-MEDIA_URL = '/static/media/'
+MEDIA_URL = '/media/'
 
 # STATIC
 STATIC_ROOT = os.path.join(PROJECT_DIR, '..', 'static')

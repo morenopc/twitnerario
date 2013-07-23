@@ -3,7 +3,9 @@
 # build hook has been run but before the application has been started back
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
-
+ADMIN_USER='admin'
+ADMIN_PASSWORD='ad2&min3'
+ADMIN_EMAIL='moreno.pinheiro@gmail.com'
 PYTHON="$OPENSHIFT_HOMEDIR"python-2.7/virtenv/bin/python
 
 echo "Executing '$PYTHON $OPENSHIFT_REPO_DIRwsgi/openshift/manage.py syncdb --migrate --noinput'"
@@ -11,6 +13,7 @@ $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py syncdb --migrate --noinput
 
 echo "Executing '$PYTHON $OPENSHIFT_REPO_DIRwsgi/openshift/manage.py collectstatic --noinput'"
 $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py collectstatic --noinput
+echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', '$ADMIN_EMAIL', '$ADMIN_PASSWORD')" | $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py shell
 
 echo "Executing 'ln -s $OPENSHIFT_HOMEDIRpython-2.7/repo/wsgi/openshift/media media'"
 cd "$OPENSHIFT_HOMEDIR"python-2.7/repo/wsgi/static/

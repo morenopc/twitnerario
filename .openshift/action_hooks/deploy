@@ -12,5 +12,5 @@ $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py syncdb --migrate --noinput
 echo "Executing 'python $OPENSHIFT_REPO_DIRwsgi/openshift/manage.py collectstatic --noinput'"
 $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py collectstatic --noinput
 
-cd "$OPENSHIFT_HOMEDIR"python-2.6/repo/wsgi/static/
-ln -s "$OPENSHIFT_HOMEDIR"python-2.6/repo/wsgi/openshift/media media
+cd "$OPENSHIFT_HOMEDIR"python-2.7/repo/wsgi/static/
+ln -s "$OPENSHIFT_HOMEDIR"python-2.7/repo/wsgi/openshift/media media

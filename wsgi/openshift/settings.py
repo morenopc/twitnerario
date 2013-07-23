@@ -13,7 +13,7 @@ if ON_OPENSHIFT:
     DEBUG = False
 else:
     DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+TEMPLATE_DEBUG = DEBUG = True
 
 ADMINS = [('Moreno', 'moreno.pinheiro@gmail.com')]
 MANAGERS = ADMINS

@@ -1,5 +1,6 @@
 #!/bin/sh
 if [ $(($(date +%M) % 15)) -eq 0 ]; then
+	source "$OPENSHIFT_HOMEDIR"python-2.7/virtenv/bin/activate
 	LOGS_DIR="$OPENSHIFT_HOMEDIR"python-2.7/logs
 	PROJECT_ROOT="$OPENSHIFT_HOMEDIR"python-2.7/repo/wsgi/openshift
 	mkdir -p $LOGS_DIR/cron-logs

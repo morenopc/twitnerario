@@ -2,16 +2,9 @@ Django == 1.5.1
 South == 0.7.6
 PIL == 1.1.7
 oauth == 1.0.1
-oauth2 == 1.5.170
-python-twitter == 0.8.2
-simplejson == 2.1.6
+python-twitter == 1.0
 
-# A simple Django app for running cron jobs
 django-cronjobs == 0.2.3
-# Form utilities for Django
 django-form-utils == 0.2.0
-# Extensions for Django
-django-extensions == 1.0.3
-
-# Easily embed Handlebars.js templates in your django templates
+django-extensions == 1.1.1
 django-templatetag-handlebars == 1.2.0

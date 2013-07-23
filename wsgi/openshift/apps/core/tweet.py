@@ -132,6 +132,8 @@ def tweet(twitter_id, horarios, linha):
     Recebe o usuário e os horários estimados de chegada,
     monta e retorna o tweet
     """
+    TWEET_MAX = 144
+
     primeiro = ''
     mais_de_um = ''
     smile = ''
@@ -148,6 +150,11 @@ def tweet(twitter_id, horarios, linha):
         tweet = (
             '@{0} são {1} e seu ônibus ({2}) está sem previsão de chegada {3} '
             '#previsão').format(twitter_id, strftime("%H:%M"), linha, toobad)
+
+        if len(tweet) > TWEET_MAX:
+            return tweet[:TWEET_MAX]
+        return tweet
+
     # negative one
     elif horarios[0] == -1:
         tweet = (

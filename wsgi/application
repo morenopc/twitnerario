@@ -6,7 +6,7 @@ import sys
 PYVERSION = '.'.join(map(str, sys.version_info[:2]))
 PYCART_DIR = ''.join(['python-', PYVERSION])
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'openshift.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 sys.path.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'wsgi', 'openshift'))
 virtenv = os.path.join(os.environ['OPENSHIFT_HOMEDIR'], PYCART_DIR, 'virtenv')
 os.environ['PYTHON_EGG_CACHE'] = os.path.join(virtenv, 'lib', ''.join(['python',PYVERSION]), 'site-packages')

@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 # Ponto Vitoria URLs
 RAST_URL = 'http://rast.vitoria.es.gov.br/'
 PREVISAO_URL = RAST_URL + 'pontovitoria/previsao?'
-PREVISAO_KEY = '057868'
+PREVISAO_KEY = '636917'
 LISTA_PONTOS_URL = RAST_URL + 'pontovitoria/utilidades/listaPontos'
 LINHA_PASSA_URL = RAST_URL + 'pontovitoria/utilidades/listaLinhaPassamNoPonto/'
 
@@ -132,7 +132,6 @@ def tweet(twitter_id, horarios, linha):
     Recebe o usuário e os horários estimados de chegada,
     monta e retorna o tweet
     """
-    TWEET_MAX = 140
     primeiro = ''
     mais_de_um = ''
     smile = ''
@@ -147,60 +146,55 @@ def tweet(twitter_id, horarios, linha):
     # Zero   
     if not horarios:
         tweet = (
-            u'@%s  são %s  e seu ônibus (%s ) está sem previsão de chegada %s  '
-            u'#previsão') % (twitter_id, strftime("%H:%M"), linha, unicode(toobad))
-        if len(tweet) > TWEET_MAX:
-            return tweet[:TWEET_MAX]
-        return tweet
+            '@{0} são {1} e seu ônibus ({2}) está sem previsão de chegada {3} '
+            '#previsão').format(twitter_id, strftime("%H:%M"), linha, toobad)
     # negative one
-    if horarios[0] == -1:
+    elif horarios[0] == -1:
         tweet = (
-            u'@%s  ocorreu um problema e não encontramos a #previsão do seu'
-            u' ônibus (%s ) %s . Tentaremos novamente em breve. %s '
-            u' #falhou') % (twitter_id, linha, unicode(toobad), smile)
-        if len(tweet) > TWEET_MAX:
-            return tweet[:TWEET_MAX]
-        return tweet
+            '@{0} ocorreu um problema e não encontramos a #previsão do seu'
+            ' ônibus ({1}) {2}. Tentaremos novamente em breve. {3}'
+            ' #falhou').format(twitter_id, linha, toobad, smile)
     # previsao zero 
-    if horarios[0] == 0:
+    elif horarios[0] == 0:
         primeiro = (
-            u'são %s  seu ônibus (%s ) vai passar AGORA, vai pro ponto '
-            u'garotinho! %s  #previsão') % (strftime("%H:%M"), linha, smile)
+            'são {0} seu ônibus ({1}) vai passar AGORA, vai pro ponto '
+            'garotinho! {2} #previsão').format(strftime("%H:%M"), linha, smile)
         mais_de_um = (
-            u'AGORA, vai pro ponto garotinho! %s  o próximo') % (smile)
+            'AGORA, vai pro ponto garotinho! {0} o próximo').format(smile)
     else:
         if horarios[0] > 59:
             prev = toHourMin(horarios[0])
             primeiro = (
-                u'seu ônibus (%s ) vai passar daqui a %s h e %s min às %s  '
-                u'#previsão') % (
+                'seu ônibus ({0}) vai passar daqui a {1}h e {2}min às {3} '
+                '#previsão').format(
                     linha, prev[0], prev[1], addminutes(horarios[0]))
             mais_de_um = (
-                u'daqui a %s h e %s min às %s ') % (
+                'daqui a {0}h e {1}min às {2}').format(
                     prev[0], prev[1], addminutes(horarios[0]))
         else:
             primeiro = (
-                u'seu ônibus (%s ) vai passar daqui a %s  minutos às %s  '
-                u'#previsão') % (linha, horarios[0], addminutes(horarios[0]))
+                'seu ônibus ({0}) vai passar daqui a {1} minutos às {2} '
+                '#previsão').format(linha, horarios[0], addminutes(horarios[0]))
             mais_de_um = (
-                u'daqui a %s  minutos às %s ') % (
+                'daqui a {0} minutos às {1}').format(
                     horarios[0], addminutes(horarios[0]))
     # Um
     if len(horarios) == 1:
-        tweet =  '@' + str(twitter_id) + ' ' + primeiro
+        tweet = '@' + str(twitter_id) + ' ' + primeiro
     # Um ou mais
     else:
         if horarios[1] > 59:
             prev = toHourMin(horarios[1])
-            tweet =  (
-                u'@%s  seu ônibus (%s ) vai passar %s  e daqui a %s h e {4}min '
-                u'às {5} #previsão') % (twitter_id, linha, mais_de_um,
+            tweet = (
+                '@{0} seu ônibus ({1}) vai passar {2} e daqui a {3}h e {4}min '
+                'às {5} #previsão').format(twitter_id, linha, mais_de_um,
                                     prev[0], prev[1],addminutes(horarios[1]))
         else:
-            tweet =  (
-                u'@%s  seu ônibus (%s ) vai passar %s  e daqui a %s  minutos às'
-                u' {4} #previsão') % (twitter_id, linha, mais_de_um,
+            tweet = (
+                '@{0} seu ônibus ({1}) vai passar {2} e daqui a {3} minutos às'
+                ' {4} #previsão').format(twitter_id, linha, mais_de_um,
                                         horarios[1], addminutes(horarios[1]))
+    
     if len(tweet) > TWEET_MAX:
         return tweet[:TWEET_MAX]
     return tweet
@@ -269,7 +263,7 @@ def previsao(registro):
     ]
     # Obter previsao
     try:
-        urlopened = opener.open('%sponto=%s&linha=%s&key=%s' % (
+        urlopened = opener.open('{}ponto={}&linha={}&key={}'.format(
             PREVISAO_URL, 6163, 122, PREVISAO_KEY))
     except Exception, e:
         registro.falhou = True
@@ -313,7 +307,7 @@ def localizar(request, ref):
     Localizar
     """
     data = urllib.urlencode({'referencia': smart_str(ref)})
-    urlopen = urllib2.urlopen('%s ?%s ' % (LISTA_PONTOS_URL, data))
+    urlopen = urllib2.urlopen('{}?{}'.format(LISTA_PONTOS_URL, data))
     read = urlopen.read()
     urlopen.close()
     return HttpResponse(read)
@@ -323,7 +317,7 @@ def pontos(request):
     """
     Pontos
     """
-    urlopen = urllib2.urlopen('%s /' % (LISTA_PONTOS_URL))
+    urlopen = urllib2.urlopen('{}/'.format(LISTA_PONTOS_URL))
     read = urlopen.read()
     urlopen.close()
     return HttpResponse(read)
@@ -343,7 +337,7 @@ def linhas(request, ponto):
     Linhas
     """
     urlopen = urllib2.urlopen(
-        '%s ?ponto_oid=%s ' % (LINHA_PASSA_URL, ponto))
+        '{}?ponto_oid={}'.format(LINHA_PASSA_URL, ponto))
 
     read = urlopen.read()
     urlopen.close()

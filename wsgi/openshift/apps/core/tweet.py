@@ -114,11 +114,11 @@ def create_tweets(registros):
 
     previsoes_xml = {}
     tweets = []
-    previsao_key = previsao_key()
+    key = previsao_key()
 
     # obtem previsoes
     for reg in registros:
-        prev = previsao(reg, previsao_key)
+        prev = previsao(reg, key)
         previsoes_xml.update({reg.ponto: prev})
 
     pontos = uniq(registros.values_list('ponto'))
@@ -263,7 +263,7 @@ def send_tweets():
     return True
 
 
-def previsao(registro, previsao_key):
+def previsao(registro, key):
     """
     Previsao:
     Envia ponto e linha para o servidor ponto-vitoria e retorna XML com
@@ -281,12 +281,11 @@ def previsao(registro, previsao_key):
     # Obter previsao
     try:
         urlopened = opener.open('{}ponto={}&linha={}&key={}'.format(
-            PREVISAO_URL, registro.ponto, registro.linha, previsao_key)
+            PREVISAO_URL, registro.ponto, registro.linha, key))
     except Exception, e:
         registro.falhou = True
         registro.save()
-        logger.error(e)
-        return None
+        raise e
 
     read = urlopened.read()
     urlopened.close()    

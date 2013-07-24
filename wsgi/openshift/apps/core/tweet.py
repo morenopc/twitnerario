@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 # Ponto Vitoria URLs
 RAST_URL = 'http://rast.vitoria.es.gov.br/'
 PREVISAO_URL = RAST_URL + 'pontovitoria/previsao?'
-PREVISAO_KEY = '636917'
+PREVISAO_KEY = '575893'
 LISTA_PONTOS_URL = RAST_URL + 'pontovitoria/utilidades/listaPontos'
 LINHA_PASSA_URL = RAST_URL + 'pontovitoria/utilidades/listaLinhaPassamNoPonto/'
 

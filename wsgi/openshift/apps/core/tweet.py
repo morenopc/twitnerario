@@ -1,4 +1,5 @@
 # -*- coding: UTF8 -*-
+import re
 import time
 import urllib
 import random
@@ -19,7 +20,7 @@ logger = logging.getLogger(__name__)
 # Ponto Vitoria URLs
 RAST_URL = 'http://rast.vitoria.es.gov.br/'
 PREVISAO_URL = RAST_URL + 'pontovitoria/previsao?'
-PREVISAO_KEY = '575893'
+PREVISAO_JS = RAST_URL + '/pontovitoria/js/principal/previsao.js'
 LISTA_PONTOS_URL = RAST_URL + 'pontovitoria/utilidades/listaPontos'
 LINHA_PASSA_URL = RAST_URL + 'pontovitoria/utilidades/listaLinhaPassamNoPonto/'
 
@@ -28,6 +29,14 @@ SADFACES = [u'☹', u'๏̯͡๏', u'».«', u'(͡๏̯͡๏)', u'(×̯×)', u'�
             u'טּ_טּ', u'ಸ_ಸ', u'ಠ,ಥ', u'໖_໖', u'Ծ_Ծ', u'ಠ_ಠ', u'⇎_⇎',
             u'●_●', u'~̯~', u'◔̯◔', u'أ ̯ أ', u'(╥﹏╥)', u'(►.◄)',
             u'(ு८ு)', u'v(ಥ ̯ ಥ)v', u'ب_ب']
+
+
+def previsao_key():
+    """"""
+    urlopen = urllib2.urlopen(PREVISAO_JS)
+    read = urlopen.read()
+    urlopen.close()
+    return re.search(r'validar\|(\d+)\|success', read).group(1)
 
 
 def uniq(alist):
@@ -105,10 +114,11 @@ def create_tweets(registros):
 
     previsoes_xml = {}
     tweets = []
+    previsao_key = previsao_key()
 
     # obtem previsoes
     for reg in registros:
-        prev = previsao(reg)
+        prev = previsao(reg, previsao_key)
         previsoes_xml.update({reg.ponto: prev})
 
     pontos = uniq(registros.values_list('ponto'))
@@ -253,7 +263,7 @@ def send_tweets():
     return True
 
 
-def previsao(registro):
+def previsao(registro, previsao_key):
     """
     Previsao:
     Envia ponto e linha para o servidor ponto-vitoria e retorna XML com
@@ -271,7 +281,7 @@ def previsao(registro):
     # Obter previsao
     try:
         urlopened = opener.open('{}ponto={}&linha={}&key={}'.format(
-            PREVISAO_URL, 6163, 122, PREVISAO_KEY))
+            PREVISAO_URL, registro.ponto, registro.linha, previsao_key)
     except Exception, e:
         registro.falhou = True
         registro.save()

@@ -15,7 +15,7 @@ else:
     DEBUG = True
 TEMPLATE_DEBUG = DEBUG = True
 
-ADMINS = [('Moreno', 'moreno.pinheiro@gmail.com')]
+ADMINS = [('Admin', 'admin@twitnerario.net')]
 MANAGERS = ADMINS
 
 if ON_OPENSHIFT:

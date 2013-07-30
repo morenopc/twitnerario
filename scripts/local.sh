@@ -3,7 +3,7 @@ set -e
 # variaveis
 ADMIN_USER='admin'
 ADMIN_PASSWORD='ad2&min3'
-ADMIN_EMAIL='moreno.pinheiro@gmail.com'
+ADMIN_EMAIL='admin@twitnerario.net'
 SITENAME="localhost:8000"
 PYTHON="./venv/bin/python"
 PROJECT_PATH="wsgi/openshift"

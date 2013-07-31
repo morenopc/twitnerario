@@ -101,9 +101,13 @@ ROOT_URLCONF = 'urls'
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),
 )
-ALLOWED_HOSTS = [
-    '*', # Allow domain and subdomains
-]
+
+# Allow domain and subdomain
+ALLOWED_HOSTS = ['*']
+
+# Nose tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,12 +122,18 @@ INSTALLED_APPS = (
     'registros',
     # apps
     'south',
+    'django_nose',
     'cronjobs',
     'form_utils',
     'twitterauth',
     'django_extensions',
     'templatetag_handlebars',
 )
+
+# Nose tests
+NOSE_ARGS = ['--with-notify',
+    # '--pdb-failures',
+]
 
 # Twitter
 # https://dev.twitter.com/apps/1331327/show

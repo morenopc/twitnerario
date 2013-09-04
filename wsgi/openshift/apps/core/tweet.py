@@ -7,7 +7,7 @@ import urllib2
 import twitter
 import logging
 import cronjobs
-from django.utils import simplejson
+# from django.utils import simplejson
 from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.utils.encoding import smart_str, smart_unicode

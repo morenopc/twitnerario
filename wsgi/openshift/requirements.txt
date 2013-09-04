@@ -3,6 +3,7 @@ South == 0.7.6
 PIL == 1.1.7
 oauth == 1.0.1
 python-twitter == 1.0
+requests == 1.2.3
 
 django-cronjobs == 0.2.3
 django-form-utils == 0.2.0

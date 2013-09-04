@@ -1,5 +1,5 @@
 # -*- coding: UTF8 -*-
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 urlpatterns = patterns('registros.views',
     url(r'^$', 'registro', name='registro'),

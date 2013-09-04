@@ -52,4 +52,3 @@ Caso queria contribuir:
 Também é possível contribuir copiando o projeto via Fork, dai com sua cópia do projeto faça os passos 1 e 2. Assim que estiver pronto clique no botão "Pull Request" no github que é um pedido para adicionar as suas alterações (branch) ao restante do código.
 
 Moreno Cunha
-	

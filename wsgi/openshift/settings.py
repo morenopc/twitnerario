@@ -135,6 +135,8 @@ NOSE_ARGS = ['--with-notify',
     # '--pdb-failures',
 ]
 
+FIXTURE_DIRS = (os.path.join(PROJECT_DIR, 'fixtures'),)
+
 # Twitter
 # https://dev.twitter.com/apps/1331327/show
 CONSUMER_KEY = 'GjDAsmaMQdZdli8pDXA'

@@ -1,14 +1,10 @@
 # -*- coding: UTF8 -*-
 import re
-# import time
-import urllib
 import random
-import urllib2
 import twitter
 import logging
 import cronjobs
 import requests
-# from django.utils import simplejson
 from time import strftime
 from django.conf import settings
 from django.http import HttpResponse, Http404
@@ -16,15 +12,8 @@ from django.utils.encoding import smart_str
 from xml.dom.minidom import parse, parseString
 from registros.models import Registros
 from apps.core.models import Configuracao
-# from core.RepeatTimer import RepeatTimer
 # logger
 logger = logging.getLogger(__name__)
-# Ponto Vitoria URLs
-RAST_URL = 'http://rast.vitoria.es.gov.br/'
-PREVISAO_URL = RAST_URL + 'pontovitoria/previsao?'
-PREVISAO_JS = RAST_URL + '/pontovitoria/js/principal/previsao.js'
-LISTA_PONTOS_URL = RAST_URL + 'pontovitoria/utilidades/listaPontos'
-LINHA_PASSA_URL = RAST_URL + 'pontovitoria/utilidades/listaLinhaPassamNoPonto/'
 
 SADFACES = [u'☹', u'๏̯͡๏', u'».«', u'(͡๏̯͡๏)', u'(×̯×)', u'ಥ_ಥ', u'v_v',
             u'►_◄', u'►.◄', u'>.<', u'ಠ_ರೃ', u'ಠ╭╮ಠ', u'מּ_מּ', u'לּ_לּ',
@@ -35,10 +24,9 @@ SADFACES = [u'☹', u'๏̯͡๏', u'».«', u'(͡๏̯͡๏)', u'(×̯×)', u'�
 
 def previsao_key():
     """"""
-    urlopen = urllib2.urlopen(PREVISAO_JS)
-    read = urlopen.read()
-    urlopen.close()
-    return re.search(r'validar\|(\d+)\|success', read).group(1)
+    url = Configuracao.objects.get(descricao='default')
+    resposta = requests.get(url.previsao_origin + url.previsao_js)
+    return re.search(r'validar\|(\d+)\|success', resposta.content).group(1)
 
 
 def uniq(alist):
@@ -145,12 +133,9 @@ def tweet(twitter_id, horarios, linha):
     Recebe o usuário e os horários estimados de chegada,
     monta e retorna o tweet
     """
-    TWEET_MAX = 144
-
-    primeiro = ''
-    mais_de_um = ''
-    smile = ''
-    toobad = ''
+    
+    primeiro = mais_de_um = ''
+    smile = toobad = ''
     prev = []
     # ordena os horarios
     horarios = sorted(horarios)
@@ -164,8 +149,8 @@ def tweet(twitter_id, horarios, linha):
             '@{0} são {1} e seu ônibus ({2}) está sem previsão de chegada {3} '
             '#previsão').format(twitter_id, strftime("%H:%M"), linha, toobad)
 
-        if len(tweet) > TWEET_MAX:
-            return tweet[:TWEET_MAX]
+        if len(tweet) > settings.TWEET_MAX:
+            return tweet[:settings.TWEET_MAX]
         return tweet
 
     # negative one
@@ -215,8 +200,8 @@ def tweet(twitter_id, horarios, linha):
                 ' {4} #previsão').format(twitter_id, linha, mais_de_um,
                                         horarios[1], addminutes(horarios[1]))
     
-    if len(tweet) > TWEET_MAX:
-        return tweet[:TWEET_MAX]
+    if len(tweet) > settings.TWEET_MAX:
+        return tweet[:settings.TWEET_MAX]
     return tweet
 
 
@@ -329,21 +314,21 @@ def localizar(request, ref):
     """
     Localizar
     """
-    data = urllib.urlencode({'referencia': smart_str(ref)})
-    urlopen = urllib2.urlopen('{}?{}'.format(LISTA_PONTOS_URL, data))
-    read = urlopen.read()
-    urlopen.close()
-    return HttpResponse(read)
+    url = Configuracao.objects.get(descricao='default')
+    resposta = requests.get(url.previsao_origin + url.pontos_pathname,
+            params={'referencia': smart_str(ref)})
+    return HttpResponse(resposta.content,
+        mimetype='application/json')
 
 
 def pontos(request):
     """
     Pontos
     """
-    urlopen = urllib2.urlopen('{}/'.format(LISTA_PONTOS_URL))
-    read = urlopen.read()
-    urlopen.close()
-    return HttpResponse(read)
+    url = Configuracao.objects.get(descricao='default')
+    resposta = requests.get(url.previsao_origin + url.pontos_pathname)
+    return HttpResponse(resposta.content,
+        mimetype='application/json')
 
 
 def pontos_json(request):
@@ -359,12 +344,11 @@ def linhas(request, ponto):
     """
     Linhas
     """
-    urlopen = urllib2.urlopen(
-        '{}?ponto_oid={}'.format(LINHA_PASSA_URL, ponto))
-
-    read = urlopen.read()
-    urlopen.close()
-    return HttpResponse(read)
+    url = Configuracao.objects.get(descricao='default')
+    resposta = requests.get(url.previsao_origin + url.linhas_pathname,
+            params={'ponto_oid': ponto})
+    return HttpResponse(resposta.content,
+        mimetype='application/json')
 
 
 @cronjobs.register

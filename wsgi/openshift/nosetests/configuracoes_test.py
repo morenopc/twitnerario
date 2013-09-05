@@ -43,7 +43,7 @@ class ConfigTest(TestCase):
         self.assertEqual(resposta.status_code, 200,
             msg=u'Não foi possível obter o JS com a chave da previsão')
         key = re.search(r'validar\|(\d+)\|success', resposta.content).group(1)
-        # Lista de pontos JSON
+        # Pontos Lista JSON
         resposta = requests.get(origin + url.pontos_pathname)
         self.assertEqual(resposta.status_code, 200,
             msg=u'Não foi possível obter a lista de pontos')

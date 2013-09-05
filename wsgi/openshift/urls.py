@@ -18,7 +18,8 @@ urlpatterns += patterns('apps.core.tweet',
     # includes
     url(r'^admin/', include(admin.site.urls)),
     # direct_to_template
-    url(r'^facebookauth/$', TemplateView.as_view(template_name='facebook_auth.html')),
+    url(r'^facebookauth/$',
+        TemplateView.as_view(template_name='facebook_auth.html')),
 )
 # TwitterAuth
 urlpatterns += patterns('apps.twitterauth.views',

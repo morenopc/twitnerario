@@ -39,10 +39,9 @@ class FuncoesTest(TestCase):
 
     def test_previsao_XML(self):
         """A previsao XML chegou e está correto?"""
-        
         from registros.models import Registros
         from core import tweet
-        
+
         regs = Registros.objects.all()
         reg = regs[random.randint(0, regs.count())]
         resposta = tweet.previsao(reg, tweet.previsao_key())
@@ -63,7 +62,7 @@ class FuncoesTest(TestCase):
         reg = regs[random.randint(0, regs.count())]
         previsao = tweet.previsao(reg, tweet.previsao_key())
         previsao_xml = {reg.ponto: previsao.content}
-        
+
         resposta = tweet.horarios(previsao_xml[reg.ponto],
             reg.linha)
         # É uma lista?

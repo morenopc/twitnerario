@@ -96,6 +96,7 @@ def connect_twitter_api():
                     access_token_key=settings.ACCESS_TOKEN_KEY,
                     access_token_secret=settings.ACCESS_TOKEN_SECRET)
 
+
 def create_tweets(registros):
     """
     Recebe a hora atual (de 15 em 15 minutos) e
@@ -133,7 +134,7 @@ def tweet(twitter_id, horarios, linha):
     Recebe o usuário e os horários estimados de chegada,
     monta e retorna o tweet
     """
-    
+
     primeiro = mais_de_um = ''
     smile = toobad = ''
     prev = []
@@ -143,7 +144,7 @@ def tweet(twitter_id, horarios, linha):
         toobad = smart_str(random.choice(SADFACES))
         smile = '^-^'
 
-    # Zero   
+    # Zero
     if not horarios:
         tweet = (
             '@{0} são {1} e seu ônibus ({2}) está sem previsão de chegada {3} '
@@ -159,7 +160,7 @@ def tweet(twitter_id, horarios, linha):
             '@{0} ocorreu um problema e não encontramos a #previsão do seu'
             ' ônibus ({1}) {2}. Tentaremos novamente em breve. {3}'
             ' #falhou').format(twitter_id, linha, toobad, smile)
-    # previsao zero 
+    # previsao zero
     elif horarios[0] == 0:
         primeiro = (
             'são {0} seu ônibus ({1}) vai passar AGORA, vai pro ponto '
@@ -179,7 +180,8 @@ def tweet(twitter_id, horarios, linha):
         else:
             primeiro = (
                 'seu ônibus ({0}) vai passar daqui a {1} minutos às {2} '
-                '#previsão').format(linha, horarios[0], addminutes(horarios[0]))
+                '#previsão').format(
+                    linha, horarios[0], addminutes(horarios[0]))
             mais_de_um = (
                 'daqui a {0} minutos às {1}').format(
                     horarios[0], addminutes(horarios[0]))
@@ -193,13 +195,13 @@ def tweet(twitter_id, horarios, linha):
             tweet = (
                 '@{0} seu ônibus ({1}) vai passar {2} e daqui a {3}h e {4}min '
                 'às {5} #previsão').format(twitter_id, linha, mais_de_um,
-                                    prev[0], prev[1],addminutes(horarios[1]))
+                                    prev[0], prev[1], addminutes(horarios[1]))
         else:
             tweet = (
                 '@{0} seu ônibus ({1}) vai passar {2} e daqui a {3} minutos às'
                 ' {4} #previsão').format(twitter_id, linha, mais_de_um,
                                         horarios[1], addminutes(horarios[1]))
-    
+
     if len(tweet) > settings.TWEET_MAX:
         return tweet[:settings.TWEET_MAX]
     return tweet
@@ -225,7 +227,7 @@ def resend_tweets():
 
     # set all regs to success
     regs.all().update(falhou=False)
-    return True 
+    return True
 
 
 @cronjobs.register
@@ -333,7 +335,7 @@ def pontos(request):
 
 def pontos_json(request):
     """
-    Lista de pontos em arquivo json 
+    Lista de pontos em arquivo json
     """
     return HttpResponse(
         open(settings.PROJECT_DIR + '/media/json/listaPontos.json').read(),

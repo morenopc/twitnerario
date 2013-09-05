@@ -1,20 +1,22 @@
 # -*- coding: UTF8 -*-
 import re
-import time
+# import time
 import urllib
 import random
 import urllib2
 import twitter
 import logging
 import cronjobs
+import requests
 # from django.utils import simplejson
+from time import strftime
 from django.conf import settings
 from django.http import HttpResponse, Http404
-from django.utils.encoding import smart_str, smart_unicode
-from time import strftime
+from django.utils.encoding import smart_str
 from xml.dom.minidom import parse, parseString
 from registros.models import Registros
-from core.RepeatTimer import RepeatTimer
+from apps.core.models import Configuracao
+# from core.RepeatTimer import RepeatTimer
 # logger
 logger = logging.getLogger(__name__)
 # Ponto Vitoria URLs
@@ -108,30 +110,31 @@ def connect_twitter_api():
 
 def create_tweets(registros):
     """
-    Cria Tweets:
-    Recebe a hora atual (de 15 em 15 minutos) e retorna os tweets gerados
+    Recebe a hora atual (de 15 em 15 minutos) e
+    retorna lista de tweets criados
     """
 
     previsoes_xml = {}
     tweets = []
+    # obtem chave de acesso
     key = previsao_key()
 
     # obtem previsoes
-    for reg in registros:
-        prev = previsao(reg, key)
-        previsoes_xml.update({reg.ponto: prev})
+    for registro in registros:
+        # função previsao(registro, key)
+        prev = previsao(registro, key)
+        previsoes_xml.update({registro.ponto: prev.content})
 
     pontos = uniq(registros.values_list('ponto'))
     for ponto in pontos:
         linhas = uniq(registros.filter(ponto=ponto[0]).values_list('linha'))
         for linha in linhas:
+            # função horarios(ponto_xml, linha)
             hs = horarios(previsoes_xml[ponto[0]], linha[0])
             tws = registros.filter(ponto=ponto[0], linha=linha[0])
             for tw in tws:
+                # função tweet(twitter_id, horarios, linha)
                 tweets.append(tweet(tw.twitter, hs, linha[0]))
-
-    # remove registros - somente esta vez
-    #registros.filter(lembrar=0,falhou=False).delete()
 
     return tweets
 
@@ -269,27 +272,30 @@ def previsao(registro, key):
     Envia ponto e linha para o servidor ponto-vitoria e retorna XML com
     previsão (a previsão contém todas linhas)
     """
-    
-    opener = urllib2.build_opener()
-    opener.addheaders = [
-        ('Referer', 'http://rast.vitoria.es.gov.br/pontovitoria/'),
-        ('User-Agent', 
-            'Mozilla/5.0 (X11; Linux x86_64) '
-            'AppleWebKit/537.11 (KHTML, like Gecko) '
-            'Chrome/23.0.1271.95 Safari/537.11')
-    ]
-    # Obter previsao
+    url = Configuracao.objects.get(descricao='default')
     try:
-        urlopened = opener.open('{}ponto={}&linha={}&key={}'.format(
-            PREVISAO_URL, registro.ponto, registro.linha, key))
+        headers = {
+            'Referer': 'http://rast.vitoria.es.gov.br/pontovitoria/',
+            'User-Agent': ('Mozilla/5.0 (X11; Linux x86_64) '
+                    'AppleWebKit/537.11 (KHTML, like Gecko) '
+                    'Chrome/23.0.1271.95 Safari/537.11')
+        }
+        payload = {
+            'ponto': registro.ponto,
+            'linha': registro.linha,
+            'key': key
+        }
+        resposta = requests.get(
+            url.previsao_origin + url.previsao_pathname,
+            params=payload,
+            headers=headers)
+
     except Exception, e:
         registro.falhou = True
         registro.save()
         raise e
 
-    read = urlopened.read()
-    urlopened.close()    
-    return read
+    return resposta
 
 
 def horarios(ponto_xml, linha):
@@ -315,6 +321,7 @@ def horarios(ponto_xml, linha):
             horarios.append(
                 (int(horarioEstimado) - int(horarioAtual)) / 60000)
 
+    # @@@|TODO resolver horarios negativos (ônibus já passou)
     return horarios  # de chegada em minutos
 
 

@@ -18,7 +18,7 @@ class ConfigTest(TestCase):
         except ImportError:
             self.fail('Model configuracao nao existe')
 
-    def test_default_existe(self):
+    def test_config_default(self):
         """A configuracao default existe?"""
         try:
             from apps.core.models import Configuracao

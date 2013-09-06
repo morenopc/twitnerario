@@ -13,6 +13,7 @@ class ConfigTest(TestCase):
 
     def test_existe(self):
         """A configuracao existe?"""
+
         try:
             from apps.core.models import Configuracao
         except ImportError:
@@ -20,6 +21,7 @@ class ConfigTest(TestCase):
 
     def test_config_default(self):
         """A configuracao default existe?"""
+
         try:
             from apps.core.models import Configuracao
         except ImportError:
@@ -29,8 +31,9 @@ class ConfigTest(TestCase):
                 descricao='default').exists(),
             msg='Configuracao default não foi localizada')
 
-    def test_urls(self):
-        """As urls da previsao funcionam?"""
+    def test_links(self):
+        """Os links com ponto vitória funcionam?"""
+
         from apps.core.models import Configuracao
         url = Configuracao.objects.get(descricao='default')
         # Previsao origin

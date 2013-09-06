@@ -7,7 +7,6 @@ import cronjobs
 import requests
 from time import strftime
 from django.conf import settings
-from django.http import HttpResponse, Http404
 from django.utils.encoding import smart_str
 from xml.dom.minidom import parse, parseString
 from registros.models import Registros
@@ -308,49 +307,8 @@ def horarios(ponto_xml, linha):
             horarios.append(
                 (int(horarioEstimado) - int(horarioAtual)) / 60000)
 
-    # @@@|TODO resolver horarios negativos (ônibus já passou)
+    # @@@|TODO resolver horario negativo (ônibus já passou)
     return horarios  # de chegada em minutos
-
-
-def localizar(request, ref):
-    """
-    Localizar
-    """
-    url = Configuracao.objects.get(descricao='default')
-    resposta = requests.get(url.previsao_origin + url.pontos_pathname,
-            params={'referencia': smart_str(ref)})
-    return HttpResponse(resposta.content,
-        mimetype='application/json')
-
-
-def pontos(request):
-    """
-    Pontos
-    """
-    url = Configuracao.objects.get(descricao='default')
-    resposta = requests.get(url.previsao_origin + url.pontos_pathname)
-    return HttpResponse(resposta.content,
-        mimetype='application/json')
-
-
-def pontos_json(request):
-    """
-    Lista de pontos em arquivo json
-    """
-    return HttpResponse(
-        open(settings.PROJECT_DIR + '/media/json/listaPontos.json').read(),
-        mimetype='application/json')
-
-
-def linhas(request, ponto):
-    """
-    Linhas
-    """
-    url = Configuracao.objects.get(descricao='default')
-    resposta = requests.get(url.previsao_origin + url.linhas_pathname,
-            params={'ponto_oid': ponto})
-    return HttpResponse(resposta.content,
-        mimetype='application/json')
 
 
 @cronjobs.register

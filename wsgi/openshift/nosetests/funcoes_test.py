@@ -2,7 +2,6 @@
 import re
 import random
 import requests
-from django.utils import simplejson
 from django.test import TestCase
 
 
@@ -23,6 +22,7 @@ class FuncoesTest(TestCase):
 
     def test_tweet(self):
         """O arquivo tweet existe?"""
+
         try:
             from core import tweet
         except ImportError:
@@ -30,6 +30,7 @@ class FuncoesTest(TestCase):
 
     def test_previsao_key(self):
         """A chave foi encontrada e é válida?"""
+
         from core import tweet
         key = tweet.previsao_key()
         try:
@@ -39,11 +40,12 @@ class FuncoesTest(TestCase):
 
     def test_previsao_XML(self):
         """A previsao XML chegou e está correto?"""
+
         from registros.models import Registros
         from core import tweet
 
         regs = Registros.objects.all()
-        reg = regs[random.randint(0, regs.count())]
+        reg = regs[random.randint(0, regs.count() - 1)]
         resposta = tweet.previsao(reg, tweet.previsao_key())
         # Status code
         self.assertEqual(resposta.status_code, 200,
@@ -59,7 +61,7 @@ class FuncoesTest(TestCase):
         from core import tweet
         # previsão XML
         regs = Registros.objects.all()
-        reg = regs[random.randint(0, regs.count())]
+        reg = regs[random.randint(0, regs.count() - 1)]
         previsao = tweet.previsao(reg, tweet.previsao_key())
         previsao_xml = {reg.ponto: previsao.content}
 
@@ -75,7 +77,7 @@ class FuncoesTest(TestCase):
         from core import tweet
         # previsão XML
         regs = Registros.objects.all()
-        reg = regs[random.randint(0, regs.count())]
+        reg = regs[random.randint(0, regs.count() - 1)]
         previsao = tweet.previsao(reg, tweet.previsao_key())
         previsao_xml = {reg.ponto: previsao.content}
         # obtem horarios

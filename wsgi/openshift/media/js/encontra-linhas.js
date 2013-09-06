@@ -18,7 +18,7 @@ var ponto_n_encontrado='&ensp;&uarr; Ponto vazio ou não encontrado. ' +
     Obtem lista JSON de pontos - pontosJSON
 */
 
-jQuery.getJSON('/pontos/json', function(data){
+jQuery.getJSON('/pontos/local/', function(data){
     pontosJSON = data;
     //  jQuery.each(data.data, function(i,v) { pts[pts.length]=v.ponto; });
     //  lista de pontos disponiveis
@@ -41,7 +41,7 @@ function ponto_erro_info(erro_texto) {
 */
 function setSelectLinhas(ponto){
     $id_linha_opt.remove();
-    jQuery.getJSON('/'+ponto+'/linhas/', function(data){
+    jQuery.getJSON('/ponto/'+ponto+'/linhas/', function(data){
         linhasJSON=data;
      }).error(function() { ponto_erro_info(ponto_n_encontrado); })
        .complete(function() { 

@@ -9,13 +9,13 @@ jQuery ->
         $pesq_ponto = $('#pesq_ponto');
         $pesq_ponto.css('border-color','#CCC')
         key_search = $pesq_ponto.val()
-        if ! key_search
+        if not key_search
             $pesq_ponto.css('border-color','#FC4C4C')
             return
         source = $('#pesq_resultado').html()
         if searchXHR
             searchXHR.abort()
-        searchXHR = $.getJSON '/localizar/'+key_search+'/', (pontos) =>
+        searchXHR = $.getJSON "/localizar/#{ key_search }/", (pontos) =>
             results = pontos.data.length
             if results > 50
                 results = 50
@@ -30,16 +30,14 @@ jQuery ->
                 }
                 $('.lista_resultados').append(template(context))
 
-    $('#pesq_button').bind 'click', (e) =>
+    $('#pesq_button').bind 'click', (e) ->
         make_search()
 
-    $("#pesq_ponto").bind 'keypress', (e) =>
+    $("#pesq_ponto").bind 'keypress', (e) ->
         if e.which == 13
             e.preventDefault()
             make_search()
 
     $(".resultado").live 'click', (e) ->
-        url = '/registro/' + $(this).attr('id')
+        url = "/registro/#{ $(@).attr('id') }/ponto/"
         $(location).attr('href', url)
-
-    return

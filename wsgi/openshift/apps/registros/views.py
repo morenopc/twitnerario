@@ -33,7 +33,6 @@ def registro(request):
     Recebe formulario e registra tweet
     """
 
-    #rs = Registros.objects.none()
     form = RegistrosForm(request.POST or None)
     if form.is_valid():
         return salvar_registro(request, form)

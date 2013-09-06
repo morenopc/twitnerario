@@ -1,0 +1,1082 @@
+[
+{
+    "pk": 1, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 28, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 16, 
+        "linha": "303", 
+        "criado_em": "2013-07-24T11:53:19.439"
+    }
+},
+{
+    "pk": 2, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 6, 
+        "linha": "333", 
+        "criado_em": "2013-07-24T11:53:19.569"
+    }
+},
+{
+    "pk": 3, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 6, 
+        "linha": "303", 
+        "criado_em": "2013-07-24T11:53:19.695"
+    }
+},
+{
+    "pk": 4, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 6, 
+        "linha": "175", 
+        "criado_em": "2013-07-24T11:53:19.804"
+    }
+},
+{
+    "pk": 5, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 7, 
+        "linha": "310", 
+        "criado_em": "2013-07-24T11:53:19.922"
+    }
+},
+{
+    "pk": 6, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 7, 
+        "linha": "1331", 
+        "criado_em": "2013-07-24T11:53:20.040"
+    }
+},
+{
+    "pk": 7, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 7, 
+        "linha": "310", 
+        "criado_em": "2013-07-24T11:53:20.166"
+    }
+},
+{
+    "pk": 8, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 7, 
+        "linha": "333", 
+        "criado_em": "2013-07-24T11:53:20.292"
+    }
+},
+{
+    "pk": 9, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 8, 
+        "linha": "1331PC", 
+        "criado_em": "2013-07-24T11:53:20.418"
+    }
+},
+{
+    "pk": 10, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 8, 
+        "linha": "074", 
+        "criado_em": "2013-07-24T11:53:20.544"
+    }
+},
+{
+    "pk": 11, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 8, 
+        "linha": "175", 
+        "criado_em": "2013-07-24T11:53:20.663"
+    }
+},
+{
+    "pk": 12, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 8, 
+        "linha": "171", 
+        "criado_em": "2013-07-24T11:53:20.772"
+    }
+},
+{
+    "pk": 13, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 9, 
+        "linha": "1331", 
+        "criado_em": "2013-07-24T11:53:20.898"
+    }
+},
+{
+    "pk": 14, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 9, 
+        "linha": "302", 
+        "criado_em": "2013-07-24T11:53:21.024"
+    }
+},
+{
+    "pk": 15, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 9, 
+        "linha": "332", 
+        "criado_em": "2013-07-24T11:53:21.133"
+    }
+},
+{
+    "pk": 16, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 9, 
+        "linha": "175", 
+        "criado_em": "2013-07-24T11:53:21.259"
+    }
+},
+{
+    "pk": 17, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 10, 
+        "linha": "303", 
+        "criado_em": "2013-07-24T11:53:21.394"
+    }
+},
+{
+    "pk": 18, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 10, 
+        "linha": "303", 
+        "criado_em": "2013-07-24T11:53:21.511"
+    }
+},
+{
+    "pk": 19, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 10, 
+        "linha": "175", 
+        "criado_em": "2013-07-24T11:53:21.622"
+    }
+},
+{
+    "pk": 20, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 10, 
+        "linha": "074", 
+        "criado_em": "2013-07-24T11:53:21.748"
+    }
+},
+{
+    "pk": 21, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 11, 
+        "linha": "303", 
+        "criado_em": "2013-07-24T11:53:21.865"
+    }
+},
+{
+    "pk": 22, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 11, 
+        "linha": "302", 
+        "criado_em": "2013-07-24T11:53:21.983"
+    }
+},
+{
+    "pk": 23, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 11, 
+        "linha": "1302", 
+        "criado_em": "2013-07-24T11:53:22.101"
+    }
+},
+{
+    "pk": 24, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 11, 
+        "linha": "332", 
+        "criado_em": "2013-07-24T11:53:22.219"
+    }
+},
+{
+    "pk": 25, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 12, 
+        "linha": "071", 
+        "criado_em": "2013-07-24T11:53:22.336"
+    }
+},
+{
+    "pk": 26, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 12, 
+        "linha": "1302", 
+        "criado_em": "2013-07-24T11:53:22.454"
+    }
+},
+{
+    "pk": 27, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 12, 
+        "linha": "333", 
+        "criado_em": "2013-07-24T11:53:22.563"
+    }
+},
+{
+    "pk": 28, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 12, 
+        "linha": "302", 
+        "criado_em": "2013-07-24T11:53:22.707"
+    }
+},
+{
+    "pk": 29, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 13, 
+        "linha": "171", 
+        "criado_em": "2013-07-24T11:53:22.824"
+    }
+},
+{
+    "pk": 30, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 13, 
+        "linha": "171", 
+        "criado_em": "2013-07-24T11:53:22.942"
+    }
+},
+{
+    "pk": 31, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 13, 
+        "linha": "332", 
+        "criado_em": "2013-07-24T11:53:23.060"
+    }
+},
+{
+    "pk": 32, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 13, 
+        "linha": "331", 
+        "criado_em": "2013-07-24T11:53:23.186"
+    }
+},
+{
+    "pk": 33, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 14, 
+        "linha": "333", 
+        "criado_em": "2013-07-24T11:53:23.303"
+    }
+},
+{
+    "pk": 34, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 14, 
+        "linha": "171", 
+        "criado_em": "2013-07-24T11:53:23.413"
+    }
+},
+{
+    "pk": 35, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 14, 
+        "linha": "333", 
+        "criado_em": "2013-07-24T11:53:23.514"
+    }
+},
+{
+    "pk": 36, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 14, 
+        "linha": "1302", 
+        "criado_em": "2013-07-24T11:53:23.640"
+    }
+},
+{
+    "pk": 37, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 15, 
+        "linha": "074", 
+        "criado_em": "2013-07-24T11:53:23.759"
+    }
+},
+{
+    "pk": 38, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 15, 
+        "linha": "302", 
+        "criado_em": "2013-07-24T11:53:23.876"
+    }
+},
+{
+    "pk": 39, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 15, 
+        "linha": "332", 
+        "criado_em": "2013-07-24T11:53:23.994"
+    }
+},
+{
+    "pk": 40, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 15, 
+        "linha": "331", 
+        "criado_em": "2013-07-24T11:53:24.111"
+    }
+},
+{
+    "pk": 41, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 16, 
+        "linha": "310", 
+        "criado_em": "2013-07-24T11:53:24.229"
+    }
+},
+{
+    "pk": 42, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 16, 
+        "linha": "175", 
+        "criado_em": "2013-07-24T11:53:24.346"
+    }
+},
+{
+    "pk": 43, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 16, 
+        "linha": "1302", 
+        "criado_em": "2013-07-24T11:53:24.448"
+    }
+},
+{
+    "pk": 44, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 16, 
+        "linha": "1331PC", 
+        "criado_em": "2013-07-24T11:53:24.573"
+    }
+},
+{
+    "pk": 45, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 17, 
+        "linha": "332", 
+        "criado_em": "2013-07-24T11:53:24.676"
+    }
+},
+{
+    "pk": 46, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 17, 
+        "linha": "333", 
+        "criado_em": "2013-07-24T11:53:24.793"
+    }
+},
+{
+    "pk": 47, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 17, 
+        "linha": "1331PC", 
+        "criado_em": "2013-07-24T11:53:24.919"
+    }
+},
+{
+    "pk": 48, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 17, 
+        "linha": "1331", 
+        "criado_em": "2013-07-24T11:53:25.037"
+    }
+},
+{
+    "pk": 49, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 18, 
+        "linha": "175", 
+        "criado_em": "2013-07-24T11:53:25.155"
+    }
+},
+{
+    "pk": 50, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 18, 
+        "linha": "171", 
+        "criado_em": "2013-07-24T11:53:25.272"
+    }
+},
+{
+    "pk": 51, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 18, 
+        "linha": "332", 
+        "criado_em": "2013-07-24T11:53:25.381"
+    }
+},
+{
+    "pk": 52, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 18, 
+        "linha": "1302", 
+        "criado_em": "2013-07-24T11:53:25.499"
+    }
+},
+{
+    "pk": 53, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 19, 
+        "linha": "332", 
+        "criado_em": "2013-07-24T11:53:25.617"
+    }
+},
+{
+    "pk": 54, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 19, 
+        "linha": "332", 
+        "criado_em": "2013-07-24T11:53:25.736"
+    }
+},
+{
+    "pk": 55, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 19, 
+        "linha": "074", 
+        "criado_em": "2013-07-24T11:53:25.853"
+    }
+},
+{
+    "pk": 56, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 19, 
+        "linha": "074", 
+        "criado_em": "2013-07-24T11:53:25.971"
+    }
+},
+{
+    "pk": 57, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 20, 
+        "linha": "074", 
+        "criado_em": "2013-07-24T11:53:26.080"
+    }
+},
+{
+    "pk": 58, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 20, 
+        "linha": "302", 
+        "criado_em": "2013-07-24T11:53:26.181"
+    }
+},
+{
+    "pk": 59, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 20, 
+        "linha": "303", 
+        "criado_em": "2013-07-24T11:53:26.290"
+    }
+},
+{
+    "pk": 60, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 20, 
+        "linha": "171", 
+        "criado_em": "2013-07-24T11:53:26.408"
+    }
+},
+{
+    "pk": 61, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 21, 
+        "linha": "171", 
+        "criado_em": "2013-07-24T11:53:26.526"
+    }
+},
+{
+    "pk": 62, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 21, 
+        "linha": "302", 
+        "criado_em": "2013-07-24T11:53:26.652"
+    }
+},
+{
+    "pk": 63, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 21, 
+        "linha": "331", 
+        "criado_em": "2013-07-24T11:53:26.771"
+    }
+},
+{
+    "pk": 64, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 21, 
+        "linha": "303", 
+        "criado_em": "2013-07-24T11:53:26.871"
+    }
+},
+{
+    "pk": 65, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 22, 
+        "linha": "303", 
+        "criado_em": "2013-07-24T11:53:26.989"
+    }
+},
+{
+    "pk": 66, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 22, 
+        "linha": "333", 
+        "criado_em": "2013-07-24T11:53:27.099"
+    }
+},
+{
+    "pk": 67, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 22, 
+        "linha": "332", 
+        "criado_em": "2013-07-24T11:53:27.199"
+    }
+},
+{
+    "pk": 68, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 22, 
+        "linha": "1331PC", 
+        "criado_em": "2013-07-24T11:53:27.317"
+    }
+},
+{
+    "pk": 69, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 0, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 23, 
+        "linha": "1331PC", 
+        "criado_em": "2013-07-24T11:53:27.435"
+    }
+},
+{
+    "pk": 70, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 15, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 23, 
+        "linha": "310", 
+        "criado_em": "2013-07-24T11:53:27.552"
+    }
+},
+{
+    "pk": 71, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 30, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 23, 
+        "linha": "1331PC", 
+        "criado_em": "2013-07-24T11:53:27.670"
+    }
+},
+{
+    "pk": 72, 
+    "model": "registros.registros", 
+    "fields": {
+        "minutos": 45, 
+        "lembrar": 0, 
+        "twitter": "morenocunha", 
+        "falhou": false, 
+        "ponto": "4045", 
+        "fim_de_semana": false, 
+        "horas": 23, 
+        "linha": "1331PC", 
+        "criado_em": "2013-07-24T11:53:27.781"
+    }
+}
+]

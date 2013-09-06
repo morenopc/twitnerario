@@ -1,0 +1,14 @@
+[
+{
+    "pk": 1, 
+    "model": "core.configuracao", 
+    "fields": {
+        "previsao_js": "pontovitoria/js/principal/previsao.js", 
+        "pontos_pathname": "pontovitoria/utilidades/listaPontos/", 
+        "previsao_origin": "http://rast.vitoria.es.gov.br/", 
+        "previsao_pathname": "pontovitoria/previsao?", 
+        "linhas_pathname": "pontovitoria/utilidades/listaLinhaPassamNoPonto/", 
+        "descricao": "default"
+    }
+}
+]

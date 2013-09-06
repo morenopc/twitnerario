@@ -1,28 +1,18 @@
 # -*- coding: UTF8 -*-
 import re
-import time
-import urllib
 import random
-import urllib2
 import twitter
 import logging
 import cronjobs
-from django.utils import simplejson
-from django.conf import settings
-from django.http import HttpResponse, Http404
-from django.utils.encoding import smart_str, smart_unicode
+import requests
 from time import strftime
+from django.conf import settings
+from django.utils.encoding import smart_str
 from xml.dom.minidom import parse, parseString
 from registros.models import Registros
-from core.RepeatTimer import RepeatTimer
+from apps.core.models import Configuracao
 # logger
 logger = logging.getLogger(__name__)
-# Ponto Vitoria URLs
-RAST_URL = 'http://rast.vitoria.es.gov.br/'
-PREVISAO_URL = RAST_URL + 'pontovitoria/previsao?'
-PREVISAO_JS = RAST_URL + '/pontovitoria/js/principal/previsao.js'
-LISTA_PONTOS_URL = RAST_URL + 'pontovitoria/utilidades/listaPontos'
-LINHA_PASSA_URL = RAST_URL + 'pontovitoria/utilidades/listaLinhaPassamNoPonto/'
 
 SADFACES = [u'☹', u'๏̯͡๏', u'».«', u'(͡๏̯͡๏)', u'(×̯×)', u'ಥ_ಥ', u'v_v',
             u'►_◄', u'►.◄', u'>.<', u'ಠ_ರೃ', u'ಠ╭╮ಠ', u'מּ_מּ', u'לּ_לּ',
@@ -33,10 +23,9 @@ SADFACES = [u'☹', u'๏̯͡๏', u'».«', u'(͡๏̯͡๏)', u'(×̯×)', u'�
 
 def previsao_key():
     """"""
-    urlopen = urllib2.urlopen(PREVISAO_JS)
-    read = urlopen.read()
-    urlopen.close()
-    return re.search(r'validar\|(\d+)\|success', read).group(1)
+    url = Configuracao.objects.get(descricao='default')
+    resposta = requests.get(url.previsao_origin + url.previsao_js)
+    return re.search(r'validar\|(\d+)\|success', resposta.content).group(1)
 
 
 def uniq(alist):
@@ -106,32 +95,34 @@ def connect_twitter_api():
                     access_token_key=settings.ACCESS_TOKEN_KEY,
                     access_token_secret=settings.ACCESS_TOKEN_SECRET)
 
+
 def create_tweets(registros):
     """
-    Cria Tweets:
-    Recebe a hora atual (de 15 em 15 minutos) e retorna os tweets gerados
+    Recebe a hora atual (de 15 em 15 minutos) e
+    retorna lista de tweets criados
     """
 
     previsoes_xml = {}
     tweets = []
+    # obtem chave de acesso
     key = previsao_key()
 
     # obtem previsoes
-    for reg in registros:
-        prev = previsao(reg, key)
-        previsoes_xml.update({reg.ponto: prev})
+    for registro in registros:
+        # função previsao(registro, key)
+        prev = previsao(registro, key)
+        previsoes_xml.update({registro.ponto: prev.content})
 
     pontos = uniq(registros.values_list('ponto'))
     for ponto in pontos:
         linhas = uniq(registros.filter(ponto=ponto[0]).values_list('linha'))
         for linha in linhas:
+            # função horarios(ponto_xml, linha)
             hs = horarios(previsoes_xml[ponto[0]], linha[0])
             tws = registros.filter(ponto=ponto[0], linha=linha[0])
             for tw in tws:
+                # função tweet(twitter_id, horarios, linha)
                 tweets.append(tweet(tw.twitter, hs, linha[0]))
-
-    # remove registros - somente esta vez
-    #registros.filter(lembrar=0,falhou=False).delete()
 
     return tweets
 
@@ -142,12 +133,9 @@ def tweet(twitter_id, horarios, linha):
     Recebe o usuário e os horários estimados de chegada,
     monta e retorna o tweet
     """
-    TWEET_MAX = 144
 
-    primeiro = ''
-    mais_de_um = ''
-    smile = ''
-    toobad = ''
+    primeiro = mais_de_um = ''
+    smile = toobad = ''
     prev = []
     # ordena os horarios
     horarios = sorted(horarios)
@@ -155,14 +143,14 @@ def tweet(twitter_id, horarios, linha):
         toobad = smart_str(random.choice(SADFACES))
         smile = '^-^'
 
-    # Zero   
+    # Zero
     if not horarios:
         tweet = (
             '@{0} são {1} e seu ônibus ({2}) está sem previsão de chegada {3} '
             '#previsão').format(twitter_id, strftime("%H:%M"), linha, toobad)
 
-        if len(tweet) > TWEET_MAX:
-            return tweet[:TWEET_MAX]
+        if len(tweet) > settings.TWEET_MAX:
+            return tweet[:settings.TWEET_MAX]
         return tweet
 
     # negative one
@@ -171,7 +159,7 @@ def tweet(twitter_id, horarios, linha):
             '@{0} ocorreu um problema e não encontramos a #previsão do seu'
             ' ônibus ({1}) {2}. Tentaremos novamente em breve. {3}'
             ' #falhou').format(twitter_id, linha, toobad, smile)
-    # previsao zero 
+    # previsao zero
     elif horarios[0] == 0:
         primeiro = (
             'são {0} seu ônibus ({1}) vai passar AGORA, vai pro ponto '
@@ -191,7 +179,8 @@ def tweet(twitter_id, horarios, linha):
         else:
             primeiro = (
                 'seu ônibus ({0}) vai passar daqui a {1} minutos às {2} '
-                '#previsão').format(linha, horarios[0], addminutes(horarios[0]))
+                '#previsão').format(
+                    linha, horarios[0], addminutes(horarios[0]))
             mais_de_um = (
                 'daqui a {0} minutos às {1}').format(
                     horarios[0], addminutes(horarios[0]))
@@ -205,15 +194,15 @@ def tweet(twitter_id, horarios, linha):
             tweet = (
                 '@{0} seu ônibus ({1}) vai passar {2} e daqui a {3}h e {4}min '
                 'às {5} #previsão').format(twitter_id, linha, mais_de_um,
-                                    prev[0], prev[1],addminutes(horarios[1]))
+                                    prev[0], prev[1], addminutes(horarios[1]))
         else:
             tweet = (
                 '@{0} seu ônibus ({1}) vai passar {2} e daqui a {3} minutos às'
                 ' {4} #previsão').format(twitter_id, linha, mais_de_um,
                                         horarios[1], addminutes(horarios[1]))
-    
-    if len(tweet) > TWEET_MAX:
-        return tweet[:TWEET_MAX]
+
+    if len(tweet) > settings.TWEET_MAX:
+        return tweet[:settings.TWEET_MAX]
     return tweet
 
 
@@ -237,7 +226,7 @@ def resend_tweets():
 
     # set all regs to success
     regs.all().update(falhou=False)
-    return True 
+    return True
 
 
 @cronjobs.register
@@ -269,27 +258,30 @@ def previsao(registro, key):
     Envia ponto e linha para o servidor ponto-vitoria e retorna XML com
     previsão (a previsão contém todas linhas)
     """
-    
-    opener = urllib2.build_opener()
-    opener.addheaders = [
-        ('Referer', 'http://rast.vitoria.es.gov.br/pontovitoria/'),
-        ('User-Agent', 
-            'Mozilla/5.0 (X11; Linux x86_64) '
-            'AppleWebKit/537.11 (KHTML, like Gecko) '
-            'Chrome/23.0.1271.95 Safari/537.11')
-    ]
-    # Obter previsao
+    url = Configuracao.objects.get(descricao='default')
     try:
-        urlopened = opener.open('{}ponto={}&linha={}&key={}'.format(
-            PREVISAO_URL, registro.ponto, registro.linha, key))
+        headers = {
+            'Referer': 'http://rast.vitoria.es.gov.br/pontovitoria/',
+            'User-Agent': ('Mozilla/5.0 (X11; Linux x86_64) '
+                    'AppleWebKit/537.11 (KHTML, like Gecko) '
+                    'Chrome/23.0.1271.95 Safari/537.11')
+        }
+        payload = {
+            'ponto': registro.ponto,
+            'linha': registro.linha,
+            'key': key
+        }
+        resposta = requests.get(
+            url.previsao_origin + url.previsao_pathname,
+            params=payload,
+            headers=headers)
+
     except Exception, e:
         registro.falhou = True
         registro.save()
         raise e
 
-    read = urlopened.read()
-    urlopened.close()    
-    return read
+    return resposta
 
 
 def horarios(ponto_xml, linha):
@@ -315,49 +307,8 @@ def horarios(ponto_xml, linha):
             horarios.append(
                 (int(horarioEstimado) - int(horarioAtual)) / 60000)
 
+    # @@@|TODO resolver horario negativo (ônibus já passou)
     return horarios  # de chegada em minutos
-
-
-def localizar(request, ref):
-    """
-    Localizar
-    """
-    data = urllib.urlencode({'referencia': smart_str(ref)})
-    urlopen = urllib2.urlopen('{}?{}'.format(LISTA_PONTOS_URL, data))
-    read = urlopen.read()
-    urlopen.close()
-    return HttpResponse(read)
-
-
-def pontos(request):
-    """
-    Pontos
-    """
-    urlopen = urllib2.urlopen('{}/'.format(LISTA_PONTOS_URL))
-    read = urlopen.read()
-    urlopen.close()
-    return HttpResponse(read)
-
-
-def pontos_json(request):
-    """
-    Lista de pontos em arquivo json 
-    """
-    return HttpResponse(
-        open(settings.PROJECT_DIR + '/media/json/listaPontos.json').read(),
-        mimetype='application/json')
-
-
-def linhas(request, ponto):
-    """
-    Linhas
-    """
-    urlopen = urllib2.urlopen(
-        '{}?ponto_oid={}'.format(LINHA_PASSA_URL, ponto))
-
-    read = urlopen.read()
-    urlopen.close()
-    return HttpResponse(read)
 
 
 @cronjobs.register

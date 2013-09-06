@@ -101,9 +101,13 @@ ROOT_URLCONF = 'urls'
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),
 )
-ALLOWED_HOSTS = [
-    '*', # Allow domain and subdomains
-]
+
+# Allow domain and subdomain
+ALLOWED_HOSTS = ['*']
+
+# Nose tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,6 +122,7 @@ INSTALLED_APPS = (
     'registros',
     # apps
     'south',
+    'django_nose',
     'cronjobs',
     'form_utils',
     'twitterauth',
@@ -125,8 +130,16 @@ INSTALLED_APPS = (
     'templatetag_handlebars',
 )
 
-# Twitter
+# Nose tests
+NOSE_ARGS = ['--with-notify',
+    # '--pdb-failures',
+]
+
+FIXTURE_DIRS = (os.path.join(PROJECT_DIR, 'fixtures'),)
+
+# Twitter API
 # https://dev.twitter.com/apps/1331327/show
+TWEET_MAX = 144
 CONSUMER_KEY = 'GjDAsmaMQdZdli8pDXA'
 CONSUMER_SECRET = 'lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8'
 ACCESS_TOKEN_KEY = '397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV'

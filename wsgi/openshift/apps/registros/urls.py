@@ -2,6 +2,7 @@
 from django.conf.urls import *
 
 urlpatterns = patterns('registros.views',
-    url(r'^$', 'registro', name='registro'),
-    url(r'^(?P<ponto>\d+)', 'registro_ponto', name='registro_ponto'),
+    url(r'^$', 'registrar', name='registrar'),
+    url(r'^(?P<ponto>\d+)/ponto/$', 'registrar_ponto',
+    	name='registrar_ponto'),
 )

@@ -32,7 +32,7 @@ class ConfigTest(TestCase):
             msg='Configuracao default não foi localizada')
 
     def test_links(self):
-        """Os links com ponto vitória funcionam?"""
+        """Os links do ponto vitória funcionam?"""
 
         from apps.core.models import Configuracao
         url = Configuracao.objects.get(descricao='default')
@@ -51,8 +51,14 @@ class ConfigTest(TestCase):
         self.assertEqual(resposta.status_code, 200,
             msg=u'Não foi possível obter a lista de pontos')
         pontos = simplejson.loads(resposta.content)
+        # É um dicionário?
+        self.assertTrue(isinstance(pontos, dict))
+        # Os pontos foram encontrados?
+        pontos_len = len(pontos['data'])
+        self.assertNotEqual(pontos_len, 0,
+            msg=u'Lista de pontos vazia')
         ponto = pontos['data'][
-            random.randint(0, len(pontos['data']) - 1)].get('ponto')
+            random.randint(0, pontos_len - 1)].get('ponto')
         # Linha JSON
         resposta = requests.get(
             origin + url.linhas_pathname,
@@ -60,8 +66,15 @@ class ConfigTest(TestCase):
         self.assertEqual(resposta.status_code, 200,
             msg=u'Não foi possível obter linha(s)')
         linhas = simplejson.loads(resposta.content)
+        # É um dicionário?
+        self.assertTrue(isinstance(linhas, dict))
+        # As linhas foram encontradas?
+        linhas = simplejson.loads(resposta.content)
+        linhas_len = len(linhas['data'])
+        self.assertNotEqual(linhas_len, 0,
+            msg=u'Lista de linhas vazia para ponto {}'.format(ponto))
         linha = linhas['data'][
-            random.randint(0, len(linhas['data']) - 1)].get('linha')
+            random.randint(0, linhas_len - 1)].get('linha')
         # Previsao pathname
         headers = {
             'Referer': 'http://rast.vitoria.es.gov.br/pontovitoria/',

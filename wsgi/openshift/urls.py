@@ -8,9 +8,6 @@ admin.autodiscover()
 # includes
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    # direct_to_template
-    url(r'^facebookauth/$',
-        TemplateView.as_view(template_name='facebook_auth.html')),
 )
 # Registros
 urlpatterns += patterns('apps.registros.views',
@@ -23,11 +20,6 @@ urlpatterns += patterns('apps.core.views',
     url(r'^pontos/$', 'pontos', name='pontos'),
     url(r'^pontos/local/$', 'pontos_local', name='pontos_local'),
     url(r'^ponto/(?P<ponto>\d+)/linhas/$', 'linhas', name='linhas'),
-)
-# TwitterAuth
-urlpatterns += patterns('apps.twitterauth.views',
-    url(r'^login/$', 'twitter_signin', name='login'),
-    url(r'^return/$', 'twitter_return', name='return'),
 )
 # Media
 if settings.DEBUG:

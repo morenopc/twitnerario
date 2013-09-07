@@ -23,23 +23,23 @@ if ON_OPENSHIFT:
     # with rhc cartridge add (see /README in this git repo)
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'sqlite3.db'),  # Or path to database file if using sqlite3.
-            'USER': '',                      # Not used with sqlite3.
-            'PASSWORD': '',                  # Not used with sqlite3.
-            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'sqlite3.db'),
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '', 
+            'PORT': '',
         }
     }
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': os.path.join(PROJECT_DIR, 'sqlite3.db'),  # Or path to database file if using sqlite3.
-            'USER': '',                      # Not used with sqlite3.
-            'PASSWORD': '',                  # Not used with sqlite3.
-            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(PROJECT_DIR, 'sqlite3.db'),
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '', 
+            'PORT': '',
         }
     }
 
@@ -125,15 +125,14 @@ INSTALLED_APPS = (
     'django_nose',
     'cronjobs',
     'form_utils',
-    'twitterauth',
     'django_extensions',
     'templatetag_handlebars',
 )
 
 # Nose tests
-NOSE_ARGS = ['--with-notify',
-    # '--pdb-failures',
-]
+NOSE_ARGS = [
+    '--with-notify',
+    '--verbosity=2']
 
 FIXTURE_DIRS = (os.path.join(PROJECT_DIR, 'fixtures'),)
 
@@ -146,10 +145,8 @@ ACCESS_TOKEN_KEY = '397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV'
 ACCESS_TOKEN_SECRET = '5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM'
 
 AUTHENTICATION_BACKENDS = (
-    #'backends.twitteroauth.TwitterBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
-AUTH_PROFILE_MODULE = "twitterauth.UserProfile"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

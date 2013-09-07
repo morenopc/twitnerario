@@ -16,5 +16,5 @@ echo "Executing '$PYTHON $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py collectsta
 $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py collectstatic --noinput
 
 echo "Executing 'ln -s $OPENSHIFT_HOMEDIR/python/repo/wsgi/openshift/media media'"
-cd "$OPENSHIFT_HOMEDIR"python/repo/wsgi/static/
+cd "$OPENSHIFT_REPO_DIR"wsgi/static/
 ln -s "$OPENSHIFT_HOMEDIR"python/repo/wsgi/openshift/media media

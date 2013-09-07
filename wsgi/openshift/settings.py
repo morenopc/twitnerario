@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Twitnerario django settings for openshift project.
+from django.utils import simplejson
 import imp, os, sys
 
 # a setting to determine whether we are running on OpenShift
@@ -13,9 +14,9 @@ if ON_OPENSHIFT:
     DEBUG = False
 else:
     DEBUG = True
-TEMPLATE_DEBUG = DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
-ADMINS = [('Admin', 'admin@twitnerario.net')]
+ADMINS = [('Admin', 'moreno.pinheiro@gmail.com')]
 MANAGERS = ADMINS
 
 if ON_OPENSHIFT:
@@ -127,6 +128,7 @@ INSTALLED_APPS = (
     'form_utils',
     'django_extensions',
     'templatetag_handlebars',
+    'django_mailer',
 )
 
 # Nose tests
@@ -138,15 +140,27 @@ FIXTURE_DIRS = (os.path.join(PROJECT_DIR, 'fixtures'),)
 
 # Twitter API
 # https://dev.twitter.com/apps/1331327/show
+TWITTER = simplejson.load(
+    open(PROJECT_DIR + '/twitter_api.json'))
 TWEET_MAX = 144
-CONSUMER_KEY = 'GjDAsmaMQdZdli8pDXA'
-CONSUMER_SECRET = 'lONZF93DzyXPB5974GxbUmqLxyvA9ZG3bXUoliYhG8'
-ACCESS_TOKEN_KEY = '397486100-T13Va0sXGROGkNpzLZBpZrZdvl2xycyJWpov4cWV'
-ACCESS_TOKEN_SECRET = '5F5ExGiDQM770mQKPTai3pAlq2A9ockVsK5oqtcwM'
+CONSUMER_KEY = TWITTER['CONSUMER_KEY']
+CONSUMER_SECRET = TWITTER['CONSUMER_SECRET']
+ACCESS_TOKEN_KEY = TWITTER['ACCESS_TOKEN_KEY']
+ACCESS_TOKEN_SECRET = TWITTER['ACCESS_TOKEN_SECRET']
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
+
+# Django-mailer
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'twitnerario@gmail.com'
+EMAIL_HOST_PASSWORD = 'twit4nerario7'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+# Django-mailer-2
+EMAIL_BACKEND = 'django_mailer.smtp_queue.EmailBackend'
+DEFAULT_FROM_EMAIL = 'twitnerario@gmail.com'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

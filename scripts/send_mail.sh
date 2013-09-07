@@ -1,0 +1,1 @@
+venv/bin/python wsgi/openshift/manage.py send_mail

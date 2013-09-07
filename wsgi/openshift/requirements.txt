@@ -9,6 +9,7 @@ django-cronjobs == 0.2.3
 django-form-utils == 0.2.0
 django-extensions == 1.1.1
 django-templatetag-handlebars == 1.2.0
+-e git+git://github.com/morenopc/django-mailer-2.git#egg=django-mailer-2
 
 nose
 django-nose

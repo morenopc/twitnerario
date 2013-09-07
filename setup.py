@@ -12,5 +12,5 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     description='Agende e receba lembretes (tweets) com o horario que seu onibus ira passar.',
-    install_requires=open('%swsgi/openshift/requirements.txt' % os.environ.get('OPENSHIFT_REPO_DIR')).readlines(),
+    install_requires=open('%swsgi/openshift/requirements.txt' % os.environ.get('OPENSHIFT_REPO_DIR')).read().splitlines(),
 )

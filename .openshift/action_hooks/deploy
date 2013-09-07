@@ -10,11 +10,11 @@ PYTHON="$OPENSHIFT_HOMEDIR"python/virtenv/bin/python
 
 echo "Executing '$PYTHON $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py syncdb --migrate --noinput'"
 $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py syncdb --migrate --noinput
-echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', '$ADMIN_EMAIL', '$ADMIN_PASSWORD')" | $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py shell
+# echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', '$ADMIN_EMAIL', '$ADMIN_PASSWORD')" | $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py shell
 
 echo "Executing '$PYTHON $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py collectstatic --noinput'"
 $PYTHON "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py collectstatic --noinput
 
 echo "Executing 'ln -s $OPENSHIFT_HOMEDIR/python/repo/wsgi/openshift/media media'"
 cd "$OPENSHIFT_REPO_DIR"wsgi/static/
-ln -s "$OPENSHIFT_HOMEDIR"python/repo/wsgi/openshift/media media
+ln -s "$OPENSHIFT_REPO_DIR"wsgi/openshift/media media

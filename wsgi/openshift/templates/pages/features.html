@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block title %}Features{% endblock %}
+{% block menu %}
+<li><a href="/">Home</a></li>
+<li><a href="/knowledge-base/">Knowledge Base</a></li>
+<li><a href="/articles/">Articles</a></li>
+<li><a href="/faq/">Faq</a></li>
+<li class="active"><a href="/features/">Features</a></li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
+  <ul class="dropdown-menu">
+    <li><a href="/contact/">Contact</a></li>
+    <li><a href="/full/">Full</a></li>
+  </ul>
+</li>
+{% endblock %}
+{% block content %}
+<!-- PAGE CONTENT -->
+<div id="wrap" class="container" role="document">
+  <div id="content" class="row">
+    <div id="main" class="span9" role="main">
+
+      <div class="page-title">
+        <h1>Typography</h1>
+      </div>
+      <div class="page-main">
+        <h1>This Is An H1 Tag</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>&nbsp;</p>
+        <h2>This Is An H2 Tag</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>&nbsp;</p>
+        <h3>This Is An H3 Tag</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>&nbsp;</p>
+        <h4>This Is An H4 Tag</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>&nbsp;</p>
+        <h5>This Is An H5 Tag</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>&nbsp;</p>
+        <h2>Quotes</h2>
+        <p>&nbsp;</p>
+        <blockquote><p>Love begins at home, and it is not how much we do&#8230; but how much love we put in that action.</p><small>Mother Theresa</small></blockquote>
+        <p>&nbsp;</p>
+
+        
+        <h2>Alerts</h2>
+        <p>&nbsp;</p>
+        <div class="fade in alert alert-warning">Alert text goes here.</div>
+        <div class="fade in alert alert-warning"><a class="close" data-dismiss="alert">×</a>Alert text goes here.</div>
+        <div class="fade in alert alert-info">Alert text goes here.</div>
+        <div class="fade in alert alert-info"><a class="close" data-dismiss="alert">×</a>Alert text goes here.</div>
+        <div class="fade in alert alert-success">Alert text goes here.</div>
+        <div class="fade in alert alert-success"><a class="close" data-dismiss="alert">×</a>Alert text goes here.</div>
+        <div class="fade in alert alert-error">Alert text goes here.</div>
+        <div class="fade in alert alert-error"><a class="close" data-dismiss="alert">×</a>Alert text goes here.</div>
+        <p>&nbsp;</p>
+
+
+        <h2>Block Message Alerts</h2>
+        <p>&nbsp;</p>
+        <div class="fade in alert alert-block alert-warning"><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p></div>
+        <div class="fade in alert alert-block alert-warning"><a class="close" data-dismiss="alert">×</a><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p></div>
+        <div class="fade in alert alert-block alert-info"><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p></div>
+        <div class="fade in alert alert-block alert-info"><a class="close" data-dismiss="alert">×</a><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p></div>
+        <div class="fade in alert alert-block alert-success"><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p></div>
+        <div class="fade in alert alert-block alert-success"><a class="close" data-dismiss="alert">×</a><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p></div>
+        <div class="fade in alert alert-block alert-error"><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p></div>
+        <div class="fade in alert alert-block alert-error"><a class="close" data-dismiss="alert">×</a><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p></div>
+        <p>&nbsp;</p>
+
+
+        <h2>Tabs</h2>
+        <p>&nbsp;</p>
+        <div>
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#1" data-toggle="tab">First Tab Title</a></li>
+            <li class=""><a href="#2" data-toggle="tab">Second Tab Title</a></li>
+          </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="1"><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </p>
+          </div> 
+            <div class="tab-pane " id="2"><p>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum. </p>
+            </div>
+          </div>
+        </div>
+        <p>&nbsp;</p>
+
+
+            <h2>Accordion</h2>
+            <p>&nbsp;</p>
+            <div class="accordion">
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle"><i class="icon-active icon-chevron-down"></i> <i class="icon-passive icon-chevron-right"></i> My Accordion 1</a>
+                </div>
+                <div class="accordion-body"><div class="accordion-inner">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle"><i class="icon-active icon-chevron-down"></i> <i class="icon-passive icon-chevron-right"></i> My Accordion 2</a>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-inner">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi
+            </div>
+          </div>
+        </div>
+        <br />
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle"><i class="icon-active icon-chevron-down"></i> <i class="icon-passive icon-chevron-right"></i> My Accordion 3</a>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-inner">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi
+              </div>
+            </div>
+          </div>
+        </div>
+        <p>&nbsp;</p>
+
+
+        <h2>Labels</h2>
+        <p>&nbsp;</p>
+        <p>Lorem ipsum dolor sit amet, <span class="label label-warning">consectetuer adipiscing</span> elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="label label-success">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Duis autem vel eum <span class="label label-important">iriure</span> dolor in hendrerit in vulputate velit esse molestie consequat, vel illum <span class="label label-info">dolore</span> eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes <span class="label label-inverse">demonstraverunt</span> lectores legere me lius quod ii legunt saepius.</p>
+        <p>&nbsp;</p>
+
+
+        <h2>Buttons</h2>
+        <p>&nbsp;</p>
+        <div class="row-fluid">
+          <div class="span3"></p>
+            <p><a href="#" target="_self" class="btn  btn-mini">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-primary btn-mini">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-info btn-mini">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-success btn-mini">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-danger btn-mini">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-warning btn-mini">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-inverse btn-mini">Button text</a><br />
+            </div><div class="span3"><br />
+            <a href="#" target="_self" class="btn  btn-small">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-primary btn-small">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-info btn-small">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-success btn-small">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-danger btn-small">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-warning btn-small">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-inverse btn-small">Button text</a><br />
+            </div><div class="span3"><br />
+            <a href="#" target="_self" class="btn  ">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-primary ">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-info ">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-success ">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-danger ">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-warning ">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-inverse ">Button text</a><br />
+            </div><div class="span3"></p>
+            <p><a href="#" target="_self" class="btn  btn-large">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-primary btn-large">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-info btn-large">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-success btn-large">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-danger btn-large">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-warning btn-large">Button text</a></p>
+            <p><a href="#" target="_self" class="btn btn-inverse btn-large">Button text</a><br />
+          </div>
+        </div>
+        <p>&nbsp;</p>
+
+
+        <h2>Responsive Videos</h2>
+        <p>&nbsp;</p>
+        <div class="fitvids">
+          <iframe src="http://player.vimeo.com/video/37300394?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        </div>
+        <p>&nbsp;</p>
+        <div class="fitvids">
+          <iframe width="560" height="315" src="http://www.youtube.com/embed/nvKyYeJJYwM?rel=0" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <aside id="sidebar" class="span3" role="complementary">
+      <section class="widget">
+        <h3>Knowledge Base</h3>
+        <ul class="menu">
+          <li><a href="#">Getting Started</a></li>
+          <li><a href="#">Administration</a></li>
+          <li><a href="#">Admin Panel</a></li>
+          <li><a href="#">Extensions</a></li>
+          <li><a href="#">Shipping Methods</a></li>
+          <li><a href="#">Tips and Tricks</a></li>
+          <li><a href="#">Troubleshooting</a></li>
+          <li><a href="#">Video Tutorials</a></li>
+        </ul>
+      </section>
+      <section class="widget">
+        <h3>Recent Articles</h3>
+        <ul>
+          <li>
+            <i class="icon-file"></i> <a href="#" title="Permanent link to Standard Post Format">Standard Post Format</a>
+          </li>
+          <li>
+            <i class="icon-file"></i> <a href="#" title="Permanent link to Disabled Comments">Disabled Comments</a>
+          </li>
+          <li>
+            <i class="icon-file"></i> <a href="#" title="Permanent link to Theme Set Up">Theme Set Up</a>
+          </li>
+          <li>
+            <i class="icon-film"></i> <a href="#" title="Permanent link to Video Post Format">Video Post Format</a>
+          </li>
+          <li>
+            <i class="icon-file"></i> <a href="#" title="Permanent link to Follow up Emails">Follow up Emails</a>
+          </li>
+          <li>
+            <i class="icon-picture"></i> <a href="#" title="Permanent link to Fully Responsive Design">Fully Responsive Design</a>
+          </li>
+          <li>
+            <i class="icon-file"></i> <a href="#" title="Permanent link to Unlimited Colors">Unlimited Colors</a>
+          </li>
+          <li>
+            <i class="icon-file"></i> <a href="#" title="Permanent link to Well Documented">Well Documented</a>
+          </li>
+        </ul>
+      </section>        
+    </aside>
+  </div><!-- /#content -->
+</div><!-- /#wrap -->
+{% endblock %}

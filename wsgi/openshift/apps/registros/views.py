@@ -8,13 +8,6 @@ from registros.forms import RegistrosForm
 from django.http import HttpResponse, HttpResponseRedirect
 
 
-def pesquisar(request):
-    """Página inicial de pesquisa de pontos"""
-    
-    return render_to_response('pesquisar/pesquisar.ponto.html',
-        context_instance=RequestContext(request))
-
-
 def registrar(request):
     """
     Recebe formulário e registra tweet

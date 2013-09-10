@@ -11,15 +11,17 @@ urlpatterns = patterns('',
 )
 # Registros
 urlpatterns += patterns('apps.registros.views',
-    url(r'^$', 'pesquisar', name='pesquisar'),
     url(r'^registro/', include('registros.urls', namespace='registro')),
 )
 # Core Tweet
 urlpatterns += patterns('apps.core.views',
-    url(r'^localizar/(?P<ref>.+)/$', 'localizar', name='localizar'),
+    url(r'^$', 'pesquisar', name='pesquisar'),
+    url(r'^pesquisar', 'pesquisar', name='pesquisar'),
     url(r'^pontos/$', 'pontos', name='pontos'),
     url(r'^pontos/local/$', 'pontos_local', name='pontos_local'),
     url(r'^ponto/(?P<ponto>\d+)/linhas/$', 'linhas', name='linhas'),
+    url(r'^ponto/(?P<ponto>\d+)/linha/(?P<linha>\d+)/horarios/$',
+        'previsoes', name='previsoes'),
 )
 # Media
 if settings.DEBUG:

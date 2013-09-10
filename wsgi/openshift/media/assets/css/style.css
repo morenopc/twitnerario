@@ -1,0 +1,966 @@
+/*------------------------------------------------ */
+/* TABLE OF CONTENT */
+/*------------------------------------------------ 
+
+1  - General Base Styles
+2  - Template Color Scheme
+3  - Header Container and Logo Styles 
+4  - Header Navigation Styles
+5  - Page Header & Title Styles
+6  - Page Content Styles
+7  - Page Sidebar Styles
+8  - Footer Styles
+9  - Social Icons Styles
+10 - Bootstrap Features Styles
+11 - Search Autocomplete Styles
+12 - Home Page Styles
+13 - Knowledge Base Page Styles
+14 - Articles Page Styles
+15 - Single Article Page Styles
+16 - Contact Page Styles
+17 - Faq Page Styles
+
+-------------------------------------------------- */
+
+
+/*------------------------------------------------ */
+/* 1 - General Base Styles */
+/*------------------------------------------------ */
+
+body {
+  color: #666;
+  background-color: WhiteSmoke;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway', sans-serif;
+  color: #121212;
+}
+h1 { 
+  font-size: 36px;
+}
+h2 { 
+  font-size: 26px;
+}
+h3 { 
+  font-size: 22px;
+}
+h4 { 
+  font-size: 18px;
+}
+h5 { 
+  font-size: 14px;
+}
+.btn-custom {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 7px 11px;
+  border: 1px solid #BBB;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  background-color: #141414;
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.36);
+  -webkit-font-smoothing: antialiased;
+  transition: background .10s ease-in-out;
+  -moz-transition: background .10s ease-in-out;
+  -webkit-transition: background .10s ease-in-out;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.btn-custom:hover {text-decoration: none;background: url(../img/btn-custom.png);}
+
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, 
+input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, 
+input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, 
+input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus {
+  border: solid 1px #777;
+  box-shadow:none;
+}
+.label-color i { 
+  color: #fff !important;
+}
+.label-color a { 
+  color: #fff !important;
+  text-decoration: none;
+}
+.label-color:hover { 
+  background: #333;
+}
+@media (max-width: 767px) {
+  .container {
+  padding: 0 20px;
+  }
+}
+
+
+/*------------------------------------------------ */
+/* 2 - Template Color Scheme */
+/*------------------------------------------------ */
+
+a, a:hover {
+  color: #53B2D5;
+}
+#menu li a:hover, #sidebar .widget li i {
+  color: #53B2D5;
+}
+#page-header-container {
+  background-color: #53B2D5;
+}
+.btn-custom {
+  background-color: #53B2D5!important;
+}
+.label-color, #sidebar .widget li:hover, .loop-like .label-likes {
+  background-color: #53B2D5;
+}
+.pagination ul > li > a:hover, .pagination ul > .active > a, .pagination ul > .active > span {
+  background-color: #53B2D5;
+}
+#main article h2 i, .author-links i, #footer-container i, .recent-posts i, .box-video-links i, .autocomplete-suggestions strong {
+  color: #53B2D5;
+}
+.navbar-inverse .nav .active > a, .navbar-inverse .nav .active > a:hover, .navbar-inverse .nav .active > a:focus,
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, 
+.navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
+  color: #53B2D5;
+}
+#menu ul a:hover, #menu .dropdown-submenu:hover>a {
+  background-color:#53B2D5; 
+}
+#hero {
+  background-color: #53B2D5;
+}
+
+/*------------------------------------------------ */
+/* 3 - Header Container and Logo Styles */
+/*------------------------------------------------ */
+
+.navbar-inverse .navbar-inner {
+  background: #252525;
+}
+.navbar-inner {
+  border: none;
+}
+.navbar .brand {
+  padding: 0; 
+  margin-left: 0;
+}
+.navbar .nav > li > a {
+  padding: 25px 14px;
+}
+.navbar-inverse .nav .active > a, .navbar-inverse .nav .active > a:hover, .navbar-inverse .nav .active > a:focus,
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.navbar .nav {
+  float: right;
+  margin: 0;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+.navbar-inverse .brand, .navbar-inverse .nav > li > a {
+color: #fff;
+}
+@media (max-width: 767px) {
+  .brand {
+  text-align: center;
+  float: none!important;
+  }
+}
+
+/*------------------------------------------------ */
+/* 4 - Header Navigation Styles */
+/*------------------------------------------------ */
+
+ul.nav > li.dropdown:hover > ul.dropdown-menu{
+  display: block;    
+}
+#menu .dropdown-menu {
+  padding: 0;
+}
+#menu ul{top:60px;
+  left:0;
+  border: 1px solid #ccc; 
+  background:#f3f3f3;
+  box-shadow:0 0 4px rgba(0,0,0,0.1); 
+  border-radius: 7px; 
+  -moz-border-radius: 7px; 
+  -webkit-border-radius: 7px; 
+ }
+#menu ul li{
+  float:none;
+  display:block;
+  border:0;
+  _line-height:0
+}
+#menu ul a{
+  background-image: none;
+  padding:8px 8px;
+  min-width:150px;
+  _height:8px;
+  display:block;
+  white-space:nowrap;
+  float:none;
+  margin: 3px;
+}
+#menu > li > ul:before {
+  border-color: transparent transparent #f3f3f3;
+  border-style: solid;
+  border-width: 12px;
+  content: "";
+  height: 0;
+  left: 23px;
+  position: absolute;
+  top: -24px;
+  width: 0;
+  z-index: 999;}
+#menu > li > ul:after {
+  border-color: transparent transparent #f3f3f3;
+  border-style: solid;
+  border-width: 12px;
+  content: "";
+  height: 0;
+  left: 23px;
+  position: absolute;
+  top: -23px;
+  width: 0;
+  z-index: 999;
+}
+#menu ul a:hover, #menu .dropdown-submenu:hover>a {
+  text-shadow:none;
+  color: #fff;
+  border-radius: 4px; 
+  -moz-border-radius: 4px; 
+  -webkit-border-radius: 4px;
+}
+#menu li:hover>ul{
+  opacity:1;
+  visibility:visible;
+  margin:0;
+}
+#menu ul ul{
+  top:-4px;
+  left:173px;
+  _margin:0;
+}
+.dropdown-submenu > a:after {
+  margin-right: 0;
+}
+#nav-main select{
+  display:none;
+}
+@media(max-width:480px){
+  body{padding:0}
+  ul.nav {display:none!important}
+  #nav-main select{display:inline-block;width:100%!important;}
+  #nav-main {padding: 0 25px 18px;}
+  nav{position:relative;right:auto;top:auto;width:100%}
+  #social-icons {float: none!important;margin: 0 auto;display: inline; text-align: center;}
+  .copyright-text { float:none !important; text-align:center;}
+}
+@media(min-width:480px) and (max-width:767px){
+  body{padding:0}
+  ul.nav {display:none!important}
+  #nav-main {padding: 0 25px 18px;}
+  #nav-main select{display:inline-block;width:100%!important}
+  nav{position:relative;right:auto;top:auto;width:100%}
+}
+
+/*------------------------------------------------ */
+/* 5 - Page Header & Title Styles */
+/*------------------------------------------------ */
+
+#page-header-container {
+  margin-bottom: 30px;
+}
+.page-header {
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+.page-header h1 {
+  color: #fff;
+  margin: 10px 0 0;
+  padding-bottom: 5px;
+  font-size: 36px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
+}
+.page-header p.tagline {
+  font-size: 14px;
+  position: relative;
+  top: -3px;
+  padding: 0;
+  margin-bottom: 5px;
+  color: #eee;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
+}
+#searchform .search-query {
+  float: right;
+  margin: 24px 0;
+}
+.page-header input.search-query {
+  padding: 6px;
+  font-size: 16px;
+  color: #999;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/*------------------------------------------------ */
+/* 6 - Page Content Styles */
+/*------------------------------------------------ */
+
+#main {
+  float: right !important;
+}
+.page-title h1 {
+  margin-bottom: 22px;
+  margin-top: 13px;
+}
+.page-main {
+  background-color: white;
+  padding: 23px 25px 20px;
+  margin-bottom: 80px;
+  margin-top: 25px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.fitvids {
+  margin-bottom: 30px;
+}
+
+
+/*------------------------------------------------ */
+/* 7 - Page Sidebar Styles */
+/*------------------------------------------------ */
+
+.widget {
+  margin-bottom: 35px;
+}
+.widget ul {
+  list-style: none;
+  margin-left: 0;
+}
+#sidebar .widget ul li {
+  background-color: #fff;
+  margin-bottom: 5px;
+  padding-left: 10px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.widget li {
+  line-height: 2.3em;
+}
+#sidebar .widget li a {
+  text-decoration: none;
+}
+#sidebar .widget li:hover, #sidebar .widget li:hover a, #sidebar .widget li:hover i {
+  color: #fff;
+}
+
+/*------------------------------------------------ */
+/* 8 - Footer Styles */
+/*------------------------------------------------ */
+
+.main-footer {
+  background-color: #222; 
+  padding: 50px 0 40px; 
+  color: #aaa;
+  font-size: 0.9em;
+}
+.main-footer ul {
+  margin-left: 0;
+}
+.main-footer li {
+  list-style: none;
+  line-height: 2em;
+}
+.main-footer h4 { 
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.sub-footer { 
+  background-color: #1b1b1b; 
+  padding: 22px 0; 
+  color: #999;
+  font-size: 0.85em;
+}
+.main-footer li a { 
+  color: #aaa;
+}
+.main-footer i { 
+  color: #08c; 
+  margin-right: 3px;
+}
+.copyright-text a, .main-footer .tweet-text a, .main-footer .vcard a { 
+  color: #fff;
+}
+.copyright-text {
+  float: left;
+  display: block;
+  margin-top: 5px;
+}
+
+/*------------------------------------------------ */
+/* 9 - Social Icons Styles */
+/*------------------------------------------------ */
+
+#social-icons { 
+  float:right;
+  display: block;
+}
+#social-icons ul { 
+  margin:0;
+}
+
+.social-icon {
+  width: 28px;
+  padding:2px 0 2px;
+  margin-right:5px;
+  display:inline-block;
+  background-color:#444;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+}
+.social-icon img{ width:36px;}
+#social-icons .twitter:hover{background-color:#48C4D2;}
+#social-icons .facebook:hover{background-color:#3B5998;}
+#social-icons .gplus:hover{background-color:#D03924;}
+#social-icons .linkedin:hover{background-color:#005180;}
+#social-icons .vimeo:hover{background-color:#1BB7EA;}
+#social-icons .youtube:hover{background-color:#C81414;}
+#social-icons .flickr:hover{background-color:#F1628B;}
+#social-icons .pinterest:hover{background-color:#CD2027;}
+#social-icons .rss:hover{background-color:#FE9900;}
+
+li.social-icon {
+-webkit-transition-timing-function: ease-out;
+-webkit-transition-duration: 200ms;
+}
+li.social-icon:hover{
+-webkit-transition-timing-function: ease-out;
+-webkit-transition-duration: 200ms;
+}
+
+/*------------------------------------------------ */
+/* 10 - Bootstrap Features Styles */
+/*------------------------------------------------ */
+
+/* tabs */
+.nav.nav-tabs {
+  margin-bottom: 0;
+}
+.tab-content {
+  padding: 15px;
+  border: 1px solid #DFDFDF;
+  border-top: 0;
+  background: #F9F9F9;
+}
+/* accordion */
+.accordion-heading{
+  background:#f6f6f6;
+  font-weight:bold;
+  font-size:11px;
+  text-transform:uppercase;
+}
+.accordion-group .accordion-heading .accordion-toggle i.icon-active{
+  display:none;
+}
+.accordion-group.active .accordion-heading .accordion-toggle i.icon-active{
+  display:inline-block;
+}
+.accordion-group.active .accordion-heading .accordion-toggle i.icon-passive{
+  display:none;
+}
+.accordion-body{
+  display:none;
+  padding:0;
+  margin:0;
+}
+.accordion-heading .accordion-toggle {
+  display: block;
+  padding: 8px 15px;
+}
+
+
+/*------------------------------------------------ */
+/* 11 - Search Autocomplete Styles */
+/*------------------------------------------------ */
+
+.autocomplete-suggestions { 
+  border: 1px solid #bbb; 
+  background: #FFF; 
+  cursor: default; 
+  overflow: auto; 
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.autocomplete-suggestion { 
+  padding: 10px; 
+  overflow: hidden; 
+  border-bottom:1px solid #ddd; 
+}
+.autocomplete-suggestion h4{ 
+  line-height:1em;
+  margin: 5px 0; 
+  white-space: nowrap;
+}
+.autocomplete-suggestion p{ 
+  line-height:18px;
+}
+.autocomplete-suggestion:last-child{ 
+  border:none;
+}
+.autocomplete-selected { 
+  background: WhiteSmoke; 
+}
+.autocomplete-suggestions strong { 
+  font-weight: normal; 
+}
+
+
+/*------------------------------------------------ */
+/* 12 - Home Page Styles */
+/*------------------------------------------------ */
+
+/* Hero */
+#hero .span4 {
+  text-align: center;
+}
+.hero-title {
+  padding: 60px 0 50px;
+}
+.hero-title h1 {
+  font-size: 90px;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
+  line-height: 1em;
+  text-align: center;
+
+}
+.hero-search {
+  text-align: center; 
+  margin-bottom: 90px;
+}
+.hero-search .search-query {
+  width: 60%; 
+  max-width: 800px; 
+  float: none!important;
+}
+.hero-search input.search-query {
+  padding: 24px;
+  font-size: 20px;
+  color: #999;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  line-height: normal;
+  box-shadow: none;
+}
+.hero-search input.search-query, .page-header input.search-query {
+  border: solid 1px #BBB;
+}
+.hero-search input.search-query:focus {
+  outline: none; 
+  box-shadow: none;
+  line-height:normal;
+}
+.btn-black {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 7px 11px;
+  border: 1px solid #BBB;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  background-color: #222;
+  color: white;
+  transition: background .10s ease-in-out;
+  -moz-transition: background .10s ease-in-out;
+  -webkit-transition: background .10s ease-in-out;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.hero-search .btn-black {
+  font-size: 20px;
+  width: 180px;
+  height: 70px;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
+  -webkit-font-smoothing: antialiased;
+  -moz-border-radius: 7px; 
+  -webkit-border-radius: 7px;
+  border-radius: 7px; 
+}
+
+/* boxes */
+.boxes {
+  margin-top: 0;
+  margin-bottom: 70px;
+}
+.box {
+  text-align: center;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  border: solid 1px rgba(0, 0, 0, 0.1);
+  -moz-border-radius: 7px; 
+  -webkit-border-radius: 7px;
+  border-radius: 7px; 
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
+
+}
+.box-icon i {
+  font-size: 100px; 
+  color: #fff;
+}
+.box-title {
+  padding: 15px 0 10px;
+}
+.box-title h2 a {
+  color: #fff;
+  font-size: 38px;
+  -webkit-transition: color .1s linear;
+  -moz-transition: color .1s linear;
+  -o-transition: color .1s linear;
+  -ms-transition: color .1s linear;
+  transition: color .1s linear;
+}
+.box-title h2 a:hover {
+  text-decoration: none;
+  color: #171717;
+}
+.box-text {
+  text-align: center;
+  color: #fff;
+}
+.box-text .btn-black {
+  margin-top: 20px;
+  display: inline-block;
+}  
+.btn-black:hover {
+  text-decoration: none;
+  background-color: #111;
+  color: #fff;
+}
+#section-container article { 
+  padding: 0; 
+  margin-bottom: 0; 
+  border:none;
+  background-color: #fff;
+  padding: 10px 25px 20px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+#section-container {
+  padding: 0 0 63px;
+}
+/* recent featured posts */
+.recent-posts {
+  margin-bottom: 0; }
+.recent-posts img {
+  margin-bottom: 20px;}
+.recent-posts p {
+  font-size: 0.9em;}
+.recent-posts h4 {
+  margin-bottom: 20px;
+  text-align: center; 
+}
+.recent-posts .fitvids {
+  margin-bottom: 1.5em; 
+}
+.recent-title h2 {
+  font-size: 34px;
+  padding: 20px 0;
+  margin: 20px 0 15px; 
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
+}
+.video-title h2 {
+  font-size: 34px;
+  padding: 20px 0;
+  margin: 20px 0 20px; 
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
+}
+.label-popular {
+  position:relative;
+  bottom:6px;
+}
+.video-bg {
+  background-color:#eeeeee;
+  border-top: solid 1px #e8e8e8;
+}
+.box-video {
+  margin-top: 0px; 
+  background-color: #222;
+  height: 390px;
+  text-align: center;
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.box-video .icon-play-circle {
+  padding-top: 110px;
+  text-align: center;
+  font-size: 100px;
+  text-decoration: none;
+  color: #fff;
+}
+.box-video h2 {
+  padding-top: 30px;
+  text-align: center;
+  font-weight: 600;
+}
+.box-video h2 a {
+  color: #fff;
+}
+.box-video-title {
+  margin-bottom: 10px; 
+  margin-bottom: 20px;
+}
+.box-video-links h4 {
+  margin-bottom: 18px;
+}
+.box-video-list {
+  background-color: white;
+  padding: 10px 25px 20px;
+  margin-bottom: 30px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.box-video-list ul {
+  list-style: none;
+  margin-left: 0;
+}
+/* home page image */
+#hero-image {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+
+
+/*------------------------------------------------ */
+/* 13 - Knowledge Base Page Styles */
+/*------------------------------------------------ */
+
+.knowledge-base li a, .knowledge-base li a:hover, .faq-top h4 a, .faq-top h4 a:hover {
+  color: #666666;
+}
+.knowledge-base { 
+  margin-bottom: 30px;
+}
+.knowledge-base li:last-child { 
+  padding-bottom: 12px;
+}
+.knowledge-base h2 {
+  margin-bottom: 12px;
+}
+.knowledge-base ul {
+  list-style: none;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+.knowledge-base li a { 
+  color: #444; 
+}
+.knowledge-base li a:hover { 
+  color: #444; 
+}
+ul.category-posts li {
+  line-height: 1.8em;
+}
+.knowledge-base-row {
+  margin-bottom: 30px;
+}
+
+
+/*------------------------------------------------ */
+/* 14 - Articles Page Styles */
+/*------------------------------------------------ */
+
+article { 
+  padding: 0 0 25px; 
+  margin-bottom: 0px;
+}
+#main article {
+  background-color: #fff;
+  padding: 10px 25px 20px;
+  margin-bottom: 30px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.hentry header h2 {
+  margin-bottom: 15px; 
+}
+.post-image {
+  margin-bottom: 30px;
+}
+.post-meta time {
+  font-size: 0.8em;
+  color: #aaa;
+}
+.post-meta i{
+  color: #aaa;
+}
+.pagination ul > .active > a, .pagination ul > .active > span {
+  color: white;
+}
+.pagination ul > li > a:hover, .pagination ul > .active > a, .pagination ul > .active > span {
+  color: #fff;
+}
+.pagination {
+  margin: 20px 0 50px;
+}
+.label-likes {
+  font-size: 13px;
+  font-weight: normal;
+  color: #fff;
+  padding: 4px 7px 2px;
+}
+.loop-like {
+  position: relative;
+  top: -49px;
+  float: right;
+}
+
+/*------------------------------------------------ */
+/* 15 - Single Article Page Styles */
+/*------------------------------------------------ */
+
+.single-post article, .single-faq article {
+  margin-top: 25px;
+}
+.single-post .hentry header {
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+}
+.single-post {
+  margin-bottom: 50px;
+}
+/* post comments */
+#comment.input-xlarge { 
+  height:180px;
+}
+li.comment { 
+  list-style:none;
+}
+ol.commentlist { 
+  margin-left:0;
+}
+#comments {
+  margin-top: 20px;
+  border-top: solid 1px #e6e6e6;
+  padding-top: 10px;
+}
+ol.commentlist,
+ol.commentlist ul.children{
+  list-style-type: none;
+  margin-left: 30px;
+}
+ol.commentlist {
+  overflow: hidden;
+  margin: 15px 0 0;
+}
+ol.commentlist img.avatar {
+  margin: 0 12px 0 0;
+  float: left;
+  padding: 2px;
+  border: 1px solid #e6e6e6;
+  border-radius: 2px;
+}
+ol.commentlist .fn {
+  display: block;
+  font-weight: bold;
+}
+ol.commentlist .comment-author .time {
+  font-size: 11px;
+  color: #999;
+}
+ol.commentlist .comment-text {
+  float: left;
+  padding-bottom: 10px;
+  padding-left: 51px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e6e6e6;
+  width:100%;
+}
+ol.commentlist .comment-text p {
+  margin-bottom: 10px;
+}
+cite.fn { 
+  font-size:18px; 
+  font-weight:bold;
+}
+.comment-author img { 
+  float:left; 
+  margin:0 15px 5px 0;
+}
+a.comment-reply-link { 
+  float:right;
+}
+#respond {
+  margin-top: 40px;
+}
+
+
+/*------------------------------------------------ */
+/* 16 - Contact Page Styles */
+/*------------------------------------------------ */
+
+.contact-form input {
+  height: 36px;
+  margin-bottom: 20px;
+}
+.contact-form textarea {
+  margin-bottom: 35px;
+}
+.error {
+    color: #B94A48;
+}
+
+
+/*------------------------------------------------ */
+/* 17 - Faq Page Styles */
+/*------------------------------------------------ */
+
+article.type-faq {
+  margin-bottom: 10px;
+}
+.page-faq {
+  margin-bottom: 50px;
+}
+.faq-top {
+  padding-bottom: 10px;
+}
+.faq-top h4 a, .faq-top h4 a:hover {
+  color:#555;
+}
+.faq-top h2 {
+  margin-top: 30px;
+}
+h2.faq-section-heading {
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+

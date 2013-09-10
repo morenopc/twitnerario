@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock %}
+{% block menu %}
+<li><a href="/">Home</a></li>
+<li><a href="/knowledge-base/">Knowledge Base</a></li>
+<li><a href="/articles/">Articles</a></li>
+<li><a href="/faq/">Faq</a></li>
+<li><a href="/features/">Features</a></li>
+<li class="dropdown active">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
+  <ul class="dropdown-menu">
+    <li class="active"><a href="/contact/">Contact</a></li>
+    <li><a href="/full/">Full</a></li>
+  </ul>
+</li>
+{% endblock %}
+{% block content %}
+<!-- PAGE CONTENT -->
+<div id="wrap" class="container" role="document">
+  <div id="content" class="row">
+    <div id="main" class="span9" role="main">
+      <div class="page-title">
+        <h1>Contact</h1>
+      </div>
+      <div class="page-main">
+        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don&#8217;t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn&#8217;t anything embarrassing hidden in the middle of text</p>
+        <!--BEGIN CONTACT -->
+        <div class="contact-form">
+            <div id="messageDiv"></div>
+          <form action="contact.php" id="contactForm" method="post">
+            <div class="element" id="contactNameCt">
+                <label for="contactName" class="dis_lbl">Name</label>
+                <label for="contactName" id="contactNameError" class="error error_lbl"></label>
+                <input type="text" name="contactName" id="contactName"  class="required requiredField input-block-level" />
+            </div>
+            <div class="element" id="emailCt">
+                <label for="email" class="dis_lbl">Email</label>
+                <label for="email" id="emailError" class="error error_lbl"></label>
+                <input type="text" name="email" id="email"  class="required requiredField email input-block-level" />
+            </div>
+            
+            <div class="element" id="commentsCt">
+                <label class="textarea dis_lbl" for="commentsText">Message</label>
+                <label class="error error_lbl" id="commentsError" for="commentsText"></label>
+                <textarea name="comments" id="comments" rows="7" cols="30" class="required requiredField input-block-level" ></textarea>
+            </div>
+              
+            <input type="hidden" name="submitted" id="submitted" value="true" />
+            <input type="button" id="submit_btn" value="Send Email" class="btn-large btn-custom" />
+          </form>
+        </div><!-- END CONTACT -->  
+      </div>        
+    </div>
+
+    <aside id="sidebar" class="span3" role="complementary">
+      <section class="widget">
+        <h3>Knowledge Base</h3>
+        <ul class="menu">
+          <li><a href="#">Getting Started</a></li>
+          <li><a href="#">Administration</a></li>
+          <li><a href="#">Admin Panel</a></li>
+          <li><a href="#">Extensions</a></li>
+          <li><a href="#">Shipping Methods</a></li>
+          <li><a href="#">Tips and Tricks</a></li>
+          <li><a href="#">Troubleshooting</a></li>
+          <li><a href="#">Video Tutorials</a></li>
+        </ul>
+      </section>
+      <section class="widget">
+        <h3>Recent Articles</h3>
+        <ul>
+          <li>
+            <i class="icon-file"></i> <a href="#" title="Permanent link to Standard Post Format">Standard Post Format</a>
+          </li>
+          <li>
+            <i class="icon-file"></i> <a href="#" title="Permanent link to Disabled Comments">Disabled Comments</a>
+          </li>
+          <li>
+            <i class="icon-file"></i> <a href="#" title="Permanent link to Theme Set Up">Theme Set Up</a>
+          </li>
+          <li>
+            <i class="icon-film"></i> <a href="#" title="Permanent link to Video Post Format">Video Post Format</a>
+          </li>
+          <li>
+            <i class="icon-file"></i> <a href="#" title="Permanent link to Follow up Emails">Follow up Emails</a>
+          </li>
+          <li>
+            <i class="icon-picture"></i> <a href="#" title="Permanent link to Fully Responsive Design">Fully Responsive Design</a>
+          </li>
+          <li>
+            <i class="icon-file"></i> <a href="#" title="Permanent link to Unlimited Colors">Unlimited Colors</a>
+          </li>
+          <li>
+            <i class="icon-file"></i> <a href="#" title="Permanent link to Well Documented">Well Documented</a>
+          </li>
+        </ul>
+      </section>        
+    </aside>
+  </div><!-- /#content -->
+</div><!-- /#wrap -->
+{% endblock %}

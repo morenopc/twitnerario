@@ -252,29 +252,34 @@ def send_tweets():
     return True
 
 
+def previsao_xml(ponto, linha, key):
+    """Previsao XML"""
+    url = Configuracao.objects.get(descricao='default')
+    headers = {
+            'Referer': 'http://rast.vitoria.es.gov.br/pontovitoria/',
+            'User-Agent': ('Mozilla/5.0 (X11; Linux x86_64) '
+                    'AppleWebKit/537.11 (KHTML, like Gecko) '
+                    'Chrome/23.0.1271.95 Safari/537.11')
+        }
+    payload = {
+        'ponto': ponto,
+        'linha': linha,
+        'key': key
+    }
+    return requests.get(
+        url.previsao_origin + url.previsao_pathname,
+        params=payload, headers=headers)
+
+
 def previsao(registro, key):
     """
     Previsao:
     Envia ponto e linha para o servidor ponto-vitoria e retorna XML com
     previsão (a previsão contém todas linhas)
     """
-    url = Configuracao.objects.get(descricao='default')
+    
     try:
-        headers = {
-            'Referer': 'http://rast.vitoria.es.gov.br/pontovitoria/',
-            'User-Agent': ('Mozilla/5.0 (X11; Linux x86_64) '
-                    'AppleWebKit/537.11 (KHTML, like Gecko) '
-                    'Chrome/23.0.1271.95 Safari/537.11')
-        }
-        payload = {
-            'ponto': registro.ponto,
-            'linha': registro.linha,
-            'key': key
-        }
-        resposta = requests.get(
-            url.previsao_origin + url.previsao_pathname,
-            params=payload,
-            headers=headers)
+        resposta = previsao_xml(registro.ponto, registro.linha, key)
 
     except Exception, e:
         registro.falhou = True
@@ -304,10 +309,10 @@ def horarios(ponto_xml, linha):
             linha_desc = estimativa.childNodes[3].childNodes[5].firstChild.data
             horarioEstimado = estimativa.childNodes[7].firstChild.data
             # extrai tempo de chegada e transforma para minutos
-            horarios.append(
-                (int(horarioEstimado) - int(horarioAtual)) / 60000)
+            horario = (int(horarioEstimado) - int(horarioAtual)) / 60000
+            if horario > 0:
+                horarios.append(horario)
 
-    # @@@|TODO resolver horario negativo (ônibus já passou)
     return horarios  # de chegada em minutos
 
 

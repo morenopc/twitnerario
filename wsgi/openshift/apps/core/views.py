@@ -6,7 +6,7 @@ from django.utils.encoding import smart_str
 from apps.core.models import Configuracao
 from django.http import HttpResponse
 from django.template import Context, RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from core.tweet import previsao_key, previsao_xml, horarios
 
     
@@ -20,7 +20,12 @@ def pesquisar(request):
         url = Configuracao.objects.get(descricao='default')
         resposta = requests.get(url.previsao_origin + url.pontos_pathname,
                 params={'referencia': s})
-        pontos = simplejson.loads(resposta.content)
+        # Ponto Vitória fora do ar
+        try:
+            pontos = simplejson.loads(resposta.content)
+        except Exception, e:
+            return redirect('http://vitoria.es.gov.br/noticia/'
+                'ponto-vitoria-passa-por-atualizacao-e-modernizacao-15798')
 
     return render_to_response('registros/pontos-pesquisar.html',
         context_instance=RequestContext(request, {'pontos': pontos}))
